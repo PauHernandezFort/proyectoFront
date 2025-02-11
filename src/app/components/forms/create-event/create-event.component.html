@@ -1,0 +1,56 @@
+<form action="#" method="post">
+    <article class="col-md-8">
+        <label for="nombre-evento" class="form-label">Nombre del evento</label>
+        <input type="text" class="form-control" id="nombre-evento" name="nombre-evento" placeholder="Escribe el nombre del evento" required
+            aria-required="true" aria-describedby="nombre-evento-ayuda">
+        <p id="nombre-evento-ayuda" class="visually-hidden">Por favor, ingresa el nombre del evento.</p>
+    </article>
+
+    <article>
+        <label for="informacion-evento" class="form-label">Deja aquí la información del evento</label>
+        <textarea class="form-control" id="informacion-evento" name="informacion-evento" rows="3"
+            placeholder="Escribe la información del evento" aria-describedby="informacion-evento-ayuda"></textarea>
+        <p id="informacion-evento-ayuda" class="visually-hidden">Escribe la información del evento.</p>
+    </article>
+
+    <article class="col-md-8">
+        <label for="fecha-evento" class="form-label">Fecha del evento</label>
+        <input type="date" class="form-control" id="fecha-evento" name="fecha-evento" required
+            aria-required="true" aria-describedby="fecha-evento-ayuda">
+        <p id="fecha-evento-ayuda" class="visually-hidden">Por favor, ingresa la fecha del evento.</p>
+    </article>
+
+    <article class="col-md-8">
+        <label for="estado-evento" class="form-label">Estado del evento</label>
+        <input type="text" class="form-control" id="estado-evento" name="estado-evento" placeholder="Escribe el estado del evento" required
+            aria-required="true" aria-describedby="estado-evento-ayuda">
+        <p id="estado-evento-ayuda" class="visually-hidden">Por favor, ingresa en qué estado está el evento.</p>
+    </article>
+
+    <article class="col-md-8">
+        <label for="direccion-evento" class="form-label">Dirección del evento</label>
+        <input type="text" class="form-control" id="direccion-evento" name="direccion-evento" placeholder="Escribe la dirección del evento" required
+            aria-required="true" aria-describedby="direccion-evento-ayuda">
+        <p id="direccion-evento-ayuda" class="visually-hidden">Por favor, ingresa la dirección del evento.</p>
+    </article>
+    
+    <section class="row mb-3 text-center">
+        <article>
+            <button type="button" class="btn btn-secondary" onclick="abrirGoogleMaps()">Abrir en Google Maps</button>
+        </article>
+    </section>
+</form>
+
+<section class="row mb-3 text-center">
+    <article>
+        <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de clase">Confirmar</button>
+    </article>
+</section>
+
+<script>
+    function abrirGoogleMaps() {
+        const direccion = document.getElementById('direccion-evento').value;
+        const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(direccion)}`;
+        window.open(url, '_blank');
+    }
+</script>
