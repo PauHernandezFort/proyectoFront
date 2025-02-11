@@ -1,0 +1,11 @@
+.calendar-container {
+    max-width: 90%;
+    margin: auto;
+    padding: 20px;
+    height: 165vh;
+  }
+  
+  fc-event {
+    cursor: pointer;
+}
+  
