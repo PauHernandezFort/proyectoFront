@@ -1,0 +1,44 @@
+<main>
+    <section class="row mb-3">
+        <article class="col-md-4">
+            <label for="telefono" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Escribe tu teléfono"
+                required aria-required="true" aria-describedby="telefono-ayuda">
+            <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
+        </article>
+
+        <article class="col-md-4">
+            <label for="correo" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo" required
+                aria-required="true" aria-describedby="correo-ayuda">
+            <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
+        </article>
+
+        <article>
+            <label for="password" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="password"
+                placeholder="Escribe tu Contraseña" required aria-required="true" aria-describedby="password-ayuda">
+            <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
+        </article>
+
+        <article>
+            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+            <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                placeholder="Confirma tu contraseña" required aria-required="true" aria-describedby="confirm-password-ayuda">
+            <p id="confirm-password-ayuda" class="visually-hidden">Por favor, confirma tu contraseña.</p>
+        </article>
+
+        <article class="col-md-8">
+            <label for="fotoPerfil" class="form-label">Foto de perfil</label>
+            <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required
+                aria-required="true" aria-describedby="fotoPerfil-ayuda">
+            <p id="fotoPerfil-ayuda" class="visually-hidden">Por favor, sube una foto de perfil.</p>
+        </article>
+    </section>
+
+    <section class="row mb-3 text-center">
+        <article>
+            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">Confirmar</button>
+        </article>
+    </section>
+</main>
