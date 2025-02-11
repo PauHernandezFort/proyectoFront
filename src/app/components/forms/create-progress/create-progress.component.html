@@ -1,0 +1,34 @@
+<form enctype="multipart/form-data">
+    <section class="row mb-3">
+        <article class="col-md-8">
+            <label for="id" class="form-label">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                placeholder="Escribe el ID del alumno" required aria-required="true" aria-describedby="id-ayuda">
+            <p id="id-ayuda" class="visually-hidden">Por favor, ingresa el ID del alumno.</p>
+        </article>
+    </section>
+
+    <section class="mb-3">
+        <article>
+            <label for="comentarios" class="form-label">Comentarios</label>
+            <textarea class="form-control" id="comentarios" name="comentarios" rows="3"
+                placeholder="Escribe tus comentarios" aria-describedby="comentarios-ayuda"></textarea>
+            <p id="comentarios-ayuda" class="visually-hidden">Escribe los comentarios del progreso.</p>
+        </article>
+    </section>
+
+    <section class="mb-3">
+        <article class="col-md-8">
+            <label for="fotoProgreso" class="form-label">Foto del progreso</label>
+            <input type="file" class="form-control" id="fotoProgreso" name="fotoProgreso" required
+                aria-required="true" aria-describedby="fotoProgreso-ayuda">
+            <p id="fotoProgreso-ayuda" class="visually-hidden">Por favor, sube una foto del progreso.</p>
+        </article>
+    </section>
+
+    <section class="row mb-3 text-center">
+        <article>
+            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de progreso">Confirmar</button>
+        </article>
+    </section>
+</form>
