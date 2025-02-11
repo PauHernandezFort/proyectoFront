@@ -6,8 +6,8 @@ import 'swiper/swiper-bundle.css';
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
-})export class CardsComponent implements AfterViewInit {
-  
+}) export class CardsComponent implements AfterViewInit {
+
   ngAfterViewInit() {
     const swiper = new Swiper('.swiper-container', {
       navigation: {
