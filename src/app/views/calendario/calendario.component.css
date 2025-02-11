@@ -1,0 +1,11 @@
+.calendario-container {
+    max-width: 90%;
+    margin: auto;
+    text-align: center;
+  
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+}
+  
