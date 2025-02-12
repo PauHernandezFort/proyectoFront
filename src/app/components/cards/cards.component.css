@@ -1,0 +1,24 @@
+.card {
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    margin: 0 10px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 100PX;
+  }
+  
+  .swiper-container {
+    padding: 10px 0;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+  }
+  

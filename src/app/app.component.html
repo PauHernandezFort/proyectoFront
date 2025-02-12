@@ -1,4 +1,8 @@
+@if(!isUserRegistered){
 <app-header></app-header>
-<app-carrousel></app-carrousel>
+} @else {
+<app-header-user></app-header-user>
+}
+<router-outlet></router-outlet>
 <app-footer></app-footer>
-<router-outlet />
+
