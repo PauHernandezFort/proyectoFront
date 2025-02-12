@@ -1,46 +1,55 @@
-<main>
-    <section class="row mb-3">
-        <article class="col-md-8">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre"
-                placeholder="Escribe tu nombre" required aria-required="true" aria-describedby="nombre-ayuda">
-            <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa tu nombre.</p>
-        </article>
-        <article class="col-md-4">
-            <label for="correo" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
-                required aria-required="true" aria-describedby="correo-ayuda">
-            <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
-        </article>
-    </section>
-    
-    <section class="mb-3">
-        <article>
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Escribe tu Contraseña"
-                required aria-required="true" aria-describedby="password-ayuda">
-            <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
-        </article>
-    </section>
-    
-    <section class="mb-3">
-        <article>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="recordar" name="recordar">
-                <label class="form-check-label" for="recordar">Recordar sesión</label>
-            </div>
-        </article>
-    </section>
-    
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">Confirmar</button>
-        </article>
-    </section>
-    
-    <section class="row mb-3 text-center">
-        <article>
-            <a href="/recuperar-contraseña" class="btn btn-link">¿Olvidaste tu contraseña?</a>
-        </article>
-    </section>
-</main>
+<form action="#" method="post" class="login-form mt-4">
+    <main>
+        <div class="container mt-2 mb-3">
+            <section class="text-center mb-3">
+                <i class="bi bi-person-circle" style="font-size: 80px;"></i>
+            </section>
+
+            <section class="row mb-3">
+                <article class="col-12">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
+                        required aria-required="true" aria-describedby="correo-ayuda">
+                    <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
+                </article>
+            </section>
+
+            <section class="mt-4 mb-3">
+                <article>
+                    <label for="password" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Escribe tu contraseña" required aria-required="true"
+                        aria-describedby="password-ayuda">
+                    <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
+                </article>
+            </section>
+
+            <section class="mb-3">
+                <article>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="recordar" name="recordar">
+                        <label class="form-check-label" for="recordar">Recordar sesión</label>
+                    </div>
+                </article>
+            </section>
+
+            <section class="row mb-3 mt-4 text-center">
+                <article>
+                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                </article>
+            </section>
+
+            <section class="row mb-3 text-center">
+                <article>
+                    <a routerLink="/signUp" routerLinkActive="active" class="btn btn-secondary w-100">Registrarse</a>
+                </article>
+            </section>
+
+            <section class="row mb-3 text-center">
+                <article>
+                    <a href="/recuperar-contraseña" class="btn btn-link">¿Has olvidado tu contraseña?</a>
+                </article>
+            </section>
+        </div>
+    </main>
+</form>
