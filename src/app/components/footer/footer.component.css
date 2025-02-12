@@ -1,0 +1,18 @@
+footer {
+    display: flex;
+    align-items: center;
+    padding: 0 1%;
+    background-color: #a45252;
+    line-height: 1.5;
+    font-family: "Corissant One", "Merriweather", serif;
+    height: auto;
+}
+
+footer a {
+    align-items: center;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

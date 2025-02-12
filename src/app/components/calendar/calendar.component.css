@@ -2,15 +2,10 @@
     max-width: 90%;
     margin: auto;
     padding: 20px;
-    height: 80vh;
+    height: 165vh;
   }
   
   fc-event {
     cursor: pointer;
-}
-  
-:host ::ng-deep .fc {
-  max-width: 1100px;
-  margin: 0 auto;
 }
   
