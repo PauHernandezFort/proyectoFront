@@ -13,8 +13,8 @@
                 </article>
                 <article class="col-md-4">
                     <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" class="form-control" id="telefono" name="telefono"
-                        placeholder="Escribe tu teléfono" required aria-required="true" aria-describedby="telefono-ayuda">
+                    <input type="number" class="form-control" id="telefono" name="telefono "
+                        placeholder="Escribe tu teléfono" required aria-required="true" aria-describedby="telefono-ayuda" style="">
                     <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
                 </article>
             </section>
@@ -46,6 +46,7 @@
                     </label>
                 </article>
             </section>
+
             <section class="row mb-3 text-center">
                 <article>
                     <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">Confirmar</button>
@@ -53,3 +54,20 @@
             </section>
         </form>
     </section>
+</main>
+
+<style>
+
+/* Elimina los botones de incremento y decremento en navegadores basados en WebKit (como Chrome y Safari) */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Elimina los botones de incremento y decremento en Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+</style>
