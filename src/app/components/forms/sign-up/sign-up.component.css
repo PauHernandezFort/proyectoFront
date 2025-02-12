@@ -12,14 +12,12 @@ body {
 }
 
 /* Formulario */
-
-    form {
-        width: 100%;
-        padding: 30px;
-        border-radius: 8px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    
+form {
+    width: 100%;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
 
 label {
     font-weight: 600;
@@ -30,9 +28,9 @@ label {
 
 input[type="text"],
 input[type="email"],
-input[type="tel"],
 input[type="password"],
-input[type="file"] {
+input[type="file"],
+input[type="number"] {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
@@ -42,6 +40,14 @@ input[type="file"] {
     margin-bottom: 20px;
     transition: border-color 0.3s ease;
 }
+
+/* Estilos para los números (sin los botones de incremento) */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 
 input[type="text"]:focus,
 input[type="email"]:focus,
@@ -133,4 +139,3 @@ a:hover {
 .btn-secondary:hover {
     background-color: #bbb;
 }
-    

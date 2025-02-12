@@ -1,5 +1,31 @@
-.rounded-pill{
-    width: 110px;
-    height: 110px;
-    border-radius: 5px;
+.header {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.rounded-pill {
+    width: 100px; /* Ajustar tamaño según sea necesario */
+    height: 100px; /* Ajustar tamaño según sea necesario */
+    border-radius: 50%; /* Cambiado a 50% para un logo más redondo */
+    object-fit: cover; /* Mantiene la relación de aspecto del logo */
+}
+
+.navbar {
+    padding: 10px 20px; /* Espaciado en la parte superior e inferior */
+}
+
+.nav-link {
+    font-weight: 500; /* Aumenta el grosor de la fuente */
+    transition: color 0.3s; /* Añade transición para un efecto suave */
+}
+
+.nav-link:hover {
+    color: #ffc107;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5); /* Cambia el color del borde */
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='30' height='30' fill='white' viewBox='0 0 30 30'><path stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/></svg>");
 }
