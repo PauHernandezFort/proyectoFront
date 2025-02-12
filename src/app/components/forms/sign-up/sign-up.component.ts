@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css'],
-   imports: [RouterLink, RouterLinkActive]
+   imports: [RouterLink]
 })
 export class SignUpComponent {
   nombre: string = '';
