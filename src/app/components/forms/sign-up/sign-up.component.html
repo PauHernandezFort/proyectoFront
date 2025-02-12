@@ -1,89 +1,33 @@
-<main>
-    <section class="row mb-3">
-
-        <article class="col-md-8">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe tu nombre" required
-                aria-required="true" aria-describedby="nombre-ayuda">
-            <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa tu nombre.</p>
-        </article>
-
-        <article class="col-md-8">
-            <label for="apellidos" class="form-label">Apellidos</label>
-            <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escribe tus apellidos"
-                required aria-required="true" aria-describedby="apellidos-ayuda">
-            <p id="apellidos-ayuda" class="visually-hidden">Por favor, ingresa tus apellidos.</p>
-        </article>
-
-        <article class="col-md-4">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Escribe tu teléfono"
-                required aria-required="true" aria-describedby="telefono-ayuda">
-            <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
-        </article>
-
-        <article class="col-md-4">
-            <label for="correo" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo" required
-                aria-required="true" aria-describedby="correo-ayuda">
-            <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
-        </article>
-
-        <article>
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password"
-                placeholder="Escribe tu contraseña" required aria-required="true" aria-describedby="password-ayuda">
-            <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
-        </article>
-
-        <article>
-            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-            <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                placeholder="Confirma tu contraseña" required aria-required="true" aria-describedby="confirm-password-ayuda">
-            <p id="confirm-password-ayuda" class="visually-hidden">Por favor, confirma tu contraseña.</p>
-        </article>
-
-        <article class="col-md-8">
-            <label for="rol" class="form-label">Rol</label>
-            <input type="text" class="form-control" id="rol" name="rol" placeholder="Asigna un rol" required
-                aria-required="true" aria-describedby="rol-ayuda">
-            <p id="rol-ayuda" class="visually-hidden">Por favor, ingresa un rol válido.</p>
-        </article>
-
-        <article class="col-md-8">
-            <label for="fotoPerfil" class="form-label">Foto de perfil</label>
-            <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required
-                aria-required="true" aria-describedby="fotoPerfil-ayuda">
-            <p id="fotoPerfil-ayuda" class="visually-hidden">Por favor, sube una foto de perfil.</p>
-        </article>
-
-    </section>
-
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de registro">Confirmar</button>
-        </article>
-    </section>
-
-</main>
-
-
-
 <form action="#" method="post" class="login-form mt-4">
     <main>
         <div class="container mt-5">
             <section class="text-center mb-3">
-                <img src="user-icon.png" alt="Usuario" class="user-icon">
+                <i class="bi bi-person-circle" style="font-size: 80px;"></i>
             </section>
 
             <section class="row mb-3">
-                <article class="col-12 mb-4">
+                <article class="col-md-8">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe tu nombre"
                         required aria-required="true" aria-describedby="nombre-ayuda">
                     <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa tu nombre.</p>
                 </article>
-                <article class="col-12">
+
+                <article class="col-md-8">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escribe tus apellidos"
+                        required aria-required="true" aria-describedby="apellidos-ayuda">
+                    <p id="apellidos-ayuda" class="visually-hidden">Por favor, ingresa tus apellidos.</p>
+                </article>
+
+                <article class="col-md-4">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Escribe tu teléfono"
+                        required aria-required="true" aria-describedby="telefono-ayuda">
+                    <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
+                </article>
+
+                <article class="col-md-4">
                     <label for="correo" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
                         required aria-required="true" aria-describedby="correo-ayuda">
@@ -95,36 +39,44 @@
                 <article>
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password"
-                        placeholder="Escribe tu contraseña" required aria-required="true"
-                        aria-describedby="password-ayuda">
+                        placeholder="Escribe tu contraseña" required aria-required="true" aria-describedby="password-ayuda">
                     <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
                 </article>
             </section>
 
             <section class="mb-3">
                 <article>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="recordar" name="recordar">
-                        <label class="form-check-label" for="recordar">Recordar sesión</label>
-                    </div>
+                    <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                        placeholder="Confirma tu contraseña" required aria-required="true" aria-describedby="confirm-password-ayuda">
+                    <p id="confirm-password-ayuda" class="visually-hidden">Por favor, confirma tu contraseña.</p>
+                </article>
+            </section>
+
+            <section class="row mb-3">
+                    <article class="col-md-8">
+                        <label for="rol" class="form-label">Rol</label>
+                        <select class="form-control" id="rol" name="rol" required aria-required="true" aria-describedby="rol-ayuda">
+                            <option value="" disabled selected>Selecciona un rol</option>
+                            <option value="admin">Administrador</option>
+                            <option value="user">Usuario</option>
+                            <option value="moderator">Moderador</option>
+                        </select>
+                        <p id="rol-ayuda" class="visually-hidden">Por favor, selecciona un rol válido.</p>
+                    </article>
+                    
+
+                <article class="col-md-8">
+                    <label for="fotoPerfil" class="form-label">Foto de perfil</label>
+                    <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required
+                        aria-required="true" aria-describedby="fotoPerfil-ayuda">
+                    <p id="fotoPerfil-ayuda" class="visually-hidden">Por favor, sube una foto de perfil.</p>
                 </article>
             </section>
 
             <section class="row mb-3 text-center">
                 <article>
-                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-                </article>
-            </section>
-
-            <section class="row mb-3 text-center">
-                <article>
-                    <button type="button" class="btn btn-secondary w-100">Registrarse</button>
-                </article>
-            </section>
-
-            <section class="row mb-3 text-center">
-                <article>
-                    <a href="/recuperar-contraseña" class="btn btn-link">¿Olvidaste tu contraseña?</a>
+                    <button type="submit" class="btn btn-primary w-100">Confirmar</button>
                 </article>
             </section>
         </div>
