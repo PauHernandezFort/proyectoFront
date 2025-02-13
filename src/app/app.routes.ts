@@ -6,7 +6,7 @@ import { ContactComponent } from './components/forms/contact/contact.component';
 import { SignInComponent } from './components/forms/sign-in/sign-in.component';
 import { SignUpComponent } from './components/forms/sign-up/sign-up.component';
 import { CapoeiraComponent } from './views/activities/capoeira/capoeira.component';
-import { MmaComponent } from './views/mma/mma.component';
+import { MmaComponent } from './views/activities/mma/mma.component';
 
 
 export const routes: Routes = [
