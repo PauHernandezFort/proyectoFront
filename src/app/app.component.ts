@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -9,10 +9,16 @@ import { HeaderAdminComponent } from './components/header-admin/header-admin.com
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HeaderComponent, FooterComponent, HeaderUserComponent, HeaderMisterComponent, HeaderAdminComponent],
+  standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front';
   public isUserRegistered: string = "admin";
+
+  ngOnInit() {
+    // Verificar el estado de autenticación al iniciar
+    //this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
+  }
 }
