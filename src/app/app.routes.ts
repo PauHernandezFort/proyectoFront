@@ -6,6 +6,7 @@ import { ContactComponent } from './components/forms/contact/contact.component';
 import { SignInComponent } from './components/forms/sign-in/sign-in.component';
 import { SignUpComponent } from './components/forms/sign-up/sign-up.component';
 import { CapoeiraComponent } from './views/activities/capoeira/capoeira.component';
+import { MmaComponent } from './views/activities/mma/mma.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
+    { path: 'activities/mma', component: MmaComponent }, 
     { path: 'activities/capoeira', component: CapoeiraComponent },
     { path: 'signUp', component: SignUpComponent } 
 ];
