@@ -12,5 +12,5 @@ import { HeaderUserComponent } from './components/header-user/header-user.compon
 })
 export class AppComponent {
   title = 'front';
-  public isUserRegistered: boolean = false;
+  public isUserRegistered: boolean = true;
 }

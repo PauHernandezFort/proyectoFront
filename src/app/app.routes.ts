@@ -7,7 +7,9 @@ import { SignInComponent } from './components/forms/sign-in/sign-in.component';
 import { SignUpComponent } from './components/forms/sign-up/sign-up.component';
 import { CapoeiraComponent } from './views/activities/capoeira/capoeira.component';
 import { MmaComponent } from './views/activities/mma/mma.component';
-
+import { EditComponent } from './components/forms/edit/edit.component';
+import { ShowProfileComponent } from './components/forms/show-profile/show-profile.component';
+import { EventsComponent } from './views/events/events.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -20,5 +22,8 @@ export const routes: Routes = [
     { path: 'signUp', component: SignUpComponent },
     { path: 'activities/mma', component: MmaComponent },
     { path: 'activities/capoeira', component: CapoeiraComponent },
-    { path: 'signUp', component: SignUpComponent } 
+    { path: 'signUp', component: SignUpComponent },
+    { path: 'editProfile', component: EditComponent },
+    { path: 'showProfile', component: ShowProfileComponent },
+    { path: 'events', component: EventsComponent } 
 ];
