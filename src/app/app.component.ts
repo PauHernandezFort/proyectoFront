@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -6,11 +6,17 @@ import { HeaderUserComponent } from './components/header-user/header-user.compon
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,HeaderComponent,FooterComponent, HeaderUserComponent],
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, HeaderUserComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front';
-  public isUserRegistered: boolean = false;
+  isUserRegistered: boolean = false;
+
+  ngOnInit() {
+    // Verificar el estado de autenticación al iniciar
+    this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
+  }
 }

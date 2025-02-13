@@ -10,7 +10,7 @@ import { MmaComponent } from './views/activities/mma/mma.component';
 import { JuiJitsuComponent } from './views/activities/jui-jitsu/jui-jitsu.component';
 import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.component';
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
-
+import { HeaderUserComponent } from './components/header-user/header-user.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -26,6 +26,6 @@ export const routes: Routes = [
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
     { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
-
+    { path: 'header-user', component: HeaderUserComponent },
     { path: 'signUp', component: SignUpComponent } 
 ];
