@@ -1,11 +1,4 @@
 import { Routes } from '@angular/router';
-import { CalendarioView } from './views/calendario/calendario.component';
-
-export const routes: Routes = [
-  { path: '', redirectTo: 'calendario', pathMatch: 'full' },
-  { path: 'calendario', component: CalendarioView },
-  { path: '**', redirectTo: 'calendario' }
-];
 import { HomeComponent } from './views/home/home.component';
 import { ActivitiesComponent } from './views/activities/activities.component';
 import { schedulesComponent } from './views/schedules/schedules.component';
@@ -24,30 +17,29 @@ import { HeaderUserComponent } from './components/header-user/header-user.compon
 import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
-
+import { CalendarioView } from './views/calendario/calendario.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', component: HomeComponent },
-    { path: 'activities', component: ActivitiesComponent },
-    { path: 'schedules', component: schedulesComponent },
-    { path: 'formContact', component: ContactComponent },
-    { path: 'signIn', component: SignInComponent },
-    { path: 'signUp', component: SignUpComponent },
-
-    { path: 'activities/mma', component: MmaComponent }, 
-    { path: 'activities/capoeira', component: CapoeiraComponent },
-    { path: 'events', component: EventsComponent },
-    { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
-    { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
-    { path: 'activities/chi-kung', component: ChiKungComponent },
-    { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
-
-
-    { path: 'header-user', component: HeaderUserComponent },
-    { path: 'header-mister', component: HeaderMisterComponent },
-    { path: 'header-admin', component: HeaderAdminComponent },
-    
-    { path: 'editProfile', component: EditComponent },
-    { path: 'showProfile', component: ShowProfileComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'activities', component: ActivitiesComponent },
+  { path: 'schedules', component: schedulesComponent },
+  { path: 'formContact', component: ContactComponent },
+  { path: 'signIn', component: SignInComponent },
+  { path: 'signUp', component: SignUpComponent },
+  { path: 'activities/mma', component: MmaComponent },
+  { path: 'activities/capoeira', component: CapoeiraComponent },
+  { path: 'events', component: EventsComponent },
+  { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
+  { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
+  { path: 'activities/chi-kung', component: ChiKungComponent },
+  { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
+  { path: 'header-user', component: HeaderUserComponent },
+  { path: 'header-mister', component: HeaderMisterComponent },
+  { path: 'header-admin', component: HeaderAdminComponent },
+  { path: 'editProfile', component: EditComponent },
+  { path: 'showProfile', component: ShowProfileComponent },
+  { path: '', redirectTo: 'calendario', pathMatch: 'full' },
+  { path: 'calendario', component: CalendarioView },
+  { path: '**', redirectTo: 'calendario' }
 ];
