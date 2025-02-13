@@ -14,7 +14,7 @@ import { HeaderAdminComponent } from './components/header-admin/header-admin.com
 })
 export class AppComponent implements OnInit {
   title = 'front';
-  public isUserRegistered: string = "invitado";
+  public isUserRegistered: string = "entrenador";
 
   ngOnInit() {
     // Verificar el estado de autenticación al iniciar

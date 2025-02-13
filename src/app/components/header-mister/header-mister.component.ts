@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-header-mister',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './header-mister.component.html',
-  styleUrl: './header-mister.component.css'
+  styleUrls: ['./header-mister.component.css']
 })
 export class HeaderMisterComponent {
-
 }
