@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-mma',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './mma.component.html',
   styleUrl: './mma.component.css'
 })
