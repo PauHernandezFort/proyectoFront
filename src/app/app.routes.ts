@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
-    { path: 'activities/mma', component: MmaComponent },
+    { path: 'activities/mma', component: MmaComponent }, 
     { path: 'activities/capoeira', component: CapoeiraComponent },
     { path: 'signUp', component: SignUpComponent } 
 ];
