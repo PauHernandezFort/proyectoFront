@@ -13,6 +13,7 @@ import { EventsComponent } from './views/events/events.component';
 import { JuiJitsuComponent } from './views/activities/jui-jitsu/jui-jitsu.component';
 import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.component';
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
+import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
 
 
@@ -33,5 +34,7 @@ export const routes: Routes = [
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
     { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
+    { path: 'header-user', component: HeaderUserComponent },
+    { path: 'signUp', component: SignUpComponent } 
     { path: 'activities/chi-kung', component: ChiKungComponent },
 ];
