@@ -13,13 +13,13 @@ import { EventsComponent } from './views/events/events.component';
 import { JuiJitsuComponent } from './views/activities/jui-jitsu/jui-jitsu.component';
 import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.component';
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
+import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
 
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
-    { path: 'activities/mma', component: MmaComponent },
     { path: 'schedules', component: schedulesComponent },
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
@@ -33,4 +33,5 @@ export const routes: Routes = [
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
     { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
+    { path: 'activities/chi-kung', component: ChiKungComponent },
 ];
