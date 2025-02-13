@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MmaComponent } from './mma.component';
+import { JuiJitsuComponent } from './jui-jitsu.component';
 
-describe('MmaComponent', () => {
-  let component: MmaComponent;
-  let fixture: ComponentFixture<MmaComponent>;
+describe('JuiJitsuComponent', () => {
+  let component: JuiJitsuComponent;
+  let fixture: ComponentFixture<JuiJitsuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MmaComponent] 
+      imports: [JuiJitsuComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MmaComponent);
+    fixture = TestBed.createComponent(JuiJitsuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MmaComponent } from './mma.component';
+import { DefensaFemeninaComponent } from './defensa-femenina.component';
 
-describe('MmaComponent', () => {
-  let component: MmaComponent;
-  let fixture: ComponentFixture<MmaComponent>;
+describe('DefensaFemeninaComponent', () => {
+  let component: DefensaFemeninaComponent;
+  let fixture: ComponentFixture<DefensaFemeninaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MmaComponent] 
+      imports: [DefensaFemeninaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MmaComponent);
+    fixture = TestBed.createComponent(DefensaFemeninaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
