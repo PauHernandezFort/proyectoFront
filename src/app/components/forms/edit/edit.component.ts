@@ -17,7 +17,8 @@ export class EditComponent implements OnInit {
     apellidos: '',
     email: '',
     telefono: '',
-    foto: ''
+    foto: '',
+    rol: ''
   };
   errors: { [key: string]: string } = {};
 
@@ -27,6 +28,11 @@ export class EditComponent implements OnInit {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
+      // Si no hay rol, obtenerlo del userType
+      if (!this.userData.rol) {
+        const userType = localStorage.getItem('userType');
+        this.userData.rol = userType || 'No especificado';
+      }
     } else {
       // Si no hay datos, redirigir al perfil
       this.router.navigate(['/showProfile']);

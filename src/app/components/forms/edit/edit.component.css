@@ -154,3 +154,15 @@ label {
 .form-control.ng-valid.ng-touched {
     border-color: #28a745;
 }
+
+.readonly-field {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.readonly-field:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}

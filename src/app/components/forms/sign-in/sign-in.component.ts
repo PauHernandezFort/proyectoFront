@@ -44,7 +44,8 @@ export class SignInComponent {
         apellidos: 'Pérez García',
         email: this.correo,
         telefono: '123456789',
-        foto: 'assets/images/default-profile.png' // Foto por defecto
+        foto: 'assets/images/default-profile.png',
+        rol: 'alumno'  // Añadimos el rol por defecto o el que venga del backend
       };
       
       // Guardar datos en localStorage
