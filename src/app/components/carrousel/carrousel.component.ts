@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-carrousel',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './carrousel.component.html',
   styleUrl: './carrousel.component.css'
 })
-export class CarrouselComponent {
-
-}
+export class CarrouselComponent {}
