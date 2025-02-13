@@ -35,6 +35,6 @@ export const routes: Routes = [
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
     { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
     { path: 'header-user', component: HeaderUserComponent },
-    { path: 'signUp', component: SignUpComponent } 
+    { path: 'signUp', component: SignUpComponent },
     { path: 'activities/chi-kung', component: ChiKungComponent },
 ];
