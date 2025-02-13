@@ -1,26 +1,32 @@
 <main>
-    <section class="container mt-5 col-md-6" aria-labelledby="contacto-titulo">
+    <section class="container col-md-6" aria-labelledby="contacto-titulo">
         <h1 id="contacto-titulo" class="text-center mb-4">Contacta conmigo</h1>
         <form action="#" method="post" aria-describedby="form-descripcion">
             <p id="form-descripcion" class="visually-hidden">Formulario para contactar con Stanly.</p>
 
-            <section class="row mb-3">
-                <article class="col-md-8">
+            <section class="row mb-3 mt-5 ">
+                <article class="col-md-6">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre"
-                        placeholder="Escribe tu nombre" required aria-required="true" aria-describedby="nombre-ayuda">
+                        placeholder="Ingrese su nombre" required aria-required="true" aria-describedby="nombre-ayuda">
                     <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa tu nombre completo.</p>
                 </article>
-                <article class="col-md-4">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="number" class="form-control" id="telefono" name="telefono "
-                        placeholder="Escribe tu teléfono" required aria-required="true" aria-describedby="telefono-ayuda" style="">
-                    <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
+                <article class="col-md-6">
+                    <label for="apellidos" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="apellidos" name="apellidos"
+                        placeholder="Ingrese sus apellidos" required aria-required="true" aria-describedby="apellidos-ayuda">
+                    <p id="apellidos-ayuda" class="visually-hidden">Por favor, ingresa tus apellidos completos.</p>
                 </article>
             </section>
 
-            <section class="mb-3">
-                <article>
+            <section class="row mb-3">
+                <article class="col-md-5">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="number" class="form-control" id="telefono" name="telefono"
+                        placeholder="Ingrese su teléfono" required aria-required="true" aria-describedby="telefono-ayuda">
+                    <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
+                </article>
+                <article class="col-md-7">
                     <label for="correo" class="form-label">Correo electrónico</label>
                     <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
                         required aria-required="true" aria-describedby="correo-ayuda">
@@ -32,7 +38,7 @@
                 <article>
                     <label for="comentarios" class="form-label">Deja aquí tus comentarios</label>
                     <textarea class="form-control" id="comentarios" name="comentarios" rows="3"
-                        placeholder="Escribe tu mensaje" aria-describedby="comentarios-ayuda"></textarea>
+                        placeholder="Ingrese un mensaje" aria-describedby="comentarios-ayuda"></textarea>
                     <p id="comentarios-ayuda" class="visually-hidden">Escribe tus dudas o comentarios aquí.</p>
                 </article>
             </section>
@@ -55,19 +61,3 @@
         </form>
     </section>
 </main>
-
-<style>
-
-/* Elimina los botones de incremento y decremento en navegadores basados en WebKit (como Chrome y Safari) */
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Elimina los botones de incremento y decremento en Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
-}
-
-</style>

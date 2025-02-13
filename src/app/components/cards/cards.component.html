@@ -10,7 +10,7 @@
       <div class="container">
         <div class="card" id="cardCapoeira">
           <div class="card-header">
-            <h5 id="card1-title" class="card-title">capoeira</h5>
+            <h5 id="card1-title" class="card-title">Capoeira</h5>
           </div>
           <div class="card-body">
             <img src="../../../../images/capoeira.jpg" class="card-img-top" alt="Capoeira"
@@ -19,7 +19,7 @@
           <div class="card-footer text-body-secondary">
             <p class="card-text">¡Conoce el ritmo de Brasil! Combina danza, acrobacia y artes marciales para mejorar tu
               agilidad y energía.</p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button class="btn btn-success" routerLink="/activities/capoeira"type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -38,7 +38,7 @@
           <div class="card-footer text-body-secondary">
             <p>¡Desafía tus límites! Aprende técnicas de boxeo, lucha y jiu-jitsu en un ambiente seguro y lleno de
               acción.</p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button routerLink="/activities/mma" class="btn btn-success" type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
           <div class="card-footer text-body-secondary">
             <p>¿Te gustaría dominar el combate? Practica técnicas de sumisión y control en el suelo para tu defensa
               personal.</p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button class="btn btn-success" routerLink="/activities/jui-jitsu" type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -75,7 +75,7 @@
           <div class="card-footer text-body-secondary">
             <p>¡Golpea con fuerza! Mejora tu resistencia, coordinación y fuerza mientras te diviertes con el saco de
               boxeo.</p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button class="btn btn-success" routerLink="/activities/saco-boxeo" type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@
           <div class="card-footer text-body-secondary">
             <p>¡Empoderate! Aprende autodefensa adaptada a las mujeres y siente mayor seguridad y confianza en ti misma.
             </p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button class="btn btn-success" routerLink="/activities/defensa-femenina" type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -113,7 +113,7 @@
           <div class="card-footer text-body-secondary">
             <p>Relaja tu cuerpo y mente. Practica Chi-Kung y encuentra el equilibrio con movimientos suaves y
               respiración profunda.</p>
-            <button class="btn btn-success" type="button">Ver Más</button>
+            <button class="btn btn-success" routerLink="/activities/mma" type="button">Ver Más</button>
           </div>
         </div>
       </div>
@@ -123,62 +123,6 @@
 
 
 
-.card {
-    border: 2px solid rgb(6, 149, 20) !important; 
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
-    padding: 15px;
-    margin: 20px;
-    text-align: center;
-    overflow: hidden;
-    height: 100%; 
-    min-height: 500px; 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-
-.card-body {
-    flex-grow: 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-}
-
-.card-body img {
-    width: 100%;
-    height: 250px; 
-    object-fit: cover;
-}
-
-
-.card-footer {
-    padding: 10px;
-    text-align: center;
-    font-size: 14px;
-}
-
-
-.card .btn {
-    padding: 8px 12px;
-    font-size: 14px;
-}
-
-
-.card:hover {
-    transform: scale(1.08);
-}
-
-.btn-success {
-    background-color: rgb(6, 149, 20);
-    border-color: rgb(6, 149, 20);
-}
-
-.btn-success:hover {
-    background-color: white;
-    border-color: rgb(6, 149, 20);
-    color: rgb(6, 149, 20);
-}
 
 </style>
 </main>
