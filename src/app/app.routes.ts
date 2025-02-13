@@ -5,7 +5,7 @@ import { schedulesComponent } from './views/schedules/schedules.component';
 import { ContactComponent } from './components/forms/contact/contact.component';
 import { SignInComponent } from './components/forms/sign-in/sign-in.component';
 import { SignUpComponent } from './components/forms/sign-up/sign-up.component';
-
+import { CapoeiraComponent } from './views/activities/capoeira/capoeira.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,5 +14,6 @@ export const routes: Routes = [
     { path: 'schedules', component: schedulesComponent },
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
-    { path: 'signUp', component: SignUpComponent }  
+    { path: 'signUp', component: SignUpComponent },
+    { path: 'activities/capoeira', component: CapoeiraComponent }  
 ];
