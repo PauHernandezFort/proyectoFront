@@ -10,10 +10,10 @@
                 <i class="bi bi-calendar-event me-2"></i>
                 Mar 15, 2025
             </div>
-            <div class="d-flex align-items-center text-muted">
+            <div id="direccion-evento" (click)="abrirGoogleMaps()" class="d-flex align-items-center text-muted mt-3"
+                style="cursor: pointer;">
                 <i class="bi bi-geo-alt me-2"></i>
-                Calle Torero Antonio Carpio, Carrer Emili Ferrer Gómez, 16 Esquina, 46470
-                Catarroja, Valencia
+                <span>{{ ubication }}</span>
             </div>
         </div>
         <div class="card-body p-4">

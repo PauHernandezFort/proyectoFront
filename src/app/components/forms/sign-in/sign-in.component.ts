@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
