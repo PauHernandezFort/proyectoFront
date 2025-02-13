@@ -14,10 +14,17 @@ import { HeaderAdminComponent } from './components/header-admin/header-admin.com
 })
 export class AppComponent implements OnInit {
   title = 'front';
-  public isUserRegistered: string = "alumno";
+  public isUserRegistered: string = "invitado";
 
   ngOnInit() {
     // Verificar el estado de autenticación al iniciar
-    //this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
+    const userType = localStorage.getItem('userType');
+    this.isUserRegistered = userType || "invitado";
+  }
+
+  // Método para cerrar sesión
+  logout() {
+    localStorage.removeItem('userType');
+    this.isUserRegistered = "invitado";
   }
 }
