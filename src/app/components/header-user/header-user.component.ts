@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { User } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-header-user',
@@ -9,6 +10,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header-user.component.css'
 })
 export class HeaderUserComponent {
+
+  userData: User | null = null;
+
   constructor(private router: Router) {}
 
   logout() {
