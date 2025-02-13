@@ -1,0 +1,17 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+  <div class="modal-content">
+    <button class="close-button" (click)="close()">×</button>
+    <h2>{{classData?.name}}</h2>
+    <div class="modal-body">
+      <p><strong>Fecha:</strong> {{classData?.date}}</p>
+      <p><strong>Horario:</strong> {{classData?.time}}</p>
+      <p><strong>Instructor:</strong> {{classData?.instructor}}</p>
+      <p><strong>Plazas disponibles:</strong> {{classData?.availableSpots}}</p>
+    </div>
+    <div class="modal-footer">
+      <button class="action-button" (click)="registerForClass()">
+        Inscribirse
+      </button>
+    </div>
+  </div>
+</div> 
