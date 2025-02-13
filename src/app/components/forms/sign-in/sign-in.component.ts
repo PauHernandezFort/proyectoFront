@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-sign-in',
@@ -37,14 +38,18 @@ export class SignInComponent {
     }
 
     if (isValid) {
-      // Aquí iría la lógica de autenticación
-      console.log('Formulario válido', {
-        correo: this.correo,
-        password: this.password
-      });
+      // Simulamos que obtenemos los datos del usuario del backend
+      const userData: User = {
+        nombre: 'Juan',  // Estos serían los datos que vendrían del backend
+        apellidos: 'Pérez García',
+        email: this.correo,
+        telefono: '123456789',
+        foto: 'assets/images/default-profile.png' // Foto por defecto
+      };
       
-      // Simular autenticación exitosa y guardar en localStorage
-      localStorage.setItem('isUserRegistered', 'true');
+      // Guardar datos en localStorage
+      localStorage.setItem('userType', 'alumno');
+      localStorage.setItem('userData', JSON.stringify(userData));
       
       // Redirigir a la página principal
       this.router.navigate(['/']).then(() => {

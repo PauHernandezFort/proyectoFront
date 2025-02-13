@@ -23,7 +23,7 @@ import { HeaderAdminComponent } from './components/header-admin/header-admin.com
 
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },
