@@ -13,5 +13,5 @@ import { HeaderMisterComponent } from "./components/header-mister/header-mister.
 })
 export class AppComponent {
   title = 'front';
-  public isUserRegistered: string = "entrenador";
+  public isUserRegistered: string = "invitado";
 }
