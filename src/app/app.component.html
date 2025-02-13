@@ -1,7 +1,9 @@
-@if(!isUserRegistered){
+@if(isUserRegistered === "invitado"){
 <app-header></app-header>
-} @else {
+} @else if(isUserRegistered === "alumno") {
 <app-header-user></app-header-user>
+} @else if(isUserRegistered === "entrenador") {
+<app-header-mister></app-header-mister>
 }
 <router-outlet></router-outlet>
 <app-footer></app-footer>
