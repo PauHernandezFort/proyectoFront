@@ -1,9 +1,11 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 
 @Component({
   selector: 'app-cards',
+  imports: [RouterLink],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
 }) export class CardsComponent implements AfterViewInit {
