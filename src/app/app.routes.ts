@@ -15,6 +15,8 @@ import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.com
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
+import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
+import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 
 
 export const routes: Routes = [
@@ -25,16 +27,20 @@ export const routes: Routes = [
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
+
     { path: 'activities/mma', component: MmaComponent }, 
     { path: 'activities/capoeira', component: CapoeiraComponent },
-    { path: 'signUp', component: SignUpComponent },
-    { path: 'editProfile', component: EditComponent },
-    { path: 'showProfile', component: ShowProfileComponent },
     { path: 'events', component: EventsComponent },
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
-    { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
-    { path: 'header-user', component: HeaderUserComponent },
-    { path: 'signUp', component: SignUpComponent },
     { path: 'activities/chi-kung', component: ChiKungComponent },
+    { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
+
+
+    { path: 'header-user', component: HeaderUserComponent },
+    { path: 'header-mister', component: HeaderMisterComponent },
+    { path: 'header-admin', component: HeaderAdminComponent },
+    
+    { path: 'editProfile', component: EditComponent },
+    { path: 'showProfile', component: ShowProfileComponent },
 ];
