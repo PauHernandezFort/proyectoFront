@@ -1,45 +1,62 @@
-<main>
-    <section class="row mb-3">
-        <article class="col-md-4">
-            <label for="telefono" class="form-label">Teléfono</label>
-            <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="Escribe tu teléfono"
-                required aria-required="true" aria-describedby="telefono-ayuda">
-            <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
-        </article>
+<main class="container">
+    <div class="container mt-5 w-50">
+        <form action="#" method="post" aria-describedby="form-edicion">
+            <section class="row mb-3 mt-5">
+                <article class="col-8 m-auto text-center mb-5">
+                    <div class="position-relative d-inline-block">
+                        <img id="preview" [src]="photoImage" alt="Foto perfil" class="rounded-circle border shadow"
+                            width="150" height="150">
 
-        <article class="col-md-4">
-            <label for="correo" class="form-label">Correo electrónico</label>
-            <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo" required
-                aria-required="true" aria-describedby="correo-ayuda">
-            <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
-        </article>
+                        <!-- Botón para cambiar imagen -->
+                        <label for="fotoPerfil"
+                            class="btn btn-primary rounded-circle position-absolute bottom-0 end-0 d-flex align-items-center justify-content-center"
+                            style="width: 40px; height: 40px; cursor: pointer">
+                            <i class="bi bi-camera"></i>
+                        </label>
+                    </div>
 
-        <article>
-            <label for="password" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="password" name="password"
-                placeholder="Escribe tu Contraseña" required aria-required="true" aria-describedby="password-ayuda">
-            <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
-        </article>
+                    <!-- Input oculto para subir archivos -->
+                    <input type="file" class="d-none" id="fotoPerfil" name="fotoPerfil" accept="image/*"
+                        (change)="previewImage($event)">
+                    <h3 for="fotoPerfil" class="form-label d-block mb-3 mt-5 fw-bold">Foto perfil</h3>
+                </article>
+                <article class="col-6">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="number" class="form-control" id="telefono" name="telefono"
+                        placeholder="Ingrese su teléfono" required aria-required="true"
+                        aria-describedby="telefono-ayuda">
+                    <p id="telefono-ayuda" class="form-text text-muted">Por favor, ingresa tu número de teléfono.</p>
+                </article>
 
-        <article>
-            <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-            <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                placeholder="Confirma tu contraseña" required aria-required="true"
-                aria-describedby="confirm-password-ayuda">
-            <p id="confirm-password-ayuda" class="visually-hidden">Por favor, confirma tu contraseña.</p>
-        </article>
+                <article class="col-6">
+                    <label for="correo" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
+                        required aria-required="true" aria-describedby="correo-ayuda">
+                    <p id="correo-ayuda" class="form-text text-muted">Introduce un correo electrónico válido.</p>
+                </article>
+            </section>
 
-        <article class="col-md-8">
-            <label for="fotoPerfil" class="form-label">Foto de perfil</label>
-            <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required aria-required="true"
-                aria-describedby="fotoPerfil-ayuda">
-            <p id="fotoPerfil-ayuda" class="visually-hidden">Por favor, sube una foto de perfil.</p>
-        </article>
-    </section>
+            <article class="col-12">
+                <label for="password" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="password" name="password"
+                    placeholder="Escribe tu Contraseña" required aria-required="true" aria-describedby="password-ayuda">
+                <p id="password-ayuda" class="form-text text-muted mt-2">Introduce tu contraseña.</p>
+            </article>
 
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de contacto">Confirmar</button>
-        </article>
-    </section>
+            <article class="col-12">
+                <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                <input type="password" class="form-control" id="confirm-password" name="confirm-password"
+                    placeholder="Confirma tu contraseña" required aria-required="true"
+                    aria-describedby="confirm-password-ayuda">
+                <p id="confirm-password-ayuda" class="form-text text-muted mt-2">Por favor, confirma tu contraseña.</p>
+            </article>
+
+            <article class="col-12 text-center mt-4 mb-5">
+                <button type="submit" class="btn btn-primary fw-bold px-4 py-2 shadow-sm animated-button"
+                    aria-label="Enviar formulario de contacto">
+                    <i class="bi bi-pencil-square me-2"></i>Editar perfil
+                </button>
+            </article>
+        </form>
+    </div>
 </main>
