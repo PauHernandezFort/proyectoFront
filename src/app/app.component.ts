@@ -20,5 +20,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Verificar el estado de autenticación al iniciar
     //this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
+    //this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
   }
 }
