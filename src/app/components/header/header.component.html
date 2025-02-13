@@ -1,7 +1,7 @@
 <div class="header">
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
         <div class="container-fluid">
-           
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -13,6 +13,7 @@
                     <li class="nav-item">
                         <a class="nav-link ms-3" routerLink="home" routerLinkActive="active">Inicio</a>
                     </li>
+<<<<<<< HEAD
                     
                     <li class="nav-item ">
                         <a class="nav-link ms-3 " routerLink="activities"href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -20,13 +21,39 @@
                         </a>
                       </li>
                       
+=======
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link ms-3 dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Actividades
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" routerLink="activities/mma" routerLinkActive="active">MMA</a>
+                            </li>
+                            <li><a class="dropdown-item" routerLink="activities/capoeira"
+                                    routerLinkActive="active">Capoeira</a></li>
+                            <li><a class="dropdown-item" routerLink="activities/jui-jitsu"
+                                    routerLinkActive="active">Jui-Jitsu</a></li>
+                            <li><a class="dropdown-item" routerLink="activities/sacos"
+                                    routerLinkActive="active">Sacos</a></li>
+                            <li><a class="dropdown-item" routerLink="activities/jui-jitsu"
+                                    routerLinkActive="active">Defensa Femenina</a></li>
+                            <li><a class="dropdown-item" routerLink="activities/chi-Kung"
+                                    routerLinkActive="active">Chi-Kung</a></li>
+                        </ul>
+                    </li>
+
+>>>>>>> alberto
                     <li class="nav-item">
                         <a class="nav-link ms-3" routerLink="schedules" routerLinkActive="active">Horarios</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item ms-3">
-                        <a class="nav-link" routerLink="signIn" routerLinkActive="active">Iniciar sesión</a>
+                        <a class="nav-link login-btn" routerLink="signIn" routerLinkActive="active">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                        </a>
                     </li>
                 </ul>
             </div>
