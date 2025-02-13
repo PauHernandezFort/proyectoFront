@@ -15,6 +15,9 @@ import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.com
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
+import { AvisoLegalComponent } from './components/forms/aviso-legal/aviso-legal.component';
+import { PoliticaPrivacidadComponent } from './components/forms/politica-privacidad/politica-privacidad.component';
+import { TerminosyCondicionesComponent } from './components/forms/terminosy-condiciones/terminosy-condiciones.component';
 
 
 export const routes: Routes = [
@@ -23,6 +26,9 @@ export const routes: Routes = [
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },
     { path: 'formContact', component: ContactComponent },
+    { path: 'avisoLegal', component: AvisoLegalComponent },
+    { path: 'politicaPrivacidad', component: PoliticaPrivacidadComponent },
+    { path: 'terminosyCondiciones', component: TerminosyCondicionesComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
     { path: 'activities/mma', component: MmaComponent }, 
