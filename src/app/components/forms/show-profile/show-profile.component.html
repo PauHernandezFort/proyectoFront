@@ -1,1 +1,48 @@
-<p>show-profile works!</p>
+    <div class="profile-container">
+        @if (userData) {
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="profile-image">
+                        @if (userData.foto) {
+                            <img [src]="userData.foto" alt="Foto de perfil">
+                        } @else {
+                            <img src="assets/images/default-profile.png" alt="Foto de perfil por defecto">
+                        }
+                    </div>
+                    <h2>Mi Perfil</h2>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="info-group">
+                        <label>Nombre:</label>
+                        <p>{{ userData.nombre }}</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <label>Apellidos:</label>
+                        <p>{{ userData.apellidos }}</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <label>Email:</label>
+                        <p>{{ userData.email }}</p>
+                    </div>
+                    
+                    <div class="info-group">
+                        <label>Teléfono:</label>
+                        <p>{{ userData.telefono }}</p>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="btn btn-success" (click)="editProfile()">Editar Perfil</button>
+                    <button class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
+                </div>
+            </div>
+        } @else {
+            <div class="no-profile">
+                <p>No hay datos de usuario disponibles.</p>
+                <button class="btn btn-primary" routerLink="/signIn">Iniciar Sesión</button>
+            </div>
+        }
+    </div>

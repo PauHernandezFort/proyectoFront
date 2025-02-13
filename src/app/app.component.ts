@@ -18,6 +18,13 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Verificar el estado de autenticación al iniciar
-    //this.isUserRegistered = localStorage.getItem('isUserRegistered') === 'true';
+    const userType = localStorage.getItem('userType');
+    this.isUserRegistered = userType || "invitado";
+  }
+
+  // Método para cerrar sesión
+  logout() {
+    localStorage.removeItem('userType');
+    this.isUserRegistered = "invitado";
   }
 }
