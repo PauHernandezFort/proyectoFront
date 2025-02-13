@@ -7,6 +7,9 @@ import { SignInComponent } from './components/forms/sign-in/sign-in.component';
 import { SignUpComponent } from './components/forms/sign-up/sign-up.component';
 import { CapoeiraComponent } from './views/activities/capoeira/capoeira.component';
 import { MmaComponent } from './views/activities/mma/mma.component';
+import { JuiJitsuComponent } from './views/activities/jui-jitsu/jui-jitsu.component';
+import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.component';
+import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
 
 
 export const routes: Routes = [
@@ -20,5 +23,9 @@ export const routes: Routes = [
     { path: 'signUp', component: SignUpComponent },
     { path: 'activities/mma', component: MmaComponent }, 
     { path: 'activities/capoeira', component: CapoeiraComponent },
+    { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
+    { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
+    { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
+
     { path: 'signUp', component: SignUpComponent } 
 ];
