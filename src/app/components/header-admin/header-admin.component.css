@@ -92,6 +92,10 @@
     padding: 0;
     border: none;
     background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .profile-image {
@@ -100,6 +104,13 @@
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ajuste para el icono por defecto */
+.bi-person-circle {
+    font-size: 40px !important;
+    color: white;
 }
 
 .dropdown-toggle::after {

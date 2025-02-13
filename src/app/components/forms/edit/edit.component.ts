@@ -84,6 +84,10 @@ export class EditComponent implements OnInit {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.userData.foto = e.target.result;
+        // Actualizar inmediatamente en localStorage para que el header lo detecte
+        localStorage.setItem('userData', JSON.stringify(this.userData));
+        // Forzar recarga del componente para actualizar la imagen
+        window.location.reload();
       };
       reader.readAsDataURL(file);
     }
@@ -94,8 +98,10 @@ export class EditComponent implements OnInit {
       // Guardar los cambios en localStorage
       localStorage.setItem('userData', JSON.stringify(this.userData));
       
-      // Redirigir al perfil
-      this.router.navigate(['/showProfile']);
+      // Redirigir al perfil y forzar recarga para actualizar la imagen
+      this.router.navigate(['/showProfile']).then(() => {
+        window.location.reload();
+      });
     }
   }
 

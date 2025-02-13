@@ -28,8 +28,8 @@
                         @if (userData?.foto) {
                             <img [src]="userData?.foto" alt="Foto de perfil" class="profile-image">
                         } @else {
-                            <i class="bi bi-person-circle" style="font-size: 80px;"></i>
-            }
+                            <img src="assets/images/default-profile.png" alt="Foto por defecto" class="profile-image">
+                        }
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" routerLink="/showProfile">Ver Perfil</a></li>
