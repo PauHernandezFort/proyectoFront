@@ -1,57 +1,70 @@
-.capoeira-container {
-    text-align: center;
-    padding: 20px;
-    max-width: 800px;
+/* Estilos generales */
+.container {
+    max-width: 1200px;
     margin: auto;
+    padding: 20px;
 }
 
-.capoeira-container h1 {
-    color: #ffcc00;
-    font-size: 28px;
-    margin-bottom: 10px;
+h2 {
+      
+    color: #036635;
+    font-size: 2.6rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
-.capoeira-container p {
-    font-size: 18px;
-    margin-bottom: 20px;
+p {
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
-.capoeira-media {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+/* Estilos para el carrusel */
+.carousel {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 1px 10px rgba(0, 0, 0, 0.2);
 }
 
-.capoeira-img {
+.carousel-inner img {
     width: 100%;
-    max-width: 600px;
+    height: 400px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
-iframe {
-    width: 100%;
-    max-width: 600px;
-    height: 315px;
-    border-radius: 10px;
+
+.carousel-indicators button {
+    background-color: white;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    opacity: 0.7;
 }
 
-.btn-container {
-    margin-top: 20px;
+.carousel-indicators .active {
+    opacity: 1;
 }
 
-.btn-inscribirse {
-    background-color: #ffcc00;
-    color: black;
-    border: none;
-    padding: 12px 25px;
-    font-size: 18px;
+/* Botón de inscripción */
+/* Estilos para el botón */
+.btn-outline-danger {
+    background-color: rgb(6, 149, 20); /* Fondo verde */
+    border-color: rgb(6, 149, 20); /* Borde verde */
+    color: #fff; /* Letras blancas por defecto */
     font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease; /* Transición suave para cambios */
 }
 
-.btn-inscribirse:hover {
-    background-color: #e6b800;
+.btn-outline-danger:hover {
+    background-color: white; /* Fondo blanco cuando pasas el ratón */
+    border-color: rgb(6, 149, 20); /* Borde verde cuando pasas el ratón */
+    color: rgb(6, 149, 20); /* Letras verdes cuando pasas el ratón */
+}
+
+
+.carousel-item iframe {
+    width: 100%;
+    height: 400px; /* Ajusta el video a la misma altura que las imágenes */
+    border-radius: 10px;
+    object-fit: cover; /* Hace que el video se recorte para llenar el espacio */
 }
