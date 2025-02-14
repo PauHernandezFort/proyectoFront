@@ -1,48 +1,70 @@
-    <div class="profile-container">
-        @if (userData) {
-            <div class="profile-card">
-                <div class="profile-header">
-                    <div class="profile-image">
-                        @if (userData.foto) {
-                            <img [src]="userData.foto" alt="Foto de perfil">
-                        } @else {
-                            <img src="assets/images/default-profile.png" alt="Foto de perfil por defecto">
-                        }
-                    </div>
-                    <h2>Mi Perfil</h2>
+<div class="profile-container">
+    @if (userData) {
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="profile-image">
+                    @if (userData.foto) {
+                        <img [src]="userData.foto" 
+                             alt="Foto de perfil" 
+                             (click)="openImageModal(userData.foto, 'Foto de Perfil')" 
+                             style="cursor: pointer;">
+                    } @else {
+                        <i class="bi bi-person-circle" style="font-size: 80px; cursor: pointer;"></i>
+                             
+                    }
+                </div>
+                <h2>Mi Perfil</h2>
+            </div>
+            
+            <div class="profile-info">
+                <div class="info-group">
+                    <label>Nombre:</label>
+                    <p>{{ userData.nombre }}</p>
                 </div>
                 
-                <div class="profile-info">
-                    <div class="info-group">
-                        <label>Nombre:</label>
-                        <p>{{ userData.nombre }}</p>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Apellidos:</label>
-                        <p>{{ userData.apellidos }}</p>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Email:</label>
-                        <p>{{ userData.email }}</p>
-                    </div>
-                    
-                    <div class="info-group">
-                        <label>Teléfono:</label>
-                        <p>{{ userData.telefono }}</p>
-                    </div>
+                <div class="info-group">
+                    <label>Apellidos:</label>
+                    <p>{{ userData.apellidos }}</p>
+                </div>
+                
+                <div class="info-group">
+                    <label>Email:</label>
+                    <p>{{ userData.email }}</p>
+                </div>
+                
+                <div class="info-group">
+                    <label>Teléfono:</label>
+                    <p>{{ userData.telefono }}</p>
                 </div>
 
-                <div class="profile-actions">
-                    <button class="btn btn-success" (click)="editProfile()">Editar Perfil</button>
-                    <button class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
-                </div>
+                @if (userData.rol) {
+                    <div class="info-group">
+                        <label>Rol:</label>
+                        <p>{{ userData.rol }}</p>
+                    </div>
+                }
             </div>
-        } @else {
-            <div class="no-profile">
-                <p>No hay datos de usuario disponibles.</p>
-                <button class="btn btn-primary" routerLink="/signIn">Iniciar Sesión</button>
+
+            <div class="profile-actions"> <button type="submit" class="btn btn-primary fw-bold px-4 py-2 shadow-sm animated-button"
+                aria-label="Enviar formulario de contacto"  (click)="editProfile()">
+                <i class="bi bi-pencil-square me-2"></i>Editar perfil
+            </button>
+                <button class="btn btn-danger" (click)="cerrarSesion()">Cerrar Sesión</button>
             </div>
-        }
-    </div>
+        </div>
+    } @else {
+        <div class="no-profile">
+            <p>No hay datos de usuario disponibles.</p>
+            <button class="btn btn-primary" routerLink="/signIn">Iniciar Sesión</button>
+        </div>
+    }
+</div>
+
+@if (selectedImage) {
+    <app-image-modal
+        [imageUrl]="selectedImage.url"
+        [imageTitle]="selectedImage.title"
+        [imageDescription]="selectedImage.description"
+        (closeModal)="closeImageModal()">
+    </app-image-modal>
+}

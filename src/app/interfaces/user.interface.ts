@@ -4,6 +4,8 @@ export interface User {
   apellidos: string;
   email: string;
   telefono: string;
-  foto?: string; // URL de la foto o base64
+  password?: string;
+  foto?: string; // Usaremos 'foto' en lugar de 'profileImage'
+  rol?: string;
   // Añade otros campos que necesites
 } 

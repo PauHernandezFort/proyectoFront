@@ -154,3 +154,31 @@ label {
 .form-control.ng-valid.ng-touched {
     border-color: #28a745;
 }
+
+.readonly-field {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.readonly-field:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+
+.animated-button {
+    transition: all 0.3s ease-in-out;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+  }
+  
+  .animated-button:hover {
+    box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .animated-button:active {
+    transform: scale(0.95);
+  }

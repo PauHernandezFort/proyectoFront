@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/user.interface';
 
 @Component({
@@ -9,15 +8,22 @@ import { User } from '../../interfaces/user.interface';
   templateUrl: './header-user.component.html',
   styleUrl: './header-user.component.css'
 })
-export class HeaderUserComponent {
-
+export class HeaderUserComponent implements OnInit {
   userData: User | null = null;
 
   constructor(private router: Router) {}
 
+  ngOnInit() {
+    const userDataString = localStorage.getItem('userData');
+    if (userDataString) {
+      this.userData = JSON.parse(userDataString);
+    }
+  }
+
   logout() {
     // Eliminar datos de sesión
     localStorage.removeItem('userType');
+    localStorage.removeItem('userData');
     localStorage.setItem('userType', 'invitado');
     
     // Redirigir al home
