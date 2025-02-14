@@ -30,7 +30,6 @@ import { CalendarioView } from './views/calendario/calendario.component';
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'calendario', component: CalendarioView },
-    { path: '**', redirectTo: 'calendario' },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },
