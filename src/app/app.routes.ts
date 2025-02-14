@@ -21,13 +21,13 @@ import { TerminosyCondicionesComponent } from './components/forms/terminosy-cond
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { ClassesComponent } from './views/classes/classes.component';
 import { CreateProgressComponent } from './components/forms/create-progress/create-progress.component';
 import { CreateClassComponent } from './components/forms/create-class/create-class.component';
 
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: '', redirectTo: 'calendario', pathMatch: 'full' },
     { path: 'calendario', component: CalendarioView },
     { path: '**', redirectTo: 'calendario' },
     { path: 'home', component: HomeComponent },
@@ -39,27 +39,21 @@ export const routes: Routes = [
     { path: 'terminosyCondiciones', component: TerminosyCondicionesComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
-
-    { path: 'activities/mma', component: MmaComponent }, 
+    { path: 'activities/mma', component: MmaComponent },
     { path: 'activities/capoeira', component: CapoeiraComponent },
     { path: 'events', component: EventsComponent },
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
     { path: 'activities/saco-boxeo', component: SacoBoxeoComponent },
     { path: 'activities/chi-kung', component: ChiKungComponent },
     { path: 'activities/defensa-femenina', component: DefensaFemeninaComponent },
-
-
     { path: 'header-user', component: HeaderUserComponent },
     { path: 'header-mister', component: HeaderMisterComponent },
     { path: 'header-admin', component: HeaderAdminComponent },
-    
     { path: 'editProfile', component: EditComponent },
     { path: 'showProfile', component: ShowProfileComponent },
-
     { path: 'calendar', component: CalendarComponent },
-
+    { path: 'classes', component: ClassesComponent },
     { path: 'progress', component: CreateProgressComponent },
-    { path: 'clases', component: CreateClassComponent }
 
 
 ];

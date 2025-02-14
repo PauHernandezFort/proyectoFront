@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { User } from '../../interfaces/user.interface';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-header-user',
-  imports: [RouterLink],
+  imports: [RouterLink, CalendarComponent],
   templateUrl: './header-user.component.html',
   styleUrl: './header-user.component.css'
 })
