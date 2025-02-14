@@ -6,12 +6,10 @@
                 La capoeira es una combinación única de danza, lucha y música, con raíces en la cultura afrobrasileña.
                 Representa una forma de expresión, resistencia y comunidad.
             </p>
-            <a href="#" class="btn btn-outline-danger px-4" routerLink="/home">Volver</a>
-
+            <a href="#" class="btn btn-outline-danger px-4" routerLink="/activities">Volver</a>
         </div>
-
         <div class="col-md-6 mb-5">
-            <div id="capoeiraCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel">
+            <div id="capoeiraCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img src="https://www.elbudoka.es/wp-content/uploads/2015/10/capoeira__caceres.jpg"
@@ -26,19 +24,24 @@
                             class="d-block w-100 rounded" alt="Música en Capoeira">
                     </div>
                     <div class="carousel-item">
-                        <iframe class="d-block w-100 rounded" class="rounded" src="https://www.youtube.com/embed/Wz8b2xff7s0"
-                            title="Capoeira Video" frameborder="0" allowfullscreen>
-                        </iframe>
+                        <iframe class="d-block w-100 rounded" src="https://www.youtube.com/embed/Wz8b2xff7s0"
+                            title="Capoeira Video" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#capoeiraCarousel"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
+                <button class="carousel-control-prev" type="button" data-bs-target="#capoeiraCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Anterior</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#capoeiraCarousel"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
+                <button class="carousel-control-next" type="button" data-bs-target="#capoeiraCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Siguiente</span>
                 </button>
+                <div class="carousel-indicators">
+                    <button type="button" class="active" data-bs-target="#capoeiraCarousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#capoeiraCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#capoeiraCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#capoeiraCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                </div>
             </div>
         </div>
     </div>
