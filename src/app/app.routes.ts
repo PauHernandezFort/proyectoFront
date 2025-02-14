@@ -20,6 +20,7 @@ import { PoliticaPrivacidadComponent } from './components/forms/politica-privaci
 import { TerminosyCondicionesComponent } from './components/forms/terminosy-condiciones/terminosy-condiciones.component';
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 
 export const routes: Routes = [
@@ -52,6 +53,9 @@ export const routes: Routes = [
     
     { path: 'editProfile', component: EditComponent },
     { path: 'showProfile', component: ShowProfileComponent },
+
+    { path: 'calendar', component: CalendarComponent },
+
 ];
 
 import { CalendarioView } from './views/calendario/calendario.component';

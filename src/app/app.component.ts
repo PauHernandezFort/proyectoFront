@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   // Método para cerrar sesión
   logout() {
     localStorage.removeItem('userType');
+    localStorage.removeItem('userData');
     this.isUserRegistered = "invitado";
   }
 }

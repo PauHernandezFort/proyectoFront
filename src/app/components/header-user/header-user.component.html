@@ -11,7 +11,7 @@
                         <a class="nav-link" href="#">Clases</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#">Calendario</a>
+                        <a class="nav-link" href="#"  routerLink="calendar" routerLinkActive="active">Calendario</a>
                     </li>
                     <li class="nav-item ms-3">
                         <a class="nav-link" href="#" routerLink="events" routerLinkActive="active">Eventos</a>
@@ -20,18 +20,19 @@
                         <a class="nav-link" href="#">Ver Progreso</a>
                     </li>
                 </ul>
-                <div class="dropdown ms-auto">
-                    <button class="btn btn-dark dropdown-toggle d-flex align-items-center" type="button" id="userMenu"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person text-white fs-3 me-2"></i>
+                <div class="dropdown">
+                    <button class="btn dropdown-toggle profile-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        @if (userData?.foto) {
+                            <img [src]="userData?.foto" alt="Foto de perfil" class="profile-image">
+                        } @else {
+                            <img src="assets/images/default-profile.png" alt="Foto por defecto" class="profile-image">
+                        }
                     </button>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-sm-start" aria-labelledby="userMenu">
-                        <li><a class="dropdown-item mb-2" routerLink="showProfile">Ver Perfil</a></li>
-                        <li><a class="dropdown-item" routerLink="editProfile">Editar Perfil</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Cerrar sesión</a></li>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" routerLink="/showProfile">Ver Perfil</a></li>
+                        <li><a class="dropdown-item" routerLink="/editProfile">Editar Perfil</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>
             </div>

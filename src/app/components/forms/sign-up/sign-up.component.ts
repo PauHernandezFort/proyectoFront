@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-sign-up',
@@ -19,6 +20,7 @@ export class SignUpComponent {
   confirmPassword: string = '';
   rol: string = '';
   fotoPerfil: File | null = null;
+  fotoBase64: string = '';  // Nueva propiedad para guardar la foto en base64
   errors: { [key: string]: string } = {};
 
   constructor(private router: Router) {}
@@ -80,19 +82,37 @@ export class SignUpComponent {
     }
 
     if (isValid) {
-      // Si todo está válido, proceder con el envío
-      console.log('Formulario válido', {
+      const userData: User = {
         nombre: this.nombre,
         apellidos: this.apellidos,
+        email: this.correo,
         telefono: this.telefono,
-        correo: this.correo,
-        password: this.password,
-        rol: this.rol,
-        fotoPerfil: this.fotoPerfil
+        foto: this.fotoBase64 || 'assets/images/default-profile.png', // Usar la foto subida o la default
+        rol: this.rol
+      };
+
+      // Asignar el userType según el rol seleccionado
+      let userType: string;
+      switch (this.rol) {
+        case 'entrenador':
+          userType = 'entrenador';
+          break;
+        case 'admin':
+          userType = 'admin';
+          break;
+        default:
+          userType = 'alumno';
+      }
+      
+      // Guardar datos en localStorage
+      localStorage.setItem('userType', userType);
+      localStorage.setItem('userData', JSON.stringify(userData));
+
+      // Redirigir a la página principal
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
       });
-      this.router.navigate(['/signIn']);
     } else {
-      // Mostrar el primer error encontrado
       const firstError = Object.values(this.errors)[0];
       alert(firstError);
     }
@@ -104,6 +124,12 @@ export class SignUpComponent {
     const fileList: FileList | null = element.files;
     if (fileList && fileList.length > 0) {
       this.fotoPerfil = fileList[0];
+      // Convertir la foto a base64
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.fotoBase64 = e.target.result;
+      };
+      reader.readAsDataURL(this.fotoPerfil);
     }
   }
 }
