@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiServiceService } from '../../../services/api-service.service';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-create-class',
@@ -20,16 +21,19 @@ export class CreateClassComponent {
     classStatus: new FormControl('', Validators.required),
   });
 
-  constructor(public apiService: ApiServiceService) {}
 
-  onSubmit() {
-    console.log('Formulario enviado');
-    console.log('Validez del formulario:', this.createClass.valid);
-    
+  onClick(): void {
+    console.log('Formulario válido:', this.createClass.valid);
     if (this.createClass.valid) {
-      alert('Clase creada con éxito');
+      this.newClass();
     } else {
-      alert('Por favor, completa todos los campos correctamente');
+      console.log('Por favor, completa todos los campos correctamente');
     }
   }
+  
+  newClass() {
+    alert('Clase creada');
+  }
+  
+  
 }
