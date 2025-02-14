@@ -1,34 +1,75 @@
-<form enctype="multipart/form-data">
-    <section class="row mb-3">
-        <article class="col-md-8">
-            <label for="id" class="form-label">ID</label>
-            <input type="text" class="form-control" id="id" name="id"
-                placeholder="Escribe el ID del alumno" required aria-required="true" aria-describedby="id-ayuda">
-            <p id="id-ayuda" class="visually-hidden">Por favor, ingresa el ID del alumno.</p>
-        </article>
-    </section>
+<div class="progress-container fade-in">
+    <div class="progress-card">
+        <div class="progress-header">
+            <h2>Registro de Progreso</h2>
+        </div>
 
-    <section class="mb-3">
-        <article>
-            <label for="comentarios" class="form-label">Comentarios</label>
-            <textarea class="form-control" id="comentarios" name="comentarios" rows="3"
-                placeholder="Escribe tus comentarios" aria-describedby="comentarios-ayuda"></textarea>
-            <p id="comentarios-ayuda" class="visually-hidden">Escribe los comentarios del progreso.</p>
-        </article>
-    </section>
+        <!-- Barra de Progreso -->
+        <div class="progress-stats">
+            <h3>Historial de Progreso</h3>
+            <div class="progress-bar-container">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                         role="progressbar" 
+                         [style.width]="progressPercentage + '%'"
+                         [attr.aria-valuenow]="progressPercentage" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {{progressPercentage}}%
+                    </div>
+                </div>
+                <div class="progress-info">
+                    <span>Fotos subidas: {{photosUploaded}}</span>
+                    <span>Objetivo: {{targetPhotos}} fotos</span>
+                </div>
+            </div>
+        </div>
 
-    <section class="mb-3">
-        <article class="col-md-8">
-            <label for="fotoProgreso" class="form-label">Foto del progreso</label>
-            <input type="file" class="form-control" id="fotoProgreso" name="fotoProgreso" required
-                aria-required="true" aria-describedby="fotoProgreso-ayuda">
-            <p id="fotoProgreso-ayuda" class="visually-hidden">Por favor, sube una foto del progreso.</p>
-        </article>
-    </section>
+        <form class="progress-form" enctype="multipart/form-data">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <i class="bi bi-person-badge metric-icon"></i>
+                        <label for="id" class="form-label">ID del Alumno</label>
+                    </div>
+                    <input type="text" class="form-control" id="id" name="id"
+                        placeholder="Escribe el ID del alumno" required 
+                        aria-required="true" aria-describedby="id-ayuda">
+                    <p id="id-ayuda" class="visually-hidden">Por favor, ingresa el ID del alumno.</p>
+                </div>
 
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de progreso">Confirmar</button>
-        </article>
-    </section>
-</form>
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <i class="bi bi-camera metric-icon"></i>
+                        <label for="fotoProgreso" class="form-label">Foto del Progreso</label>
+                    </div>
+                    <input type="file" class="form-control" id="fotoProgreso" name="fotoProgreso" 
+                        required aria-required="true" aria-describedby="fotoProgreso-ayuda">
+                    <p id="fotoProgreso-ayuda" class="visually-hidden">Por favor, sube una foto del progreso.</p>
+                </div>
+            </div>
+
+            <div class="metric-card">
+                <div class="metric-header">
+                    <i class="bi bi-chat-text metric-icon"></i>
+                    <label for="comentarios" class="form-label">Comentarios</label>
+                </div>
+                <textarea class="form-control" id="comentarios" name="comentarios" 
+                    rows="3" placeholder="Escribe tus comentarios sobre el progreso del alumno" 
+                    aria-describedby="comentarios-ayuda"></textarea>
+                <p id="comentarios-ayuda" class="visually-hidden">Escribe los comentarios del progreso.</p>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-2"></i>Confirmar
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                    <i class="bi bi-x-circle me-2" ></i>Cancelar
+                </button>
+
+                  
+            </div>
+        </form>
+    </div>
+</div>
