@@ -18,6 +18,8 @@ import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { CreateProgressComponent } from './components/forms/create-progress/create-progress.component';
+import { CreateClassComponent } from './components/forms/create-class/create-class.component';
 
 
 export const routes: Routes = [
@@ -46,5 +48,9 @@ export const routes: Routes = [
     { path: 'showProfile', component: ShowProfileComponent },
 
     { path: 'calendar', component: CalendarComponent },
+
+    { path: 'progress', component: CreateProgressComponent },
+    { path: 'clases', component: CreateClassComponent }
+
 
 ];
