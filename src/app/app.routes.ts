@@ -18,6 +18,7 @@ import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { ClassesComponent } from './views/classes/classes.component';
 
 
 export const routes: Routes = [
@@ -28,7 +29,7 @@ export const routes: Routes = [
     { path: 'formContact', component: ContactComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
-    { path: 'activities/mma', component: MmaComponent }, 
+    { path: 'activities/mma', component: MmaComponent },
     { path: 'activities/capoeira', component: CapoeiraComponent },
     { path: 'events', component: EventsComponent },
     { path: 'activities/jui-jitsu', component: JuiJitsuComponent },
@@ -41,4 +42,5 @@ export const routes: Routes = [
     { path: 'editProfile', component: EditComponent },
     { path: 'showProfile', component: ShowProfileComponent },
     { path: 'calendar', component: CalendarComponent },
+    { path: 'classes', component: ClassesComponent },
 ];
