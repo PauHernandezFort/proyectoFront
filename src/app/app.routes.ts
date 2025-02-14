@@ -15,6 +15,9 @@ import { SacoBoxeoComponent } from './views/activities/saco-boxeo/saco-boxeo.com
 import { DefensaFemeninaComponent } from './views/activities/defensa-femenina/defensa-femenina.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { ChiKungComponent } from './views/activities/chi-kung/chi-kung.component';
+import { AvisoLegalComponent } from './components/forms/aviso-legal/aviso-legal.component';
+import { PoliticaPrivacidadComponent } from './components/forms/politica-privacidad/politica-privacidad.component';
+import { TerminosyCondicionesComponent } from './components/forms/terminosy-condiciones/terminosy-condiciones.component';
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
@@ -22,14 +25,19 @@ import { ClassesComponent } from './views/classes/classes.component';
 import { CreateProgressComponent } from './components/forms/create-progress/create-progress.component';
 import { CreateClassComponent } from './components/forms/create-class/create-class.component';
 import { PupilsComponent } from './views/pupils/pupils.component';
-
+import { CalendarioView } from './views/calendario/calendario.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'calendario', component: CalendarioView },
+    { path: '**', redirectTo: 'calendario' },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },
     { path: 'formContact', component: ContactComponent },
+    { path: 'avisoLegal', component: AvisoLegalComponent },
+    { path: 'politicaPrivacidad', component: PoliticaPrivacidadComponent },
+    { path: 'terminosyCondiciones', component: TerminosyCondicionesComponent },
     { path: 'signIn', component: SignInComponent },
     { path: 'signUp', component: SignUpComponent },
     { path: 'activities/mma', component: MmaComponent },
@@ -50,3 +58,4 @@ export const routes: Routes = [
     { path: 'classesMister', component: CreateClassComponent },
     { path: 'pupils', component: PupilsComponent }
 ];
+

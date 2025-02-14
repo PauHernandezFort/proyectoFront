@@ -24,8 +24,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
 })
+
 export class AppComponent implements OnInit {
   title = 'front';
   public isUserRegistered: string = "invitado";

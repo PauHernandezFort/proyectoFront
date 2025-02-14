@@ -7,6 +7,37 @@ footer {
     background-color: #212529; /* Asegura que el fondo oscuro cubra todo */
 }
 
+.white-link{
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    position: relative;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.white-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+.white-link:hover {
+    color: #4CAF50;
+}
+
+.white-link:hover::after {
+    width: 100%;
+}
+
 .container {
     width: 100%;
     max-width: 1200px;
