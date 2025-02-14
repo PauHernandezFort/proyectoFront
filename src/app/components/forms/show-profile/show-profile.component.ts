@@ -2,16 +2,19 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '../../../interfaces/user.interface';
+import { ImageModalComponent } from '../../image-modal/image-modal.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-show-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink, ImageModalComponent],
   templateUrl: './show-profile.component.html',
   styleUrls: ['./show-profile.component.css']
 })
 export class ShowProfileComponent implements OnInit {
   userData: User | null = null;
+  selectedImage: any = null;
 
   constructor(private router: Router) {}
 
@@ -21,6 +24,18 @@ export class ShowProfileComponent implements OnInit {
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
     }
+  }
+
+  openImageModal(imageUrl: string, title: string) {
+    this.selectedImage = {
+      url: imageUrl,
+      title: title,
+      description: 'Imagen de perfil del usuario'
+    };
+  }
+
+  closeImageModal() {
+    this.selectedImage = null;
   }
 
   editProfile() {
