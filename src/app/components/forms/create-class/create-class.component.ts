@@ -33,3 +33,24 @@ export class CreateClassComponent {
     }
   }
 }
+/*
+onSubmit() {
+  if (this.createClass.valid) {
+    const formData = this.createClass.value;
+    this.apiService.createClass(formData).subscribe({
+      next: (response) => {
+        console.log('Clase creada:', response);
+        alert('Clase creada con éxito');
+      },
+      error: (error) => {
+        console.error('Error al crear la clase:', error);
+        alert('Hubo un error al crear la clase');
+      }
+    });
+  } else {
+    alert('Por favor, completa todos los campos correctamente');
+  }
+}
+
+*/
+
