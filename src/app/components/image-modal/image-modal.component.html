@@ -1,0 +1,12 @@
+<div class="image-modal-overlay" (click)="onOverlayClick($event)">
+  <div class="image-modal-content">
+    <button class="close-button" (click)="close()">X</button>
+    <div class="image-container">
+      <img [src]="imageUrl" [alt]="imageTitle">
+    </div>
+    <div class="image-info">
+      <h3>{{imageTitle}}</h3>
+      <p>{{imageDescription}}</p>
+    </div>
+  </div>
+</div> 

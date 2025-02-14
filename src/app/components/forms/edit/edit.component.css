@@ -1,11 +1,170 @@
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.edit-profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
 }
 
-input[type=number] {
-    -moz-appearance: textfield;
+.edit-profile-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #666;
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-control:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.btn {
+    padding: 0.5rem 2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #45a049;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+@media (max-width: 768px) {
+    .edit-profile-container {
+        margin: 1rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+}
+
+.profile-image-edit {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.current-image {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.current-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-upload {
+    margin-top: 1rem;
+}
+
+.image-upload input[type="file"] {
+    display: none;
+}
+
+.image-upload label {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+.image-upload label:hover {
+    background-color: #45a049;
+}
+
+.alert {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+.form-control.ng-invalid.ng-touched {
+    border-color: #dc3545;
+}
+
+.form-control.ng-valid.ng-touched {
+    border-color: #28a745;
+}
+
+.readonly-field {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    color: #495057;
+    border: 1px solid #ced4da;
+}
+
+.readonly-field:focus {
+    box-shadow: none;
+    border-color: #ced4da;
 }
 
 .animated-button {
@@ -13,13 +172,13 @@ input[type=number] {
     border-radius: 8px;
     background: linear-gradient(135deg, #007bff, #0056b3);
     color: white;
-}
-
-.animated-button:hover {
+  }
+  
+  .animated-button:hover {
     box-shadow: 0px 4px 10px rgba(0, 123, 255, 0.5);
     transform: translateY(-2px);
-}
-
-.animated-button:active {
+  }
+  
+  .animated-button:active {
     transform: scale(0.95);
-}
+  }

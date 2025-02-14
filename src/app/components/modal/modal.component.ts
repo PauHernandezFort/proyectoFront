@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClassEvent } from '../../interface/class-model';
 
 @Component({
   selector: 'app-class-modal',
@@ -10,11 +9,21 @@ import { ClassEvent } from '../../interface/class-model';
   styleUrls: ['./modal.component.css']
 })
 export class ClassModalComponent {
-  @Input() classData!: ClassEvent; // Recibe la clase desde el calendario
-  @Output() closeModal = new EventEmitter<void>(); // Evento para cerrar el modal
+  @Input() classData: any;
+  @Output() closeModal = new EventEmitter<void>();
 
-  onClose() {
-    this.closeModal.emit(); // Emite evento cuando se cierra
+  close() {
+    this.closeModal.emit();
   }
-}
 
+  onOverlayClick(event: MouseEvent) {
+    if ((event.target as HTMLElement).className === 'modal-overlay') {
+      this.close();
+    }
+  }
+
+  registerForClass() {
+    // Aquí iría la lógica para inscribirse en la clase
+    console.log('Registrando en la clase:', this.classData);
+  }
+} 
