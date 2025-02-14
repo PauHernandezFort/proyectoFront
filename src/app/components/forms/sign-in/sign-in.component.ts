@@ -44,7 +44,7 @@ export class SignInComponent {
         apellidos: 'Pérez García',
         email: this.correo,
         telefono: '123456789',
-        foto: 'assets/images/default-profile.png',
+        foto: '../../../../images/perfil_defecto.jpg',
         rol: 'alumno'  // Añadimos el rol por defecto o el que venga del backend
       };
       
