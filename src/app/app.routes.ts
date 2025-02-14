@@ -21,6 +21,7 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { ClassesComponent } from './views/classes/classes.component';
 import { CreateProgressComponent } from './components/forms/create-progress/create-progress.component';
 import { CreateClassComponent } from './components/forms/create-class/create-class.component';
+import { PupilsComponent } from './views/pupils/pupils.component';
 
 
 export const routes: Routes = [
@@ -44,9 +45,8 @@ export const routes: Routes = [
     { path: 'editProfile', component: EditComponent },
     { path: 'showProfile', component: ShowProfileComponent },
     { path: 'calendar', component: CalendarComponent },
-    { path: 'classes', component: ClassesComponent },
+    { path: 'classesPupils', component: ClassesComponent },
     { path: 'progress', component: CreateProgressComponent },
-    { path: 'clases', component: CreateClassComponent }
-
-
+    { path: 'classesMister', component: CreateClassComponent },
+    { path: 'pupils', component: PupilsComponent }
 ];
