@@ -30,9 +30,20 @@
             </section>
 
             <section class="row mb-3">
+               
                 <article class="col-md-6">
-                    <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                </article>
+                    <button 
+                    type="submit" 
+                     class="btn btn-primary w-100"
+                    [disabled]="loading">
+                    @if (loading) {
+                      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      Iniciando Sesion...
+                    } @else {
+                     Inciar sesion
+                    }
+                  </button>
+                    </article>
                 <article class="col-md-6">
                     <button type="button" class="btn btn-secondary w-100" (click)="irARegistro()">Registrarse</button>
                 </article>

@@ -1,8 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { User } from '../../../interfaces/user.interface';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiServiceService } from '../../../services/api-service.service';
+
+// Definimos la interfaz User que coincida con el servicio API
+interface UserData {
+  id?: string;
+  nombre: string;
+  apellidos: string;
+  email: string;
+  telefono: string;
+  foto: string;
+  rol: string;
+}
 
 @Component({
   selector: 'app-edit',
@@ -12,7 +23,7 @@ import { User } from '../../../interfaces/user.interface';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-  userData: User = {
+  userData: UserData = {
     nombre: '',
     apellidos: '',
     email: '',
@@ -21,20 +32,58 @@ export class EditComponent implements OnInit {
     rol: ''
   };
   errors: { [key: string]: string } = {};
+  loading = false;
+  isEntrenador = false;
+  entrenadorId: string = '';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private apiService: ApiServiceService
+  ) {}
 
   ngOnInit() {
+    const id = this.route.snapshot.params['id'];
+    if (id) {
+      this.isEntrenador = true;
+      this.entrenadorId = id;
+      this.cargarDatosEntrenador(id);
+    } else {
+      this.cargarDatosPerfil();
+    }
+  }
+
+  cargarDatosEntrenador(id: string) {
+    this.loading = true;
+    this.apiService.getUser(id).subscribe(
+      (user: any) => {
+        this.userData = {
+          id: user.id,
+          nombre: user.nombre,
+          apellidos: user.apellidos,
+          telefono: user.telefono,
+          email: user.email,
+          foto: user.foto,
+          rol: user.rol
+        };
+        this.loading = false;
+      },
+      (error) => {
+        alert('Error al cargar los datos del entrenador');
+        this.loading = false;
+      }
+    );
+  }
+
+  cargarDatosPerfil() {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
-      // Si no hay rol, obtenerlo del userType
       if (!this.userData.rol) {
         const userType = localStorage.getItem('userType');
         this.userData.rol = userType || 'No especificado';
       }
     } else {
-      // Si no hay datos, redirigir al perfil
       this.router.navigate(['/showProfile']);
     }
   }
@@ -95,18 +144,41 @@ export class EditComponent implements OnInit {
 
   guardarCambios() {
     if (this.validarFormulario()) {
-      // Guardar los cambios en localStorage
-      localStorage.setItem('userData', JSON.stringify(this.userData));
-      
-      // Redirigir al perfil y forzar recarga para actualizar la imagen
-      this.router.navigate(['/showProfile']).then(() => {
-        window.location.reload();
-      });
+      if (this.isEntrenador) {
+        this.loading = true;
+        const updateData = {
+          nombre: this.userData.nombre,
+          apellidos: this.userData.apellidos,
+          telefono: this.userData.telefono,
+          email: this.userData.email,
+          foto: this.userData.foto,
+          rol: this.userData.rol
+        };
+        
+        this.apiService.updateUser(this.entrenadorId, updateData).subscribe(
+          () => {
+            alert('Entrenador actualizado correctamente');
+            this.router.navigate(['/pupilsmanager']);
+          },
+          (error) => {
+            alert('Error al actualizar el entrenador');
+            this.loading = false;
+          }
+        );
+      } else {
+        localStorage.setItem('userData', JSON.stringify(this.userData));
+        this.router.navigate(['/showProfile']).then(() => {
+          window.location.reload();
+        });
+      }
     }
   }
 
   cancelar() {
-    // Volver al perfil sin guardar cambios
-    this.router.navigate(['/showProfile']);
+    if (this.isEntrenador) {
+      this.router.navigate(['/pupilsmanager']);
+    } else {
+      this.router.navigate(['/showProfile']);
+    }
   }
 }

@@ -28,7 +28,6 @@ import { PupilsComponent } from './views/pupils/pupils.component';
 import { CalendarioView } from './views/calendario/calendario.component';
 import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.component';
 
-
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'calendario', component: CalendarioView },
@@ -59,8 +58,6 @@ export const routes: Routes = [
     { path: 'pupilsmanager', component: PupilsManagerComponent },
     { path: 'classesMister', component: CreateClassComponent },
     { path: 'pupils', component: PupilsComponent }
-
-
 ];
 
 
