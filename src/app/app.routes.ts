@@ -31,7 +31,7 @@ import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.co
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'calendario', component: CalendarioView },
+    { path: 'calendar', component: CalendarioView },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },

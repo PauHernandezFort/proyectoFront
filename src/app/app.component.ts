@@ -5,8 +5,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
-import { CarrouselComponent } from './components/carrousel/carrousel.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+//import { CarrouselComponent } from './components/carrousel/carrousel.component';
+//import { CalendarComponent } from './components/calendar/calendar.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
