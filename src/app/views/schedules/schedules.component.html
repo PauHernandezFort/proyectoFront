@@ -1,4 +1,182 @@
-<div class="calendar-container">
-    <h1>Calendario de Clases</h1>
-    <app-calendar></app-calendar>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Horarios de Clases</title>
+</head>
+
+<body>
+  <h2 class="text-center fw-bold">Horario de Clases</h2>
+  <div class="container">
+    <div class="mt-4 mb-5">
+      <label for="horario" class="me-2">Seleccione una sala:</label>
+      <select id="horario" (change)="onChangeHall($event)">
+        <option value="horario1">Sala 1</option>
+        <option value="horario2">Sala 2</option>
+      </select>
+    </div>
+    @if(showTableHailFirst) {
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9:00 - 10:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Multifuncional</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>10:00 - 11:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Multifuncional</td>
+          <td>Multifuncional</td>
+        </tr>
+        <tr>
+          <td>11:00 - 12:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Sacos de boxeo</td>
+          <td>Multifuncional</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:00 - 13:00 h</td>
+          <td>Personales</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Defensa femenina</td>
+        </tr>
+        <tr>
+          <td>13:00 - 14:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:00 - 18:00 h</td>
+          <td>Jiu jitsu 3 a 6 años</td>
+          <td>Capoeira 3 a 6 años</td>
+          <td></td>
+          <td>Capoeira 3 a 6 años</td>
+          <td>Jiu jitsu 3 a 6 años</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:00 - 19:00 h</td>
+          <td>Jiu jitsu 7 a 11 años</td>
+          <td>Capoeira 7 a 11 años</td>
+          <td></td>
+          <td>Capoeira 7 a 11 años</td>
+          <td>Jiu jitsu 7 a 11 años</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    }@else {
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9:00 - 10:00 h</td>
+          <td>Chi Kung</td>
+          <td>Yoga</td>
+          <td>Chi Kung</td>
+          <td>Yoga</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>10:00 - 11:00 h</td>
+          <td></td>
+          <td>Ritmo latino</td>
+          <td></td>
+          <td>Ritmo latino</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:00 - 12:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:00 - 13:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>13:00 - 14:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:00 - 18:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:00 - 19:00 h</td>
+          <td>Jiu jitsu Avanzados</td>
+          <td>Capoeira Avanzados</td>
+          <td></td>
+          <td>Capoeira Avanzados</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    }
   </div>
+</body>
+
+</html>

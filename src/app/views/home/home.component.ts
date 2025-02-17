@@ -5,7 +5,7 @@ import { CardsComponent } from "../../components/cards/cards.component";
 
 @Component({
   selector: 'app-home',
-  imports: [CarrouselComponent, JumbotronComponent, CardsComponent],
+  imports: [CarrouselComponent, JumbotronComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
