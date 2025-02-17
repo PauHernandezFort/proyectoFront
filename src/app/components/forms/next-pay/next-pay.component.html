@@ -1,22 +1,23 @@
 <main>
+    <form class="login-form mt-4" [formGroup]="nextPay" (ngSubmit)="onSubmit()">
     <section class="row mb-3">
         <article class="col-md-8">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del alumno" required
+            <input type="text" class="form-control" id="nombre" formControlName="payName" placeholder="Nombre del alumno" required
                 aria-required="true" aria-describedby="nombre-ayuda">
             <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa el nombre del alumno que va a realizar el pago.</p>
         </article>
 
         <article class="col-md-8">
             <label for="fecha" class="form-label">Fecha</label>
-            <input type="date" class="form-control" id="fecha" name="fecha" required
+            <input type="date" class="form-control" id="fecha" formControlName="payDate" required
                 aria-required="true" aria-describedby="fecha-ayuda">
             <p id="fecha-ayuda" class="visually-hidden">Por favor, ingresa la fecha.</p>
         </article>
 
         <article class="col-md-8">
             <label for="pago" class="form-label">pago</label>
-            <input type="number" class="form-control" id="pago" name="pago" placeholder="Cantidad del pago" required
+            <input type="number" class="form-control" id="pago" formControlName="payMoney" placeholder="Cantidad del pago" required
                 aria-required="true" aria-describedby="pago-ayuda">
             <p id="pago-ayuda" class="visually-hidden">Por favor, ingresa el pago.</p>
         </article>
@@ -27,4 +28,5 @@
             <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de pago">Confirmar</button>
         </article>
     </section>
+</form>
 </main>
