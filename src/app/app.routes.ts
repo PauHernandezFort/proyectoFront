@@ -24,7 +24,9 @@ import { CalendarComponent } from './components/calendar/calendar.component';
 import { ClassesComponent } from './views/classes/classes.component';
 import { CreateProgressComponent } from './components/forms/create-progress/create-progress.component';
 import { CreateClassComponent } from './components/forms/create-class/create-class.component';
-
+import { PupilsComponent } from './views/pupils/pupils.component';
+import { CalendarioView } from './views/calendario/calendario.component';
+import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.component';
 
 
 export const routes: Routes = [
@@ -52,13 +54,13 @@ export const routes: Routes = [
     { path: 'editProfile', component: EditComponent },
     { path: 'showProfile', component: ShowProfileComponent },
     { path: 'calendar', component: CalendarComponent },
-    { path: 'classes', component: ClassesComponent },
+    { path: 'classesPupils', component: ClassesComponent },
     { path: 'progress', component: CreateProgressComponent },
-    { path: 'pupilsmanager', component: PupilsManagerComponent }
+    { path: 'pupilsmanager', component: PupilsManagerComponent },
+    { path: 'classesMister', component: CreateClassComponent },
+    { path: 'pupils', component: PupilsComponent }
 
 
 ];
 
-import { CalendarioView } from './views/calendario/calendario.component';
-import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.component';
 
