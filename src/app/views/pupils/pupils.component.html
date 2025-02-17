@@ -21,7 +21,19 @@
                     <td>+34 612 345 678</td>
                     <td>carlos.sanchez.com</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+                        <button class="btn btn-sm btn-danger me-2" 
+                                (click)="eliminarAlumno('1')"
+                                [disabled]="isLoading('1')">
+                            @if (isLoading('1')) {
+                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                Eliminando...
+                            } @else {
+                                <i class="bi bi-trash"></i> Eliminar
+                            }
+                        </button>
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '1']">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -33,7 +45,19 @@
                     <td>+34 687 654 321</td>
                     <td>carlosSanchez.com</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i>Eliminar</button>
+                        <button class="btn btn-sm btn-danger me-2"
+                                (click)="eliminarAlumno('2')"
+                                [disabled]="isLoading('2')">
+                            @if (isLoading('2')) {
+                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                Eliminando...
+                            } @else {
+                                <i class="bi bi-trash"></i> Eliminar
+                            }
+                        </button>
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '2']">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
                     </td>
                 </tr>
                 <tr>
@@ -45,10 +69,25 @@
                     <td>+34 698 765 432</td>
                     <td>carlos.sanchez.com</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+                        <button class="btn btn-sm btn-danger me-2"
+                                (click)="eliminarAlumno('3')"
+                                [disabled]="isLoading('3')">
+                            @if (isLoading('3')) {
+                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                                Eliminando...
+                            } @else {
+                                <i class="bi bi-trash"></i> Eliminar
+                            }
+                        </button>
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '3']">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
+        <button class="btn btn-sm btn-primary" routerLink="/crearAlumno">
+            <i class="bi bi-plus"></i> Crear Alumno
+        </button>
     </div>
 </div>

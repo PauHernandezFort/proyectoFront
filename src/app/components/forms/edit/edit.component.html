@@ -103,11 +103,23 @@
                     </div>
                 }
             </div>
-            <div class="profile-actions"> <button type="submit" class="btn btn-primary fw-bold px-4 py-2 shadow-sm save-button"
-                aria-label="Enviar formulario de contacto"  [disabled]="editForm.invalid" >
-                <i class="bi bi-pencil-square me-2"></i>Guardar Cambios
-            </button>
-                <button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+            <div class="profile-actions">
+                <button type="submit" 
+                        class="btn btn-primary fw-bold px-4 py-2 shadow-sm save-button"
+                        aria-label="Enviar formulario de contacto" 
+                        [disabled]="loading || editForm.invalid">
+                    @if (loading) {
+                        <span class="spinner-border spinner-border-sm me-2"></span>
+                        Guardando...
+                    } @else {
+                        <i class="bi bi-pencil-square me-2"></i>Guardar Cambios
+                    }
+                </button>
+                <button class="btn btn-danger" 
+                        (click)="cancelar()" 
+                        [disabled]="loading">
+                    Cancelar
+                </button>
             </div>
         </form>
       

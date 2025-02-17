@@ -1,42 +1,157 @@
-<form [formGroup]="createClass" (ngSubmit)="onSubmit()">
-    <article class="col-md-8">
-        <label for="nombre-clase" class="form-label">Nombre de la clase</label>
-        <input type="text" class="form-control" id="nombre-clase" formControlName="nameClass"
-            placeholder="Escribe el nombre de la clase">
-    </article>
+<div class="create-class-container">
+  <div class="form-wrapper">
+    <h2>Crear Nueva Clase</h2>
+    
+    @if (errorMessage) {
+    <div class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+    }
 
-    <article class="col-md-8">
-        <label for="nombre-profesor" class="form-label">Nombre del profesor</label>
-        <input type="text" class="form-control" id="nombre-profesor" formControlName="teacherName"
-            placeholder="Escribe el nombre del profesor">
-    </article>
+    <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="activity">Actividad</label>
+        <select 
+          id="activity"
+          formControlName="activity"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['activity'].errors }">
+          <option value="">Selecciona una actividad</option>
+          @for (activity of activities; track activity) {
+            <option [value]="activity">{{ activity }}</option>
+          }
+        </select>
+        @if (submitted && f['activity'].errors) {
+          <div class="invalid-feedback">
+            La actividad es requerida
+          </div>
+        }
+      </div>
 
-    <article class="col-md-8">
-        <label for="capacidad" class="form-label">Capacidad</label>
-        <input type="number" class="form-control" id="capacidad" formControlName="capacity"
-            placeholder="Escribe la capacidad">
-    </article>
+      <div class="form-group">
+        <label for="date">Fecha</label>
+        <input
+          type="date"
+          id="date"
+          formControlName="date"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['date'].errors }">
+        @if (submitted && f['date'].errors) {
+          <div class="invalid-feedback">
+            La fecha es requerida
+          </div>
+        }
+      </div>
 
-    <article>
-        <label for="informacion-clase" class="form-label">Información de la clase</label>
-        <textarea class="form-control" id="informacion-clase" formControlName="classInfo"
-            placeholder="Escribe la información de la clase"></textarea>
-    </article>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="startTime">Hora de inicio</label>
+          <input
+            type="time"
+            id="startTime"
+            formControlName="startTime"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['startTime'].errors }">
+          @if (submitted && f['startTime'].errors) {
+            <div class="invalid-feedback">
+              La hora de inicio es requerida
+            </div>
+          }
+        </div>
 
-    <article class="col-md-8">
-        <label for="fecha-clase" class="form-label">Fecha de la clase</label>
-        <input type="date" class="form-control" id="fecha-clase" formControlName="classDate">
-    </article>
+        <div class="form-group col-md-6">
+          <label for="endTime">Hora de fin</label>
+          <input
+            type="time"
+            id="endTime"
+            formControlName="endTime"
+            class="form-control"
+            [ngClass]="{ 'is-invalid': submitted && f['endTime'].errors }">
+          @if (submitted && f['endTime'].errors) {
+            <div class="invalid-feedback">
+              La hora de fin es requerida
+            </div>
+          }
+        </div>
+      </div>
 
-    <article class="col-md-8">
-        <label for="estado-clase" class="form-label">Estado de la clase</label>
-        <input type="text" class="form-control" id="estado-clase" formControlName="classStatus"
-            placeholder="Escribe el estado de la clase">
-    </article>
+      <div class="form-group">
+        <label for="maxParticipants">Número máximo de participantes</label>
+        <input
+          type="number"
+          id="maxParticipants"
+          formControlName="maxParticipants"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['maxParticipants'].errors }">
+        @if (submitted && f['maxParticipants'].errors) {
+          <div class="invalid-feedback">
+            @if (f['maxParticipants'].errors['required']) {
+              El número de participantes es requerido
+            } @else if (f['maxParticipants'].errors['min']) {
+              El número mínimo de participantes debe ser 1
+            }
+          </div>
+        }
+      </div>
 
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
-        </article>
-    </section>
-</form>
+      <div class="form-group">
+        <label for="level">Nivel</label>
+        <select
+          id="level"
+          formControlName="level"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['level'].errors }">
+          <option value="">Selecciona un nivel</option>
+          <option value="principiante">Principiante</option>
+          <option value="intermedio">Intermedio</option>
+          <option value="avanzado">Avanzado</option>
+        </select>
+        @if (submitted && f['level'].errors) {
+          <div class="invalid-feedback">
+            El nivel es requerido
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          class="form-control"
+          rows="3"
+          [ngClass]="{ 'is-invalid': submitted && f['description'].errors }">
+        </textarea>
+        @if (submitted && f['description'].errors) {
+          <div class="invalid-feedback">
+            @if (f['description'].errors['required']) {
+              La descripción es requerida
+            } @else if (f['description'].errors['minlength']) {
+              La descripción debe tener al menos 10 caracteres
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-buttons">
+        <button 
+          type="submit" 
+          class="btn btn-primary"
+          [disabled]="loading">
+          @if (loading) {
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Creando...
+          } @else {
+            Crear Clase
+          }
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="onReset()">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
