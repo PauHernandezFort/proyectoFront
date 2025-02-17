@@ -15,9 +15,9 @@ import { CommonModule } from '@angular/common';
   imports: [
     RouterOutlet,
     HeaderComponent,
-    CarrouselComponent,
+    //CarrouselComponent,
     FooterComponent,
-    CalendarComponent,
+    //CalendarComponent,
     HeaderUserComponent,
     HeaderMisterComponent,
     HeaderAdminComponent,
