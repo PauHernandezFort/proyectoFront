@@ -8,18 +8,23 @@ import { RouterLink } from '@angular/router';
   styleUrl: './pupils.component.css'
 })
 export class PupilsComponent {
-  loading = false;
+  loading: { [key: string]: boolean } = {};
 
-  eliminarAlumno() {
-    if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
-      this.loading = true;
+
+  eliminarAlumno(id: string) {
+    if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
+      this.loading[id] = true;
       
       // Simulamos la eliminación con un timeout
       setTimeout(() => {
-        this.loading = false;
-        alert('Usuario eliminado correctamente');
-        // Aquí iría la lógica para actualizar la lista de usuarios
+        this.loading[id] = false;
+        alert('Alumno eliminado correctamente');
       }, 1000);
     }
   }
+
+  isLoading(id: string): boolean {
+    return this.loading[id] || false;
+  }
 }
+

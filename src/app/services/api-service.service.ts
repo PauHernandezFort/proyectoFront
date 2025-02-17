@@ -80,4 +80,8 @@ export class ApiServiceService {
   updateUser(userId: string, userData: Partial<User>): Observable<User> {
     return this.http.put<User>(`${this.apiUrlUsers}/${userId}`, userData);
   }
+
+  createUser(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrlUsers}`, userData);
+  }
 }
