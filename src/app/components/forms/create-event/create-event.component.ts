@@ -18,6 +18,20 @@ export class CreateEventComponent {
     eventDirection: new FormControl('', Validators.required),
 });
 
+public ubication: string = "";
+
+public abrirGoogleMaps(): void{
+  const eventDirection = this.createEvent.value.eventDirection;
+  if(eventDirection){
+    const url: string = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventDirection)}`;
+    window.open(url, '_blank');
+  }else{
+    console.error('Elemento con id "direccion-evento" no encontrado');
+  }
+}
+
+
+
 constructor(public apiService: ApiServiceService) {}
 
 onSubmit() {
@@ -25,12 +39,11 @@ onSubmit() {
   console.log('Validez del formulario:', this.createEvent.valid);
   
   if (this.createEvent.valid) {
-    alert('Clase creada con éxito');
+    alert('Evento creado con éxito');
   } else {
     alert('Por favor, completa todos los campos correctamente');
   }
 }
-
 /*
 onSubmit2() {
   if(this.createEvent.valid){
