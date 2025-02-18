@@ -39,6 +39,7 @@ onSubmit() {
   console.log('Validez del formulario:', this.createEvent.valid);
   
   if (this.createEvent.valid) {
+    
     alert('Evento creado con éxito');
   } else {
     alert('Por favor, completa todos los campos correctamente');
