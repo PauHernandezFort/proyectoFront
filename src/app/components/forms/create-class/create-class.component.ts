@@ -155,7 +155,7 @@ export class CreateClassComponent {
 
   public usuarios: string = '';
   ngOnInit(): void {
-    this.apiService.getUsuario('http://52.2.202.15/api/usuarios').subscribe({
+    this.apiService.getUser('http://52.2.202.15/api/usuarios').subscribe({
       next: (response) => {
         console.log('Usuarios recibidos:', response);
         //this.usuarios = response.nombre;  // Asigna toda la respuesta (el array de usuarios) a la variable

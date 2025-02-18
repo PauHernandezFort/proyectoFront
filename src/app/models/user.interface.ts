@@ -11,10 +11,11 @@ export interface Member {
   "@type":          string;
   id:               number;
   nombre:           string;
-  apellido:         string;
+  apellidos:        string;
   email:            string;
   password:         string;
   telefono:         string;
+  photo:            string;
   rol:              string;
   fecha_registro:   Date;
   progresos:        any[];

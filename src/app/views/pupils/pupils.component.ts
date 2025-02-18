@@ -16,20 +16,34 @@ export class PupilsComponent {
   public urlPupils: string = "http://52.2.202.15/api/usuarios";
   public showPhotos: boolean = false;
   public members: Member[] = [];
+  public id: number = 0;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(private router: Router, public service: ApiService) { }
 
   public getResponsePupils(): void {
     this.service.getResponsePupils(this.urlPupils).subscribe((response) => {
       this.members = response.member;
-      console.log(this.members);
     });
   }
-  
+
+  ngOnInit(): void {
+    this.getResponsePupils();
+  }
+
+  public deletePupils(): void {
+    this.service.deletePupils(this.id).subscribe(response => {
+      console.log("Miembro eliminado:", response);
+      // Si necesitas actualizar la lista de miembros después de la eliminación
+      this.members = this.members.filter(member => member.id !== this.id);
+    });
+  }
+
   eliminarAlumno(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
       this.loading[id] = true;
-      
+      this.id = id;
+      this.deletePupils();
+
       // Simulamos la eliminación con un timeout
       setTimeout(() => {
         this.loading[id] = false;

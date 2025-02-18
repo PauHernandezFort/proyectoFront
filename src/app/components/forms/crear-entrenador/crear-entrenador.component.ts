@@ -37,7 +37,7 @@ export class CrearEntrenadorComponent {
   onSubmit() {
     if (this.validarFormulario()) {
       // Aquí iría la lógica para enviar los datos al servidor
-      this.apiService.createUser(this.entrenador).subscribe(
+      this.apiService.createPupil(this.entrenador).subscribe(
         (response) => {
           alert('Entrenador creado correctamente');
           // Redirigir a la lista de entrenadores

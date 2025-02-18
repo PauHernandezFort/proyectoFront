@@ -1,113 +1,96 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
-
-interface UserData {
-  id?: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  email: string;
-  foto: string;
-  rol: string;
-}
+import { Member } from '../../../models/user.interface';
 
 @Component({
+  imports: [ReactiveFormsModule],
   selector: 'app-edit-user',
-  standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-  userData: UserData = {
+
+  reactiveForm = new FormGroup({
+    name: new FormControl(''),
+    finish: new FormControl(''),
+  });
+
+  memberData = {
+    id: 0,
     nombre: '',
     apellidos: '',
     telefono: '',
     email: '',
-    foto: '',
+    photo: '',
     rol: 'alumno'
   };
+
   loading = false;
+  id: string = '';
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService
-  ) {}
+  ) { }
 
-  ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    if (this.id) {
       this.loading = true;
-      this.apiService.getUser(id).subscribe(
-        (user: any) => {
-          this.userData = {
-            id: user.id,
-            nombre: user.nombre,
-            apellidos: user.apellidos,
-            telefono: user.telefono,
-            email: user.email,
-            foto: user.foto,
-            rol: 'alumno'
-          };
-          this.loading = false;
-        },
-        (error) => {
-          console.error('Error al cargar alumno:', error);
-          alert('Error al cargar los datos del alumno');
-          this.loading = false;
-          this.router.navigate(['/pupils']);
-        }
-      );
+      this.apiService.getUser(this.id).subscribe(response => {
+        this.memberData = response; // Asegúrate de asignar los datos correctamente
+        this.loading = false;
+      }, error => {
+        console.error('Error al cargar los datos del usuario:', error);
+        alert('No se pudo cargar el usuario');
+        this.loading = false;
+        this.router.navigate(['/pupils']);
+      });
     }
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.userData.foto = e.target.result;
-      };
+      reader.onload = () => this.memberData.photo = reader.result as string;
       reader.readAsDataURL(file);
     }
   }
 
-  onSubmit() {
-     /*
-    if (this.validarFormulario()) {
-      this.loading = true;
-      this.apiService.updateUser(this.userData.id!, this.userData).subscribe(
-        (response) => {
-          alert('Alumno actualizado correctamente');
-          this.loading = false;
-          this.router.navigate(['/pupils']);
-        },
-        (error) => {
-          console.error('Error al actualizar alumno:', error);
-          alert('Error al actualizar el alumno');
-          this.loading = false;
-        }
-      );
-    }
-      */
+  updatePupils(): void {
+    this.loading = true;
+    this.apiService.updatePupils(this.memberData.id, this.memberData).subscribe(response => {
+      alert('Usuario actualizado correctamente');
+      this.router.navigate(['/pupils']);
+    }, error => {
+      console.error('Error al actualizar el usuario:', error);
+      alert('Error al actualizar el usuario');
+      this.loading = false;
+    });
   }
 
-  validarFormulario(): boolean {
-    if (!this.userData.nombre || !this.userData.apellidos) {
+  onSubmit(): void {
+    if (this.isFormValid()) {
+      this.updatePupils();
+    }
+  }
+
+  isFormValid(): boolean {
+    if (!this.memberData.nombre || !this.memberData.apellidos) {
       alert('El nombre y apellidos son obligatorios');
       return false;
     }
 
-    if (!this.userData.telefono || !/^[0-9]{9}$/.test(this.userData.telefono)) {
-      alert('Introduce un número de teléfono válido (9 dígitos)');
+    if (!this.memberData.telefono || !/^[0-9]{9}$/.test(this.memberData.telefono)) {
+      alert('Introduce un número de teléfono válido');
       return false;
     }
 
-    if (!this.userData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.userData.email)) {
+    if (!this.memberData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.memberData.email)) {
       alert('Introduce un correo electrónico válido');
       return false;
     }
@@ -115,7 +98,7 @@ export class EditUserComponent implements OnInit {
     return true;
   }
 
-  cancelar() {
+  cancelar(): void {
     this.router.navigate(['/pupils']);
   }
-} 
+}
