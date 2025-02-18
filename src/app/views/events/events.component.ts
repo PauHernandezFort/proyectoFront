@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { CreateEventComponent } from "../../components/forms/create-event/create-event.component";
 
 @Component({
   selector: 'app-events',
-  imports: [],
+  imports: [CreateEventComponent],
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
