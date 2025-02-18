@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 interface TrainerData {
   id?: string;
@@ -35,7 +35,7 @@ export class EditTrainerComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private apiService: ApiServiceService
+    private apiService: ApiService
   ) {}
 
   ngOnInit() {
@@ -76,23 +76,6 @@ export class EditTrainerComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    if (this.validarFormulario()) {
-      this.loading = true;
-      this.apiService.updateUser(this.trainerData.id!, this.trainerData).subscribe(
-        (response) => {
-          alert('Entrenador actualizado correctamente');
-          this.loading = false;
-          this.router.navigate(['/pupilsmanager']);
-        },
-        (error) => {
-          console.error('Error al actualizar entrenador:', error);
-          alert('Error al actualizar el entrenador');
-          this.loading = false;
-        }
-      );
-    }
-  }
 
   validarFormulario(): boolean {
     if (!this.trainerData.nombre || !this.trainerData.apellidos) {

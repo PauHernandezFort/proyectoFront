@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Clases } from '../../../interfaces/user.interface';
 
 interface ApiError {
   message: string;
@@ -15,24 +16,17 @@ interface ApiError {
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
-export class CreateClassComponent implements OnInit {
+export class CreateClassComponent  {
   classForm: FormGroup;
   loading = false;
   submitted = false;
   errorMessage = '';
-
-  activities = [
-    'MMA',
-    'Capoeira',
-    'Jiu-Jitsu',
-    'Saco de Boxeo',
-    'Defensa Femenina',
-    'Chi-Kung'
-  ];
+  public clases: Clases[] = [];
+  activities = ['Boxeo', 'Kickboxing', 'MMA', 'Muay Thai']; // Lista de actividades disponibles
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiServiceService,
+    private service: ApiService,
     private router: Router
   ) {
     this.classForm = this.formBuilder.group({
@@ -46,33 +40,37 @@ export class CreateClassComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getResponsePupils();
+  }
 
-  // Getter para fácil acceso a los campos del formulario
-  get f() { return this.classForm.controls; }
+  public getResponsePupils(): void {
+    this.service.getResponsePupils("http://52.2.202.15/api/clases").subscribe((response) => {
+      this.clases = response.clases;
+    });
+  }
 
   onSubmit() {
     this.submitted = true;
+    if (this.classForm.valid) {
+      this.loading = true;
+      
+      const nuevaClase: Clases = {
+        nombre: this.classForm.value.activity,
+        descripcion: this.classForm.value.description,
+        fecha: new Date(this.classForm.value.date),
+        capacidad: this.classForm.value.maxParticipants,
+        estado: 'activa',
+        id_entrenador: 1,
+        ubicacion: 'Gimnasio Principal'
+      };
 
-    if (this.classForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    const classData = {
-      ...this.classForm.value,
-      dateTime: `${this.f['date'].value}T${this.f['startTime'].value}`
-    };
-
-    this.apiService.createClass(classData).subscribe({
-      next: () => {
-        this.router.navigate(['/calendar']);
-      },
-      error: (error: ApiError) => {
-        this.errorMessage = error.message || 'Ha ocurrido un error al crear la clase';
+      this.service.createClase(nuevaClase).subscribe(() => {
+        alert('Clase creada exitosamente');
         this.loading = false;
-      }
-    });
+        this.router.navigate(['/clases']);
+      });
+    }
   }
 
   onReset() {

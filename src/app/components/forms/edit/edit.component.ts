@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 // Definimos la interfaz User que coincida con el servicio API
 interface UserData {
@@ -22,7 +22,7 @@ interface UserData {
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   userData: UserData = {
     nombre: '',
     apellidos: '',
@@ -39,41 +39,10 @@ export class EditComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private apiService: ApiServiceService
+    private apiService: ApiService
   ) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.isEntrenador = true;
-      this.entrenadorId = id;
-      this.cargarDatosEntrenador(id);
-    } else {
-      this.cargarDatosPerfil();
-    }
-  }
 
-  cargarDatosEntrenador(id: string) {
-    this.loading = true;
-    this.apiService.getUser(id).subscribe(
-      (user: any) => {
-        this.userData = {
-          id: user.id,
-          nombre: user.nombre,
-          apellidos: user.apellidos,
-          telefono: user.telefono,
-          email: user.email,
-          foto: user.foto,
-          rol: user.rol
-        };
-        this.loading = false;
-      },
-      (error) => {
-        alert('Error al cargar los datos del entrenador');
-        this.loading = false;
-      }
-    );
-  }
 
   cargarDatosPerfil() {
     const userDataString = localStorage.getItem('userData');
@@ -155,16 +124,6 @@ export class EditComponent implements OnInit {
           rol: this.userData.rol
         };
         
-        this.apiService.updateUser(this.entrenadorId, updateData).subscribe(
-          () => {
-            alert('Entrenador actualizado correctamente');
-            this.router.navigate(['/pupilsmanager']);
-          },
-          (error) => {
-            alert('Error al actualizar el entrenador');
-            this.loading = false;
-          }
-        );
       } else {
         localStorage.setItem('userData', JSON.stringify(this.userData));
         this.router.navigate(['/showProfile']).then(() => {

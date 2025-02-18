@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 @Component({
   selector: 'app-create-event',
@@ -32,7 +32,7 @@ public abrirGoogleMaps(): void{
 
 
 
-constructor(public apiService: ApiServiceService) {}
+constructor(public apiService: ApiService) {}
 
 onSubmit() {
   console.log('Formulario enviado');

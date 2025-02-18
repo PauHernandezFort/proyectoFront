@@ -1,87 +1,43 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-//falta importar el modulo de la interfaz
-
-interface ClassData {
-  activity: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  maxParticipants: number;
-  description: string;
-  level: string;
-}
-
-export interface User {
-  id: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  email: string;
-  foto: string;
-}
-
+import { Member } from '../interfaces/user.interface';
+import { Clases } from '../interfaces/user.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiServiceService {
-  private apiUrlClass = 'http://localhost:3000/api/classes';
-  private apiUrlUsers = 'http://52.2.202.15/api/usuarios'; // URL para usuarios
+export class ApiService {
+  private apiUrlUsers = 'http://localhost:3000/api/users';
 
-  constructor(public http: HttpClient) { }
+  private apiUrlClase = 'http://52.2.202.15/api/clases'
 
-  /*metodos para hacer peticiones a la API*
-  
-  public getResponse(url: string): Observable<Response> {
-    return this.http.get<Response>(url);
-    }
+  constructor(public http: HttpClient) {}
 
-    
-*/
-  /*
-  private apiUrl = 'aquí pondremos la url de la API';
-  createClass(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
-  }
-  
-  private apiUrlEvents: string = 'aqui pondremos la url de la peticion de la apli'
-  createEvent(data: any): Observable<any> {
-    return this.http.post(this.apiUrlEvents, data);
-  
-  
-  }
-  
-  private apiUrlEnroll: string = 'aqui pondremos la url de la peticion de la apli';
-  
-  Enrolls(data: any): Observable<any> {
-    return this.http.post(this.apiUrlEnroll, data);
-  }
-  */
-
-
-  private apiUrlMoney: string = 'aqui pondremos la url de la peticion de la apli';
-  createMoney(data: any): Observable<any> {
-    return this.http.post(this.apiUrlMoney, data);
+  getResponsePupils(url: string): Observable<any> {
+    return this.http.get<any>(url);
   }
 
-  createClass(data: ClassData): Observable<any> {
-    return this.http.post(this.apiUrlClass, data);
-  }
-
-  deleteUser(userId: string): Observable<any> {
+  deleteUser(userId: number): Observable<any> {
     return this.http.delete(`${this.apiUrlUsers}/${userId}`);
   }
 
-  getUser(userId: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrlUsers}/${userId}`);
+  getUser(userId: number): Observable<Member> {
+    return this.http.get<Member>(`${this.apiUrlUsers}/${userId}`);
   }
 
-  updateUser(userId: string, userData: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrlUsers}/${userId}`, userData);
+  updateUser(userId: number, userData: Partial<Member>): Observable<Member> {
+    return this.http.put<Member>(`${this.apiUrlUsers}/${userId}`, userData);
   }
 
-  createUser(userData: any): Observable<any> {
+  createUser(userData: Member): Observable<any> {
     return this.http.post(`${this.apiUrlUsers}`, userData);
+  }
+
+  getResponseClase(url: string): Observable<any> {
+    return this.http.get<any>(url);
+  }
+
+  createClase(claseData: Clases): Observable<any> {
+    return this.http.post(`${this.apiUrlClase}`, claseData);
   }
 }

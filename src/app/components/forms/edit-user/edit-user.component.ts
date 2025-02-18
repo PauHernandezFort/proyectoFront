@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 interface UserData {
   id?: string;
@@ -17,7 +17,7 @@ interface UserData {
 @Component({
   selector: 'app-edit-user',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
+  imports: [ CommonModule, FormsModule],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
@@ -35,7 +35,7 @@ export class EditUserComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private apiService: ApiServiceService
+    private apiService: ApiService
   ) {}
 
   ngOnInit() {
@@ -76,7 +76,7 @@ export class EditUserComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  /*onSubmit() {
     if (this.validarFormulario()) {
       this.loading = true;
       this.apiService.updateUser(this.userData.id!, this.userData).subscribe(
@@ -93,7 +93,7 @@ export class EditUserComponent implements OnInit {
       );
     }
   }
-
+*/
   validarFormulario(): boolean {
     if (!this.userData.nombre || !this.userData.apellidos) {
       alert('El nombre y apellidos son obligatorios');

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 @Component({
   selector: 'app-crear-entrenador',
@@ -21,7 +21,7 @@ export class CrearEntrenadorComponent {
     rol: 'entrenador'
   };
 
-  constructor(private apiService: ApiServiceService) {}
+  constructor(private apiService: ApiService) {}
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -34,7 +34,7 @@ export class CrearEntrenadorComponent {
     }
   }
 
-  onSubmit() {
+ /* onSubmit() {
     if (this.validarFormulario()) {
       // Aquí iría la lógica para enviar los datos al servidor
       this.apiService.createUser(this.entrenador).subscribe(
@@ -49,7 +49,7 @@ export class CrearEntrenadorComponent {
         }
       );
     }
-  }
+  }*/
 
   validarFormulario(): boolean {
     if (!this.entrenador.nombre || !this.entrenador.apellidos) {
