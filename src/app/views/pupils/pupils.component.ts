@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
-import { Member } from '../../interfaces/user.interface';
+import { Member } from '../../models/user.interface';
 
 @Component({
   selector: 'app-pupils',
@@ -20,9 +20,9 @@ export class PupilsComponent {
   constructor(private router: Router, public service: ApiService) {}
 
   public getResponsePupils(): void {
-
     this.service.getResponsePupils(this.urlPupils).subscribe((response) => {
       this.members = response.member;
+      console.log(this.members);
     });
   }
   

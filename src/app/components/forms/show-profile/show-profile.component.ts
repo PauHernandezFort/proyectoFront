@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Pupils, Member } from '../../../interfaces/user.interface';
+import { Pupils, Member } from '../../../models/user.interface';
 import { ImageModalComponent } from '../../image-modal/image-modal.component';
 import { RouterLink } from '@angular/router';
 

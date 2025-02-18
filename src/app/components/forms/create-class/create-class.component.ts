@@ -15,7 +15,9 @@ interface ApiError {
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
-export class CreateClassComponent implements OnInit {
+export class CreateClassComponent {
+
+  /*
   classForm: FormGroup;
   loading = false;
   submitted = false;
@@ -79,5 +81,6 @@ export class CreateClassComponent implements OnInit {
     this.submitted = false;
     this.classForm.reset();
   }
+    */
 }
 

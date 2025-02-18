@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Member } from '../../../interfaces/user.interface';
+import { Member } from '../../../models/user.interface';
 import { ApiService } from '../../../service/api.service';
 
 @Component({
@@ -12,7 +12,10 @@ import { ApiService } from '../../../service/api.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
+
+  
+  /*
   public pupil: Member = {
     "@id": "",
     "@type": "",
@@ -25,16 +28,6 @@ export class EditComponent implements OnInit {
 
   constructor(private route: Router, service: ApiService) {}
 
-  ngOnInit() {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      this.isEntrenador = true;
-      this.entrenadorId = id;
-      this.cargarDatosEntrenador(id);
-    } else {
-      this.cargarDatosPerfil();
-    }
-  }
 
   cargarDatosEntrenador(id: string) {
     this.loading = true;
@@ -176,4 +169,5 @@ export class EditComponent implements OnInit {
       this.router.navigate(['/showProfile']);
     }
   }
+    */
 }

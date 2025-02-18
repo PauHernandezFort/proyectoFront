@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Member } from '../../../interfaces/user.interface';
+import { Member } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-sign-up',

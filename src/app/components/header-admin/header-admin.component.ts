@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Pupils } from '../../interfaces/user.interface';
+import { Pupils } from '../../models/user.interface';
 
 @Component({
   selector: 'app-header-admin',
