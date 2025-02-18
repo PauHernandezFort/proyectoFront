@@ -1,33 +1,15 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Clases } from '../interfaces/addClass.interface';
 import { Pupils } from '../models/user.interface';
-
-interface ClassData {
-  activity: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  maxParticipants: number;
-  description: string;
-  level: string;
-}
-
-export interface User {
-  id: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  email: string;
-  foto: string;
-}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrlClass = 'http://localhost:3000/api/classes';
-  private apiUrlUsers = 'http://localhost:3000/api/users'; // URL para usuarios
+  private apiUsers= 'http://52.2.202.15/api/users';
+  private apiUrl = 'http://52.2.202.15/api/clases';
 
   constructor(public http: HttpClient) { }
 
@@ -35,20 +17,27 @@ export class ApiService {
     return this.http.get<Pupils>(url);
   }
 
+  createClass(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Clases>(this.apiUrl, data, { headers });
+  }
+  getClases(options: { headers: HttpHeaders }): Observable<any> {
+    return this.http.get(this.apiUrl, options); // Aquí no necesitas cambiar nada, solo asegúrate de que los headers estén correctos
+  }
 
+  public getUsuario(url: string): Observable<ApiService> {
+    return this.http.get<ApiService>(url);
+  }
+
+
+  private apiUrlEvents: string = 'http://52.2.202.15/api/clases';
+  createEvent(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.http.post<Clases>(this.apiUrlEvents, data, { headers });
+
+
+  }
   /*
-  private apiUrl = 'aquí pondremos la url de la API';
-  createClass(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
-  }
-  */
-  private apiUrlEvents: string = 'aqui pondremos la url de la peticion de la apli'
-  createEvent(data: any): Observable<any> {
-    return this.http.post(this.apiUrlEvents, data);
-  
-  
-  }
-  
   private apiUrlEnroll: string = 'aqui pondremos la url de la peticion de la apli';
   
   Enrolls(data: any): Observable<any> {
@@ -65,20 +54,21 @@ export class ApiService {
   createClass(data: ClassData): Observable<any> {
     return this.http.post(this.apiUrlClass, data);
   }
+*/
 
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrlUsers}/${userId}`);
+    return this.http.delete(`${this.apiUsers}/${userId}`);
   }
 
-  getUser(userId: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrlUsers}/${userId}`);
+  getUser(userId: string): Observable<ApiService> {
+    return this.http.get<ApiService>(`${this.apiUsers}/${userId}`);
   }
 
-  updateUser(userId: string, userData: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.apiUrlUsers}/${userId}`, userData);
+  updateUser(userId: string, userData: Partial<ApiService>): Observable<ApiService> {
+    return this.http.put<ApiService>(`${this.apiUsers}/${userId}`, userData);
   }
 
   createUser(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrlUsers}`, userData);
+    return this.http.post(`${this.apiUsers}`, userData);
   }
 }

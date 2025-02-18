@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../../service/api.service';
+import { ApiService } from '../../../services/api-service.service';
+import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-event',
@@ -11,55 +12,91 @@ import { ApiService } from '../../../service/api.service';
 })
 export class CreateEventComponent {
   createEvent = new FormGroup({
-    eventName: new FormControl('', Validators.required),
-    eventInfo: new FormControl('', Validators.required),
-    eventDate: new FormControl('', Validators.required),
-    eventEstate: new FormControl('', Validators.required),
-    eventDirection: new FormControl('', Validators.required),
-});
+    nombre: new FormControl('', Validators.required),
+    capacidad: new FormControl('', Validators.required),
+    estado: new FormControl('', Validators.required),
+    fecha: new FormControl('', Validators.required),
+    descripcion: new FormControl('', Validators.required),
+    ubicacion: new FormControl('', Validators.required),
+  });
 
-public ubication: string = "";
+  public ubication: string = "";
 
-public abrirGoogleMaps(): void{
-  const eventDirection = this.createEvent.value.eventDirection;
-  if(eventDirection){
-    const url: string = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventDirection)}`;
-    window.open(url, '_blank');
-  }else{
-    console.error('Elemento con id "direccion-evento" no encontrado');
+  public abrirGoogleMaps(): void {
+    const eventDirection = this.createEvent.value.ubicacion;
+    if (eventDirection) {
+      const url: string = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventDirection)}`;
+      window.open(url, '_blank');
+    } else {
+      console.error('Elemento con id "direccion-evento" no encontrado');
+    }
   }
-}
 
-constructor(public apiService: ApiService) {}
+  constructor(public apiService: ApiService) { }
 
-onSubmit() {
-  console.log('Formulario enviado');
-  console.log('Validez del formulario:', this.createEvent.valid);
-  
-  if (this.createEvent.valid) {
-    
-    alert('Evento creado con éxito');
-  } else {
-    alert('Por favor, completa todos los campos correctamente');
+  onSubmit() {
+    if (this.createEvent.valid) {
+      const formData = this.createEvent.value;
+
+      // Transformar formData a formato LD-JSON
+
+
+      const ldJsonData = {
+        "nombre": formData.nombre,
+        "capacidad": formData.capacidad,
+        "estado": formData.estado,
+        "fecha": formData.fecha,
+        "descripcion": formData.descripcion,
+        "ubicacion": formData.ubicacion
+      };
+
+      // Mostrar los datos transformados en formato LD-JSON
+      console.log('Datos transformados a LD-JSON:', JSON.stringify(ldJsonData));
+
+      // Configurar los encabezados para LD-JSON
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/ld+json'
+      });
+
+      // Enviar los datos al backend con los encabezados correctos
+      this.apiService.createClass(ldJsonData, { headers }).subscribe({
+        next: (response) => {
+          console.log('Clase creada con éxito:', response);
+          alert('Clase creada con éxito');
+          this.createEvent.reset();
+        },
+        error: (error) => {
+          console.error('Error al crear la clase:', error);
+          console.log('Detalles del error:', {
+            message: error.message,
+            status: error.status,
+            url: error.url
+          });
+          alert('Hubo un error al crear la clase');
+        }
+      });
+    } else {
+      alert('Por favor, completa todos los campos correctamente');
+    }
+
   }
-}
-/*
-onSubmit2() {
-  if(this.createEvent.valid){
-    const formData = this.createEvent.value;
-    this.apiService.createEvent(formData).subscribe({
-      next: (response) => {
-        console.log('Evento creado:', response);
-        alert('Evento creado con éxito');
-      },
-      error: (error) => {
-        console.error('Error al crear el evento:', error);
-        alert('Hubo un error al crear el evento');
-      }
-    });
+  /*
+  onSubmit2() {
+    if(this.createEvent.valid){
+      const formData = this.createEvent.value;
+      this.apiService.createEvent(formData).subscribe({
+        next: (response) => {
+          console.log('Evento creado:', response);
+          alert('Evento creado con éxito');
+        },
+        error: (error) => {
+          console.error('Error al crear el evento:', error);
+          alert('Hubo un error al crear el evento');
+        }
+      });
+    }
   }
-}
-*/
+  */
 }
 
 

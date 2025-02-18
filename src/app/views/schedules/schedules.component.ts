@@ -45,6 +45,6 @@ export class schedulesComponent {
     const claseEncontrada = this.artesMarciales.find(clase => clase.dia === dia && clase.horario === horario);
     return claseEncontrada ? claseEncontrada.name : null;
   }
-
+  
 
 }
