@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Clases } from '../interfaces/addClass.interface';
 //falta importar el modulo de la interfaz
 
 @Injectable({
@@ -18,12 +19,25 @@ export class ApiServiceService {
 
     
 */
-  /*
-  private apiUrl = 'aquí pondremos la url de la API';
-  createClass(data: any): Observable<any> {
-    return this.http.post(this.apiUrl, data);
-  }
   
+private apiUrl = 'http://52.2.202.15/api/clases';  // URL de tu API
+
+  createClass(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
+    // Configurar los encabezados para LD-JSON
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/ld+json'
+    });
+
+    // Realizar la solicitud POST con los encabezados correctos
+    return this.http.post<Clases>(this.apiUrl, data, { headers });
+  }
+}
+
+  
+  
+
+  
+  /*
   private apiUrlEvents: string = 'aqui pondremos la url de la peticion de la apli'
   createEvent(data: any): Observable<any> {
     return this.http.post(this.apiUrlEvents, data);
@@ -39,10 +53,10 @@ export class ApiServiceService {
   */
 
 
-  private apiUrlMoney: string = 'aqui pondremos la url de la peticion de la apli';
+  /*private apiUrlMoney: string = 'aqui pondremos la url de la peticion de la apli';
   createMoney(data: any): Observable<any> {
     return this.http.post(this.apiUrlMoney, data);
   }
+*/
 
 
-}

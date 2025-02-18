@@ -31,7 +31,13 @@
           <tr>
             <td><strong>{{ horario }}</strong></td> 
             @for (dia of dias(); track dia) {
-                <td>{{artesMarciales[0].name}}</td>
+              }
+          </tr>
+        }
+        @for(arteMarical of artesMarciales; track arteMarical) {
+          <tr>
+            <td><strong>{{ arteMarical }}</strong></td> 
+            @for (dia of dias(); track dia) {
               }
           </tr>
         }
