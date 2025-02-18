@@ -1,0 +1,41 @@
+<form [formGroup]="createMartialArt" (ngSubmit)="submit()">
+    <article class="col-md-8">
+        <label for="nombre-clase" class="form-label">Nombre de la arte marcial</label>
+        <input type="text" class="form-control" id="nombre-clase" formControlName="nameMartialArt"
+            placeholder="Escribe el nombre del arte marcial">
+    </article>
+
+    <article class="col-md-8">
+        <label for="nombre-profesor" class="form-label">dia del arte marcial</label>
+        <input type="text" class="form-control" id="nombre-profesor" formControlName="diaMartialArt"
+            placeholder="Escribe el día del arte marcial">
+    </article>
+
+    <article class="col-md-8">
+        <label for="horarioMartialArt" class="form-label">Hora del arte marcial</label>
+        <select class="form-control" id="horarioMartialArt" formControlName="horarioMartialArt">
+            <option value="" disabled selected>Selecciona una hora</option>
+            <option value="08:00">08:00 AM</option>
+            <option value="09:00">09:00 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="18:00">06:00 PM</option>
+            <option value="19:00">07:00 PM</option>
+            <option value="20:00">08:00 PM</option>
+            <option value="21:00">09:00 PM</option>
+            <option value="22:00">10:00 PM</option>
+        </select>
+    </article>
+
+    <section class="row mb-3 text-center">
+        <article>
+            <button type="submit" class="btn btn-primary" (click)="toggleCreateMartialArt()">Confirmar</button>
+        </article>
+    </section>
+</form>

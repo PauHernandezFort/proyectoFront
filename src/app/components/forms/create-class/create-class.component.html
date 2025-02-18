@@ -1,36 +1,36 @@
 <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
     <article class="col-md-8">
         <label for="nombre-clase" class="form-label">Nombre de la clase</label>
-        <input type="text" class="form-control" id="nombre-clase" formControlName="nameClass"
+        <input type="text" class="form-control" id="nombre-clase" formControlName="nombre"
             placeholder="Escribe el nombre de la clase">
     </article>
 
     <article class="col-md-8">
         <label for="nombre-profesor" class="form-label">Nombre del profesor</label>
-        <input type="text" class="form-control" id="nombre-profesor" formControlName="teacherName"
+        <input type="text" class="form-control" id="nombre-profesor" formControlName="id_entrenador"
             placeholder="Escribe el nombre del profesor">
     </article>
 
     <article class="col-md-8">
         <label for="capacidad" class="form-label">Capacidad</label>
-        <input type="number" class="form-control" id="capacidad" formControlName="capacity"
+        <input type="number" class="form-control" id="capacidad" formControlName="capacidad"
             placeholder="Escribe la capacidad">
     </article>
 
     <article>
         <label for="informacion-clase" class="form-label">Información de la clase</label>
-        <textarea class="form-control" id="informacion-clase" formControlName="classInfo"
+        <textarea class="form-control" id="informacion-clase" formControlName="descripcion"
             placeholder="Escribe la información de la clase"></textarea>
     </article>
 
     <article class="col-md-8">
         <label for="fecha-clase" class="form-label">Fecha de la clase</label>
-        <input type="date" class="form-control" id="fecha-clase" formControlName="classDate">
+        <input type="date" class="form-control" id="fecha-clase" formControlName="fecha">
     </article>
 
     <article class="col-md-8">
         <label for="estado-clase" class="form-label">Estado de la clase</label>
-        <input type="text" class="form-control" id="estado-clase" formControlName="classStatus"
+        <input type="text" class="form-control" id="estado-clase" formControlName="estado"
             placeholder="Escribe el estado de la clase">
     </article>
 
