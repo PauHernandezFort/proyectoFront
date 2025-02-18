@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
+import { ApiService } from '../../services/api-service.service';
+import { Member } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-pupils',
@@ -9,10 +11,22 @@ import { RouterLink, Router } from '@angular/router';
 })
 export class PupilsComponent {
   loading: { [key: string]: boolean } = {};
+  public photo: string = "";
+  public title: string = "";
+  public urlPupils: string = "http://52.2.202.15/api/usuarios";
+  public showPhotos: boolean = false;
+  public members: Member[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public service: ApiService) {}
 
-  eliminarAlumno(id: string) {
+  public getResponsePupils(): void {
+
+    this.service.getResponsePupils(this.urlPupils).subscribe((response) => {
+      this.members = response.member;
+    });
+  }
+  
+  eliminarAlumno(id: number) {
     if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
       this.loading[id] = true;
       
@@ -24,7 +38,7 @@ export class PupilsComponent {
     }
   }
 
-  isLoading(id: string): boolean {
+  isLoading(id: number): boolean {
     return this.loading[id] || false;
   }
 

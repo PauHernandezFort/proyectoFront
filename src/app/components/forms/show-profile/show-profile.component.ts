@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { User } from '../../../interfaces/user.interface';
+import { Pupils } from '../../../interfaces/user.interface';
 import { ImageModalComponent } from '../../image-modal/image-modal.component';
 import { RouterLink } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./show-profile.component.css']
 })
 export class ShowProfileComponent implements OnInit {
-  userData: User | null = null;
+  userData: Pupils | null = null;
   selectedImage: any = null;
 
   constructor(private router: Router) {}

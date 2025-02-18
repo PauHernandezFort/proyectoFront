@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ interface ApiError {
   styleUrls: ['./create-class.component.css']
 })
 export class CreateClassComponent implements OnInit {
-  createClass: FormGroup;
+  classForm: FormGroup;
   loading = false;
   submitted = false;
   errorMessage = '';
@@ -32,10 +32,10 @@ export class CreateClassComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private apiService: ApiServiceService,
+    private apiService: ApiService,
     private router: Router
   ) {
-    this.createClass = this.formBuilder.group({
+    this.classForm = this.formBuilder.group({
       activity: ['', Validators.required],
       date: ['', Validators.required],
       startTime: ['', Validators.required],
@@ -49,18 +49,18 @@ export class CreateClassComponent implements OnInit {
   ngOnInit(): void { }
 
   // Getter para fácil acceso a los campos del formulario
-  get f() { return this.createClass.controls; }
+  get f() { return this.classForm.controls; }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.createClass.invalid) {
+    if (this.classForm.invalid) {
       return;
     }
 
     this.loading = true;
     const classData = {
-      ...this.createClass.value,
+      ...this.classForm.value,
       dateTime: `${this.f['date'].value}T${this.f['startTime'].value}`
     };
 
@@ -77,7 +77,7 @@ export class CreateClassComponent implements OnInit {
   
   onReset() {
     this.submitted = false;
-    this.createClass.reset();
+    this.classForm.reset();
   }
 }
 

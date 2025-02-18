@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { User } from '../../../interfaces/user.interface';
+import { Member } from '../../../interfaces/user.interface';
 
 @Component({
   selector: 'app-sign-up',
@@ -82,9 +82,9 @@ export class SignUpComponent {
     }
 
     if (isValid) {
-      const userData: User = {
+      const userData: Member = {
         nombre: this.nombre,
-        apellidos: this.apellidos,
+        apellido: this.apellidos,
         email: this.correo,
         telefono: this.telefono,
         foto: this.fotoBase64 || 'assets/images/default-profile.png', // Usar la foto subida o la default

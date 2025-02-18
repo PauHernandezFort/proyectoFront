@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-//falta importar el modulo de la interfaz
+import { Pupils } from '../interfaces/user.interface';
 
 interface ClassData {
   activity: string;
@@ -25,20 +25,17 @@ export interface User {
 @Injectable({
   providedIn: 'root'
 })
-export class ApiServiceService {
+export class ApiService {
   private apiUrlClass = 'http://localhost:3000/api/classes';
   private apiUrlUsers = 'http://localhost:3000/api/users'; // URL para usuarios
 
   constructor(public http: HttpClient) { }
 
-  /*metodos para hacer peticiones a la API*
-  
-  public getResponse(url: string): Observable<Response> {
-    return this.http.get<Response>(url);
-    }
+  public getResponsePupils(url: string): Observable<Pupils> {
+    return this.http.get<Pupils>(url);
+  }
 
-    
-*/
+
   /*
   private apiUrl = 'aquí pondremos la url de la API';
   createClass(data: any): Observable<any> {

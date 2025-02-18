@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { User } from '../../interfaces/user.interface';
+import { Pupils } from '../../interfaces/user.interface';
 import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   styleUrl: './header-user.component.css'
 })
 export class HeaderUserComponent implements OnInit {
-  userData: User | null = null;
+  userData: Pupils | null = null;
 
   constructor(private router: Router) {}
 

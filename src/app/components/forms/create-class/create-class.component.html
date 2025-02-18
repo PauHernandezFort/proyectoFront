@@ -1,19 +1,14 @@
-<form [formGroup]="createClass" (ngSubmit)="onSubmit()">
-    <article class="col-md-8">
-        <label for="nombre-clase" class="form-label">Nombre de la clase</label>
-        <input type="text" class="form-control" id="nombre-clase" formControlName="nameClass"
-            placeholder="Escribe el nombre de la clase">
-    </article>
-    <div class="create-class-container">
-        <div class="form-wrapper">
-            <h2>Crear Nueva Clase</h2>
+<div class="create-class-container">
+    <div class="form-wrapper">
+        <h2>Crear Nueva Clase</h2>
 
-            @if (errorMessage) {
-            <div class="alert alert-danger">
-                {{ errorMessage }}
-            </div>
-            }
+        @if (errorMessage) {
+        <div class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+        }
 
+        <form [formGroup]="classForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
                 <label for="activity">Actividad</label>
                 <select id="activity" formControlName="activity" class="form-control"
@@ -99,7 +94,8 @@
             <div class="form-group">
                 <label for="description">Descripción</label>
                 <textarea id="description" formControlName="description" class="form-control" rows="3"
-                    [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+                    [ngClass]="{ 'is-invalid': submitted && f['description'].errors }">
+        </textarea>
                 @if (submitted && f['description'].errors) {
                 <div class="invalid-feedback">
                     @if (f['description'].errors['required']) {
@@ -124,6 +120,6 @@
                     Limpiar
                 </button>
             </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>
