@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService} from '../../../services/api-service.service';
+import { ApiService } from '../../../services/api-service.service';
 
 interface TrainerData {
   id?: string;
@@ -36,7 +36,7 @@ export class EditTrainerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private apiService: ApiService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
@@ -76,7 +76,9 @@ export class EditTrainerComponent implements OnInit {
     }
   }
 
+
   onSubmit() {
+    /*
     if (this.validarFormulario()) {
       this.loading = true;
       this.apiService.updateUser(this.trainerData.id!, this.trainerData).subscribe(
@@ -92,6 +94,7 @@ export class EditTrainerComponent implements OnInit {
         }
       );
     }
+      */
   }
 
   validarFormulario(): boolean {

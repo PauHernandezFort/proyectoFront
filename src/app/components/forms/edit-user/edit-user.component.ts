@@ -77,6 +77,7 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit() {
+     /*
     if (this.validarFormulario()) {
       this.loading = true;
       this.apiService.updateUser(this.userData.id!, this.userData).subscribe(
@@ -92,6 +93,7 @@ export class EditUserComponent implements OnInit {
         }
       );
     }
+      */
   }
 
   validarFormulario(): boolean {
