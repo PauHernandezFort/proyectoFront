@@ -27,7 +27,7 @@ export interface User {
 })
 export class ApiServiceService {
   private apiUrlClass = 'http://localhost:3000/api/classes';
-  private apiUrlUsers = 'http://localhost:3000/api/users'; // URL para usuarios
+  private apiUrlUsers = 'http://52.2.202.15/api/usuarios'; // URL para usuarios
 
   constructor(public http: HttpClient) { }
 
