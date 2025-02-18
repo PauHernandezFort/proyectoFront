@@ -3,10 +3,31 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 //falta importar el modulo de la interfaz
 
+interface ClassData {
+  activity: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  maxParticipants: number;
+  description: string;
+  level: string;
+}
+
+export interface User {
+  id: string;
+  nombre: string;
+  apellidos: string;
+  telefono: string;
+  email: string;
+  foto: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
+  private apiUrlClass = 'http://localhost:3000/api/classes';
+  private apiUrlUsers = 'http://localhost:3000/api/users'; // URL para usuarios
 
   constructor(public http: HttpClient) { }
 
@@ -44,5 +65,23 @@ export class ApiServiceService {
     return this.http.post(this.apiUrlMoney, data);
   }
 
+  createClass(data: ClassData): Observable<any> {
+    return this.http.post(this.apiUrlClass, data);
+  }
 
+  deleteUser(userId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrlUsers}/${userId}`);
+  }
+
+  getUser(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrlUsers}/${userId}`);
+  }
+
+  updateUser(userId: string, userData: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.apiUrlUsers}/${userId}`, userData);
+  }
+
+  createUser(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrlUsers}`, userData);
+  }
 }

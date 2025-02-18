@@ -1,5 +1,5 @@
 <div class="container mt-5 mb-5">
-    <h2 class="text-center mb-5">Lista de Alumnos</h2>
+    <h2 class="text-center mb-5">Lista de Entrenadores</h2>
     <div class="table-responsive">
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
@@ -22,7 +22,7 @@
                     <td>carlos.sanchez.com</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-danger me-2" 
-                                (click)="eliminarAlumno('1')"
+                                (click)="eliminarEntrenador('1')"
                                 [disabled]="isLoading('1')">
                             @if (isLoading('1')) {
                                 <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
@@ -31,7 +31,7 @@
                                 <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '1']">
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '1']">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
                     </td>
@@ -46,7 +46,7 @@
                     <td>carlosSanchez.com</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-danger me-2"
-                                (click)="eliminarAlumno('2')"
+                                (click)="eliminarEntrenador('2')"
                                 [disabled]="isLoading('2')">
                             @if (isLoading('2')) {
                                 <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
@@ -55,7 +55,7 @@
                                 <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '2']">
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '2']">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
                     </td>
@@ -70,7 +70,7 @@
                     <td>carlos.sanchez.com</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-danger me-2"
-                                (click)="eliminarAlumno('3')"
+                                (click)="eliminarEntrenador('3')"
                                 [disabled]="isLoading('3')">
                             @if (isLoading('3')) {
                                 <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
@@ -79,15 +79,15 @@
                                 <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', '3']">
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '3']">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <button class="btn btn-sm btn-primary" routerLink="/crearAlumno">
-            <i class="bi bi-plus"></i> Crear Alumno
+        <button class="btn btn-sm btn-primary" routerLink="/crearEntrenador">
+            <i class="bi bi-plus"></i> Crear Entrenador
         </button>
     </div>
 </div>

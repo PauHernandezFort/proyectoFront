@@ -26,10 +26,15 @@ import { CreateProgressComponent } from './components/forms/create-progress/crea
 import { CreateClassComponent } from './components/forms/create-class/create-class.component';
 import { PupilsComponent } from './views/pupils/pupils.component';
 import { CalendarioView } from './views/calendario/calendario.component';
+import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.component';
+import { CrearAlumnoComponent } from './components/forms/crear-alumno/crear-alumno.component';
+import { CrearEntrenadorComponent } from './components/forms/crear-entrenador/crear-entrenador.component';
+import { EditUserComponent } from './components/forms/edit-user/edit-user.component';
+import { EditTrainerComponent } from './components/forms/edit-trainer/edit-trainer.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    { path: 'calendario', component: CalendarioView },
+    { path: 'calendar', component: CalendarioView },
     { path: 'home', component: HomeComponent },
     { path: 'activities', component: ActivitiesComponent },
     { path: 'schedules', component: schedulesComponent },
@@ -54,7 +59,13 @@ export const routes: Routes = [
     { path: 'calendar', component: CalendarComponent },
     { path: 'classesPupils', component: ClassesComponent },
     { path: 'progress', component: CreateProgressComponent },
+    { path: 'pupilsmanager', component: PupilsManagerComponent },
     { path: 'classesMister', component: CreateClassComponent },
-    { path: 'pupils', component: PupilsComponent }
+    { path: 'pupils', component: PupilsComponent },
+    { path: 'crearAlumno', component: CrearAlumnoComponent },
+    { path: 'crearEntrenador', component: CrearEntrenadorComponent },
+    { path: 'editUser/:id', component: EditUserComponent },
+    { path: 'editTrainer/:id', component: EditTrainerComponent },
 ];
+
 

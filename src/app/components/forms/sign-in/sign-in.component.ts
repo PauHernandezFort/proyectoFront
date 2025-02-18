@@ -15,7 +15,7 @@ export class SignInComponent {
   correo: string = '';
   password: string = '';
   errors: { [key: string]: string } = {};
-
+  loading = false;
   constructor(private router: Router) {}
 
   validarFormulario(event: Event): void {
@@ -38,24 +38,29 @@ export class SignInComponent {
     }
 
     if (isValid) {
-      // Simulamos que obtenemos los datos del usuario del backend
-      const userData: User = {
-        nombre: 'Juan',  // Estos serían los datos que vendrían del backend
-        apellidos: 'Pérez García',
-        email: this.correo,
-        telefono: '123456789',
-        foto: '../../../../images/perfil_defecto.jpg',
-        rol: 'alumno'  // Añadimos el rol por defecto o el que venga del backend
-      };
-      
-      // Guardar datos en localStorage
-      localStorage.setItem('userType', 'alumno');
-      localStorage.setItem('userData', JSON.stringify(userData));
-      
-      // Redirigir a la página principal
-      this.router.navigate(['/']).then(() => {
-        window.location.reload();
-      });
+      this.loading = true; // Activamos el loading
+
+      // Simulamos una petición al backend
+      setTimeout(() => {
+        // Simulamos que obtenemos los datos del usuario del backend
+        const userData: User = {
+          nombre: 'Juan',  // Estos serían los datos que vendrían del backend
+          apellidos: 'Pérez García',
+          email: this.correo,
+          telefono: '123456789',
+          foto: '../../../../images/perfil_defecto.jpg',
+          rol: 'alumno'  // Añadimos el rol por defecto o el que venga del backend
+        };
+        
+        // Guardar datos en localStorage
+        localStorage.setItem('userType', 'alumno');
+        localStorage.setItem('userData', JSON.stringify(userData));
+        
+        // Redirigir a la página principal
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
+      }, 1000); // Simulamos 2 segundos de delay para ver el loading
     } else {
       // Mostrar el primer error encontrado
       const firstError = Object.values(this.errors)[0];

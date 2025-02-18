@@ -5,7 +5,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
 
 @Component({
   selector: 'app-header-user',
-  imports: [RouterLink, CalendarComponent],
+  imports: [RouterLink, /*CalendarComponent*/],
   templateUrl: './header-user.component.html',
   styleUrl: './header-user.component.css'
 })
