@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { ApiServiceService } from '../../../services/api-service.service';
 import { HttpHeaders } from '@angular/common/http';
+import { User } from '../../../interfaces/user.interface';
 
 
 @Component({
@@ -14,13 +15,14 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class CreateClassComponent {
   createClass = new FormGroup({
-    nameClass: new FormControl('', Validators.required),
-    teacherName: new FormControl('', Validators.required),
-    capacity: new FormControl('', [Validators.required, Validators.min(1)]),
-    classInfo: new FormControl(''),
-    classDate: new FormControl('', Validators.required),
-    classStatus: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    id_entrenador: new FormControl('', Validators.required),
+    capacidad: new FormControl('', [Validators.required, Validators.min(1)]),
+    estado: new FormControl(''),
+    fecha: new FormControl('', Validators.required),
+    descripcion: new FormControl('', Validators.required)
   });
+
 
   constructor(public apiService: ApiServiceService) {}
 
@@ -29,14 +31,15 @@ export class CreateClassComponent {
       const formData = this.createClass.value;
   
       // Transformar formData a formato LD-JSON
+
+       
       const ldJsonData = {
-        "@context": "http://schema.org", // Contexto, puedes ajustar según el caso
-        "@type": "Class", // Tipo del objeto, puedes ajustar según el caso
-        "name": formData.nameClass,
-        "description": formData.classInfo,
-        "teacher": formData.teacherName,
-        "date": formData.classDate
-        // Aquí puedes agregar más campos dependiendo de los datos del formulario
+        "nombre": formData.nombre,
+        "id_entrenador": formData.id_entrenador,
+        "capacidad": formData.capacidad,
+        "estado": formData.estado,
+        "fecha": formData.fecha,
+        "descripcion": formData.descripcion
       };
   
       // Mostrar los datos transformados en formato LD-JSON
@@ -67,5 +70,32 @@ export class CreateClassComponent {
     } else {
       alert('Por favor, completa todos los campos correctamente');
     }
+
+  }
+ /* ngOnInit() {
+    const headers = new HttpHeaders().set('Accept', 'application/ld+json');
+    this.apiService.getClases({ headers }).subscribe({
+      next: (response) => {
+        console.log('Clases obtenidas con éxito:', response);
+      },
+      error: (error) => {
+        console.error('Error al obtener las clases:', error);
+        alert('Hubo un error al obtener las clases');
+      }
+    });
+  }
+    */
+  
+  public usuarios: string = '';
+  ngOnInit(): void {
+    this.apiService.getUsuario('http://52.2.202.15/api/usuarios').subscribe({
+      next: (response) => {
+        console.log('Usuarios recibidos:', response);
+        this.usuarios = response.nombre;  // Asigna toda la respuesta (el array de usuarios) a la variable
+      },
+      error: (error) => {
+        console.error('Error al obtener usuarios:', error);
+      }
+    });
   }
 }

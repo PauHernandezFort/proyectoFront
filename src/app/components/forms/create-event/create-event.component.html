@@ -1,35 +1,35 @@
 <form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
     <article class="col-md-8">
         <label for="nombre-evento" class="form-label">Nombre del evento</label>
-        <input type="text" class="form-control" id="nombre-evento" formControlName="eventName" placeholder="Escribe el nombre del evento" required
+        <input type="text" class="form-control" id="nombre-evento" formControlName="nombre" placeholder="Escribe el nombre del evento" required
             aria-required="true" aria-describedby="nombre-evento-ayuda">
         <p id="nombre-evento-ayuda" class="visually-hidden">Por favor, ingresa el nombre del evento.</p>
     </article>
 
     <article>
         <label for="informacion-evento" class="form-label">Deja aquí la información del evento</label>
-        <textarea class="form-control" id="informacion-evento" formControlName="eventInfo" rows="3"
+        <textarea class="form-control" id="informacion-evento" formControlName="descripcion" rows="3"
             placeholder="Escribe la información del evento" aria-describedby="informacion-evento-ayuda"></textarea>
         <p id="informacion-evento-ayuda" class="visually-hidden">Escribe la información del evento.</p>
     </article>
 
     <article class="col-md-8">
         <label for="fecha-evento" class="form-label">Fecha del evento</label>
-        <input type="date" class="form-control" id="fecha-evento" formControlName="eventDate" required
+        <input type="date" class="form-control" id="fecha-evento" formControlName="fecha" required
             aria-required="true" aria-describedby="fecha-evento-ayuda">
         <p id="fecha-evento-ayuda" class="visually-hidden">Por favor, ingresa la fecha del evento.</p>
     </article>
 
     <article class="col-md-8">
         <label for="estado-evento" class="form-label">Estado del evento</label>
-        <input type="text" class="form-control" id="estado-evento" formControlName="eventEstate" placeholder="Escribe el estado del evento" required
+        <input type="text" class="form-control" id="estado-evento" formControlName="estado" placeholder="Escribe el estado del evento" required
             aria-required="true" aria-describedby="estado-evento-ayuda">
         <p id="estado-evento-ayuda" class="visually-hidden">Por favor, ingresa en qué estado está el evento.</p>
     </article>
 
     <article class="col-md-8">
         <label for="direccion-evento" class="form-label">Dirección del evento</label>
-        <input type="text" class="form-control" id="direccion-evento" formControlName="eventDirection" placeholder="Escribe la dirección del evento" required
+        <input type="text" class="form-control" id="direccion-evento" formControlName="direccion" placeholder="Escribe la dirección del evento" required
             aria-required="true" aria-describedby="direccion-evento-ayuda">
         <p id="direccion-evento-ayuda" class="visually-hidden">Por favor, ingresa la dirección del evento.</p>
     </article>
