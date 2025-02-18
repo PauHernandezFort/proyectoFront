@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiServiceService } from '../../../services/api-service.service';
+import { ApiService } from '../../../service/api.service';
 
 @Component({
   selector: 'app-enroll',
@@ -16,7 +16,7 @@ export class EnrollComponent {
     activity: new FormControl('', Validators.required)
   });
 
-  constructor(public apiService: ApiServiceService) {}
+  constructor(public apiService: ApiService) {}
 
   onSubmit() {
     console.log('Formulario enviado');

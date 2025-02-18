@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ApiService } from '../../service/api.service';
+import { Clase } from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -59,16 +61,29 @@ export class CalendarComponent implements OnInit {
 
   modalData: { action: string; event: CalendarEvent } | undefined;
 
+  constructor(private apiService: ApiService) {}
+
   ngOnInit() {
-    this.events = [
-      {
-        title: 'Evento de prueba',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: this.colors.azul,
-        draggable: true,
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    const userId = 'user-id-aqui'; // Reemplazar dinámicamente según autenticación
+    this.apiService.getClasesInscritas(userId).subscribe({
+      next: (pupils: Clase[]) => {
+        this.events = pupils.map(pupil => ({
+          title: `${pupil.nombre} - ${pupil.descripcion}`,
+          start: new Date(pupil.fecha),
+          end: new Date(pupil.fecha), // Asumiendo que la fecha es el inicio y fin
+          color: this.colors.azul,
+          draggable: false,
+        }));
+        this.refresh.next();
       },
-    ];
+      error: (error) => {
+        console.error('Error al cargar las clases inscritas:', error);
+      }
+    });
   }
 
   trackEvent(index: number, event: CalendarEvent): string {
