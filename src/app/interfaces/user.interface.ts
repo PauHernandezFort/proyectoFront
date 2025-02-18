@@ -24,3 +24,13 @@ export interface Member {
   fechaRegistro:    Date;
   clasesApuntadas:  any[];
 }
+
+export interface Clase {
+  id: number;
+  nombre: string;
+  descripcion: string;
+  fecha: string;
+  capacidad: number;
+  estado: string;
+  ubicacion: string;
+}

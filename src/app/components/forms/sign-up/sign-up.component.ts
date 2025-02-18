@@ -82,14 +82,7 @@ export class SignUpComponent {
     }
 
     if (isValid) {
-      const userData: Member = {
-        nombre: this.nombre,
-        apellido: this.apellidos,
-        email: this.correo,
-        telefono: this.telefono,
-        foto: this.fotoBase64 || 'assets/images/default-profile.png', // Usar la foto subida o la default
-        rol: this.rol
-      };
+     
 
       // Asignar el userType según el rol seleccionado
       let userType: string;
@@ -104,9 +97,7 @@ export class SignUpComponent {
           userType = 'alumno';
       }
       
-      // Guardar datos en localStorage
-      localStorage.setItem('userType', userType);
-      localStorage.setItem('userData', JSON.stringify(userData));
+   
 
       // Redirigir a la página principal
       this.router.navigate(['/']).then(() => {

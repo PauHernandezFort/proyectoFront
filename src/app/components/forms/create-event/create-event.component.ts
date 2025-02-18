@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../../services/api-service.service';
+import { ApiService } from '../../../service/api.service';
 
 @Component({
   selector: 'app-create-event',
