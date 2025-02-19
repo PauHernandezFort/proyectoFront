@@ -35,7 +35,7 @@ export class CrearEntrenadorComponent {
     }
   }
 
-  onSubmit() {
+ /* onSubmit() {
     if (this.validarFormulario()) {
       // Aquí iría la lógica para enviar los datos al servidor
       this.apiService.createPupil(this.entrenador).subscribe(
@@ -50,7 +50,7 @@ export class CrearEntrenadorComponent {
         }
       );
     }
-  }
+  }*/
 
   validarFormulario(): boolean {
     if (!this.entrenador.nombre || !this.entrenador.apellido) {

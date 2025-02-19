@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { Usuarios } from '../../models/user.interface';
-
+import { Member } from '../../models/user.interface';
 @Component({
   selector: 'app-header-mister',
   imports: [RouterLink],

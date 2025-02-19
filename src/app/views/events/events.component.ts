@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-events',
-  imports: [CreateEventComponent, RouterLink],
+  imports: [ RouterLink],
   standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'

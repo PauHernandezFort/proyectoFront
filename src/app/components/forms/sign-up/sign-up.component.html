@@ -1,4 +1,4 @@
-<form (submit)="validarFormulario($event)" class="login-form mt-4">
+<form (ngSubmit)="validarFormulario($event)" class="login-form mt-4">
     <main>
         <div class="container mt-5">
             <section class="text-center mb-3">
@@ -6,32 +6,30 @@
             </section>
 
             <section class="row mb-3">
-                <article class="col-md-8">
+                <article class="col-12 col-md-6">
                     <label for="nombre" class="form-label">Nombre</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe tu nombre"
-                        required aria-required="true" aria-describedby="nombre-ayuda" [(ngModel)]="nombre">
-                    <p id="nombre-ayuda" class="visually-hidden">Por favor, ingresa tu nombre.</p>
+                        required [(ngModel)]="usuario.nombre">
                 </article>
 
-                <article class="col-md-8">
-                    <label for="apellidos" class="form-label">Apellidos</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Escribe tus apellidos"
-                        required aria-required="true" aria-describedby="apellidos-ayuda" [(ngModel)]="apellidos">
-                    <p id="apellidos-ayuda" class="visually-hidden">Por favor, ingresa tus apellidos.</p>
+                <article class="col-12 col-md-6">
+                    <label for="apellido" class="form-label">Apellidos</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Escribe tus apellidos"
+                        required [(ngModel)]="usuario.apellido">
                 </article>
+            </section>
 
-                <article class="col-md-4">
+            <section class="row mb-3">
+                <article class="col-12 col-md-6">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Escribe tu correo"
+                        required [(ngModel)]="usuario.email">
+                </article>
+                
+                <article class="col-12 col-md-6">
                     <label for="telefono" class="form-label">Teléfono</label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Escribe tu teléfono"
-                        required aria-required="true" aria-describedby="telefono-ayuda" [(ngModel)]="telefono">
-                    <p id="telefono-ayuda" class="visually-hidden">Por favor, ingresa tu número de teléfono.</p>
-                </article>
-
-                <article class="col-md-4">
-                    <label for="correo" class="form-label">Correo electrónico</label>
-                    <input type="email" class="form-control" id="correo" name="correo" placeholder="Escribe tu correo"
-                        required aria-required="true" aria-describedby="correo-ayuda" [(ngModel)]="correo">
-                    <p id="correo-ayuda" class="visually-hidden">Introduce un correo electrónico válido.</p>
+                        required [(ngModel)]="usuario.telefono" pattern="[0-9]{9}">
                 </article>
             </section>
 
@@ -39,45 +37,40 @@
                 <article>
                     <label for="password" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="password"
-                        placeholder="Escribe tu contraseña" required aria-required="true" aria-describedby="password-ayuda" [(ngModel)]="password">
-                    <p id="password-ayuda" class="visually-hidden">Introduce tu contraseña.</p>
+                        placeholder="Escribe tu contraseña" required [(ngModel)]="usuario.password">
                 </article>
             </section>
 
             <section class="mb-3">
                 <article>
-                    <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
-                    <input type="password" class="form-control" id="confirm-password" name="confirm-password"
-                        placeholder="Confirma tu contraseña" required aria-required="true" aria-describedby="confirm-password-ayuda" [(ngModel)]="confirmPassword">
-                    <p id="confirm-password-ayuda" class="visually-hidden">Por favor, confirma tu contraseña.</p>
+                    <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+                        placeholder="Confirma tu contraseña" required [(ngModel)]="confirmPassword">
                 </article>
             </section>
 
             <section class="row mb-3">
-                    <article class="col-md-8">
-                        <label for="rol" class="form-label">Rol</label>
-                        <select class="form-control" id="rol" name="rol" required aria-required="true" 
-                                aria-describedby="rol-ayuda" [(ngModel)]="rol">
-                            <option value="" disabled selected>Selecciona un rol</option>
-                            <option value="alumno">Alumno</option>
-                            <option value="entrenador">Entrenador</option>
-                            <option value="admin">Administrador</option>
-                        </select>
-                        <p id="rol-ayuda" class="visually-hidden">Por favor, selecciona un rol válido.</p>
-                    </article>
-                    
+                <article class="col-12">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select class="form-control" id="rol" name="rol" required [(ngModel)]="usuario.rol">
+                        <option value="" disabled selected>Selecciona un rol</option>
+                        <option value="alumno">Alumno</option>
+                        <option value="entrenador">Entrenador</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </article>
+            </section>
 
-                <article class="col-md-8">
+            <section class="row mb-3">
+                <article class="col-12">
                     <label for="fotoPerfil" class="form-label">Foto de perfil</label>
-                    <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required
-                        aria-required="true" aria-describedby="fotoPerfil-ayuda" (change)="onFileSelected($event)">
-                    <p id="fotoPerfil-ayuda" class="visually-hidden">Por favor, sube una foto de perfil.</p>
+                    <input type="file" class="form-control" id="fotoPerfil" name="fotoPerfil" required (change)="onFileSelected($event)">
                 </article>
             </section>
 
             <section class="row mb-3 text-center">
                 <article>
-                    <button type="submit" routerLink="signIn" class="btn btn-primary w-100">Confirmar</button>
+                    <button type="submit" class="btn btn-primary w-100">Registrar</button>
                 </article>
             </section>
         </div>
