@@ -48,6 +48,7 @@ export class CreateClassComponent implements OnInit {
   }
 
   cargarEntrenadores(): void {
+    /*
     this.apiService.getUser('http://52.2.202.15/api/usuarios').subscribe({
       next: (response: any) => {
         if (response && response.member) {
@@ -58,6 +59,7 @@ export class CreateClassComponent implements OnInit {
         console.error('Error al obtener entrenadores:', error);
       }
     });
+    */
   }
 
   cargarClasesDisponibles(): void {

@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <form [formGroup]="createProgress" (ngSubmit)="onSubmit()" class="progress-form" enctype="multipart/form-data">
+        <form [formGroup]="createProgress" (ngSubmit)="onSubmit()" class="progress-form">
             <div class="metrics-grid">
                 <div class="metric-card">
                     <div class="metric-header">
@@ -46,7 +46,7 @@
                         <i class="bi bi-camera metric-icon"></i>
                         <label for="fotoProgreso" class="form-label">Foto del Progreso</label>
                     </div>
-                    <input type="file" formControlName="photo" class="form-control" id="fotoProgreso"
+                    <input type="file" (change)="onFileSelected($event)" class="form-control" id="fotoProgreso"
                         name="fotoProgreso" required aria-required="true" aria-describedby="fotoProgreso-ayuda">
                     <p id="fotoProgreso-ayuda" class="visually-hidden">Por favor, sube una foto del progreso.</p>
                 </div>
