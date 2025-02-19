@@ -62,4 +62,3 @@ export class PupilsComponent {
     this.router.navigate(['/editUser']);
   }
 }
-

@@ -6,12 +6,12 @@
           <h2 class="text-center">Crear Nuevo Alumno</h2>
         </div>
         <div class="card-body">
-          <form (ngSubmit)="onSubmit()" #alumnoForm="ngForm">
+          <form (ngSubmit)="crearAlumno()" #alumnoForm="ngForm">
             <!-- Foto -->
             <div class="mb-4 text-center">
               <div class="profile-image-container mb-3">
-                @if (alumno.foto) {
-                  <img [src]="alumno.foto" alt="Foto de perfil" class="profile-image">
+                @if (nuevoAlumno.foto) {
+                  <img [src]="nuevoAlumno.foto" alt="Foto de perfil" class="profile-image">
                 } @else {
                   <div class="default-image">
                     <i class="bi bi-person-circle"></i>
@@ -39,20 +39,20 @@
                 class="form-control" 
                 id="nombre"
                 name="nombre"
-                [(ngModel)]="alumno.nombre"
+                [(ngModel)]="nuevoAlumno.nombre"
                 required
                 placeholder="Introduce el nombre">
             </div>
 
             <!-- Apellidos -->
             <div class="mb-3">
-              <label for="apellidos" class="form-label">Apellidos</label>
+              <label for="apellido" class="form-label">Apellidos</label>
               <input 
                 type="text" 
                 class="form-control" 
-                id="apellidos"
-                name="apellidos"
-                [(ngModel)]="alumno.apellidos"
+                id="apellido"
+                name="apellido"
+                [(ngModel)]="nuevoAlumno.apellido"
                 required
                 placeholder="Introduce los apellidos">
             </div>
@@ -65,7 +65,7 @@
                 class="form-control" 
                 id="telefono"
                 name="telefono"
-                [(ngModel)]="alumno.telefono"
+                [(ngModel)]="nuevoAlumno.telefono"
                 required
                 pattern="[0-9]{9}"
                 placeholder="Introduce el teléfono">
@@ -79,14 +79,32 @@
                 class="form-control" 
                 id="email"
                 name="email"
-                [(ngModel)]="alumno.email"
+                [(ngModel)]="nuevoAlumno.email"
                 required
                 placeholder="Introduce el correo electrónico">
             </div>
 
+            <!-- Password -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password"
+                name="password"
+                [(ngModel)]="nuevoAlumno.password"
+                required
+                placeholder="Introduce la contraseña">
+            </div>
+
             <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary me-2">
-                <i class="bi bi-person-plus" routerLink="/pupils"></i> Crear Alumno
+              <button type="submit" class="btn btn-primary me-2" [disabled]="cargando">
+                @if (cargando) {
+                  <span class="spinner-border spinner-border-sm me-1"></span>
+                  Creando...
+                } @else {
+                  <i class="bi bi-person-plus"></i> Crear Alumno
+                }
               </button>
               <button type="button" class="btn btn-secondary" routerLink="/pupils">
                 Cancelar

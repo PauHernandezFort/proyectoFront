@@ -50,7 +50,7 @@ export class ApiService {
     return this.http.put<Member>(`${this.apiPupils}/${userId}`, userData);
   }
 
-  /*
+  
   private apiUrlEnroll: string = 'aqui pondremos la url de la peticion de la apli';
   
   Enrolls(data: any): Observable<any> {
@@ -62,8 +62,6 @@ export class ApiService {
     return this.http.post(this.apiUrlMoney, data);
   }
 
-  createClass(data: ClassData): Observable<any> {
-    return this.http.post(this.apiUrlClass, data);
-  }
-*/
+
+
 }

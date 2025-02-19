@@ -60,7 +60,7 @@ export class CreateClassComponent {
     this.loading = true;
     const classData = {
       ...this.classForm.value,
-      dateTime: `${this.f['date'].value}T${this.f['startTime'].value}`
+      dateTime: ${this.f['date'].value}T${this.f['startTime'].value}
     };
 
     this.apiService.createClass(classData).subscribe({
