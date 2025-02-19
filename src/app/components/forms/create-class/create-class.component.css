@@ -1,61 +1,51 @@
 .create-class-container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 2rem auto;
     padding: 20px;
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .form-wrapper {
-    padding: 2rem;
+    padding: 1.5rem;
 }
 
 .form-wrapper h2 {
     text-align: center;
     color: #2c3e50;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-}
-
-.alert {
-    padding: 1rem;
-    border-radius: 8px;
     margin-bottom: 1rem;
 }
 
-.alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
+/* Estilo general de los campos de formulario */
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #2c3e50;
-    font-weight: 500;
+    color: #34495e;
+    font-weight: 600;
 }
 
 .form-control {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 .form-control:focus {
     border-color: #4CAF50;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
     outline: none;
 }
 
+/* Ajustes para los campos inválidos */
 .is-invalid {
     border-color: #dc3545;
 }
@@ -66,15 +56,19 @@
     margin-top: 0.25rem;
 }
 
+/* Distribución flexible de los campos */
 .form-row {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
-.form-group.col-md-6 {
-    flex: 1;
+.col-md-8 {
+    width: 100%;
+    max-width: 600px;
 }
 
+/* Botones */
 .form-buttons {
     display: flex;
     gap: 1rem;
@@ -83,12 +77,12 @@
 }
 
 .btn {
-    padding: 0.75rem 2rem;
+    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 8px;
-    font-weight: 500;
+    border-radius: 6px;
+    font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease-in-out;
     min-width: 150px;
 }
 
@@ -103,28 +97,27 @@
     box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
 }
 
-.btn-secondary {
-    background-color: #6c757d;
-    color: white;
+/* Mejorar el diseño del textarea */
+textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(108, 117, 125, 0.2);
-}
-
+/* Responsividad */
 @media (max-width: 768px) {
     .create-class-container {
         margin: 1rem;
+        padding: 15px;
     }
 
     .form-row {
         flex-direction: column;
+        gap: 1rem;
     }
 
     .form-buttons {
         flex-direction: column;
+        gap: 0.5rem;
     }
 
     .btn {

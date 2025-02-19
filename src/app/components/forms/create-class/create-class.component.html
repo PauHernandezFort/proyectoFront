@@ -1,72 +1,97 @@
-<form [formGroup]="createClass" (ngSubmit)="onSubmit()">
-    <!-- Selección del nombre de la clase desde la base de datos -->
-    <article class="col-md-8">
-        <label for="nombre-clase" class="form-label">Nombre de la clase</label>
-        <select class="form-control" id="nombre-clase" formControlName="nombre">
-            @for (clase of clasesDisponibles; track clase.nombre) {
-                <option [value]="clase.nombre">{{ clase.nombre }}</option>
-            }
+<div class="create-class-container">
+  <div class="form-wrapper">
+    <h2>Crear Nueva Clase</h2>
+    <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="nombre">Tipo de Clase</label>
+        <select class="form-control" id="nombre" formControlName="nombre"
+                [class.is-invalid]="isFieldInvalid('nombre')">
+          <option value="">Selecciona una actividad</option>
+          @for (actividad of actividades; track actividad) {
+            <option [value]="actividad">{{ actividad }}</option>
+          }
         </select>
-    </article>
+        @if (isFieldInvalid('nombre')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('nombre') }}
+          </div>
+        }
+      </div>
 
-    <!-- Selección del entrenador -->
-    <article class="col-md-8">
-        <label for="nombre-profesor" class="form-label">Entrenador</label>
-        <select class="form-control" id="nombre-profesor" formControlName="id_entrenador">
-            @for (entrenador of entrenadores; track entrenador.id) {
-                <option [value]="entrenador.id">
-                    {{ entrenador.nombre }} {{ entrenador.apellido }}
-                </option>
-            }
-        </select>
-    </article>
+      <div class="form-group">
+        <label>Entrenador</label>
+        <input type="text" class="form-control" [value]="nombreEntrenador" disabled>
+      </div>
 
-    <!-- Capacidad -->
-    <article class="col-md-8">
-        <label for="capacidad" class="form-label">Capacidad</label>
+      <div class="form-group">
+        <label for="ubicacion">Ubicación</label>
+        <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion" >
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Fecha y Hora</label>
+        <input type="datetime-local" class="form-control" id="fecha" formControlName="fecha"
+               [class.is-invalid]="isFieldInvalid('fecha')">
+        @if (isFieldInvalid('fecha')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('fecha') }}
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="capacidad">Capacidad</label>
         <input type="number" class="form-control" id="capacidad" formControlName="capacidad" min="1" max="35"
-            placeholder="Escribe la capacidad">
-    </article>
+               [class.is-invalid]="isFieldInvalid('capacidad')">
+        @if (isFieldInvalid('capacidad')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('capacidad') }}
+          </div>
+        }
+      </div>
 
-    <!-- Selección de la ubicación -->
-    <article class="col-md-8">
-        <label for="ubicacion-clase" class="form-label">Ubicación</label>
-        <select class="form-control" id="ubicacion-clase" formControlName="ubicacion">
-            @for (ubicacion of ubicacionesDisponibles; track ubicacion) {
-                <option [value]="ubicacion">{{ ubicacion }}</option>
+      <div class="form-group">
+        <label for="estado">Estado de la clase</label>
+        <select class="form-control" id="estado" formControlName="estado"
+                [class.is-invalid]="isFieldInvalid('estado')">
+          <option value="">Selecciona un estado</option>
+          @for (estado of estadosClase; track estado) {
+            <option [value]="estado">{{ estado }}</option>
+          }
+        </select>
+        @if (isFieldInvalid('estado')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('estado') }}
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="3"
+                  [class.is-invalid]="isFieldInvalid('descripcion')"></textarea>
+        @if (isFieldInvalid('descripcion')) {
+          <div class="invalid-feedback">
+            {{ getErrorMessage('descripcion') }}
+          </div>
+        }
+      </div>
+
+      <div class="form-buttons">
+        <button type="submit" class="btn btn-primary">
+            @if (loading) {
+                <span class="spinner-border spinner-border-sm me-2"></span>
+                Creando...
+            } @else {
+                Crear Clase
             }
-        </select>
-    </article>
-
-    <!-- Descripción -->
-    <article>
-        <label for="informacion-clase" class="form-label">Información de la clase</label>
-        <textarea class="form-control" id="informacion-clase" formControlName="descripcion"
-            placeholder="Escribe la información de la clase"></textarea>
-    </article>
-
-    <!-- Fecha -->
-    <article class="col-md-8">
-        <label for="fecha-clase" class="form-label">Fecha de la clase</label>
-        <input type="date" class="form-control" id="fecha-clase" formControlName="fecha">
-    </article>
-
-    <!-- Estado -->
-    <article class="col-md-8">
-        <label for="estado-clase" class="form-label">Estado de la clase</label>
-        <select class="form-control" id="estado-clase" formControlName="estado">
-            <option value="Activo">Activo</option>
-            <option value="Inactivo">Inactivo</option>
-        </select>
-    </article>
-
-    <!-- Botón de confirmación -->
-    <section class="row mb-3 text-center">
-        <article>
-            <button type="submit" class="btn btn-primary">Confirmar</button>
-        </article>
-    </section>
-</form>
+        </button>
+        <button type="button" class="btn btn-secondary" routerLink="/clases">Cancelar</button>
+    </div>
+    
+    </form>
+  </div>
+</div>
 
 <!-- Botón para mostrar/ocultar las clases disponibles -->
 <button class="btn btn-secondary my-3" (click)="mostrarClasesDisponibles = !mostrarClasesDisponibles">

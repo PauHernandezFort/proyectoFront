@@ -12,6 +12,7 @@ import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate 
   styleUrl: './pupils-manager.component.css'
 })
 
+
 export class PupilsManagerComponent {
   loading: { [key: string]: boolean } = {};
   public trainers: Member[] = [];

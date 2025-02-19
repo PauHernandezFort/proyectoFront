@@ -8,21 +8,25 @@
                 <img class="rounded-pill" src="../../../../images/logo2.png" routerLink="/home" alt="Logo">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#" routerLink="classesMister" routerLinkActive="active">Clases</a>
+                        <a class="nav-link" href="#">Clases</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#" routerLink="calendar" routerLinkActive="active">Calendario</a>
+                        <a class="nav-link" href="#">Calendario</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#" routerLink="events" routerLinkActive="active">Eventos</a>
+                        <a class="nav-link" href="#">Eventos</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#" routerLink="pupils" routerLinkActive="active">Alumnos</a>
+                        <a class="nav-link" href="#">alumnos</a>
                     </li>
                 </ul>
                 <div class="dropdown">
                     <button class="btn dropdown-toggle profile-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        
+                        @if (userData?.fotoPerfil) {
+                            <img [src]="userData?.fotoPerfil" alt="Foto de perfil" class="profile-image">
+                        } @else {
+                            <img src="assets/images/default-profile.png" alt="Foto por defecto" class="profile-image">
+                        }
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" routerLink="/showProfile">Ver Perfil</a></li>

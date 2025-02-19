@@ -1,126 +1,107 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Member } from '../../../models/user.interface';
+import { ApiService } from '../../../services/api-service.service';
+import { Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [RouterLink, CommonModule, FormsModule],
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css']
+  imports: [CommonModule, FormsModule],
+  templateUrl: './sign-up.component.html'
 })
 export class SignUpComponent {
-  nombre: string = '';
-  apellidos: string = '';
-  telefono: string = '';
-  correo: string = '';
-  password: string = '';
-  confirmPassword: string = '';
-  rol: string = '';
-  fotoPerfil: File | null = null;
-  fotoBase64: string = '';  // Nueva propiedad para guardar la foto en base64
-  errors: { [key: string]: string } = {};
+  usuario: Usuarios = {
+    nombre: '',
+    apellido: '',
+    email: '',
+    password: '',
+    telefono: 0,
+    rol: 'alumno',
+    fechaRegistro: new Date(),
+    fotoPerfil: ''
+  };
 
-  constructor(private router: Router) {}
+  confirmPassword: string = '';
+
+  constructor(
+    private router: Router,
+    private apiService: ApiService
+  ) {}
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.usuario.fotoPerfil = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   validarFormulario(event: Event): void {
     event.preventDefault();
-    this.errors = {};
-    let isValid = true;
-
-    // Validación del nombre
-    if (!this.nombre || this.nombre.trim().length < 2) {
-      this.errors['nombre'] = 'El nombre es obligatorio y debe tener al menos 2 caracteres';
-      isValid = false;
-    }
-
-    // Validación de apellidos
-    if (!this.apellidos || this.apellidos.trim().length < 2) {
-      this.errors['apellidos'] = 'Los apellidos son obligatorios y deben tener al menos 2 caracteres';
-      isValid = false;
-    }
-
-    // Validación del teléfono
-    const phoneRegex = /^[0-9]{9}$/;
-    if (!this.telefono || !phoneRegex.test(this.telefono)) {
-      this.errors['telefono'] = 'El teléfono debe tener 9 dígitos';
-      isValid = false;
-    }
-
-    // Validación del correo
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!this.correo || !emailRegex.test(this.correo)) {
-      this.errors['correo'] = 'Introduce un correo electrónico válido';
-      isValid = false;
-    }
-
-    // Validación de la contraseña
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{5,}$/;
-    if (!this.password || !passwordRegex.test(this.password)) {
-      this.errors['password'] = 'La contraseña debe tener al menos 5 caracteres, una mayúscula, una minúscula y un número';
-      isValid = false;
-    }
-
-    // Validación de confirmación de contraseña
-    if (!this.confirmPassword || this.password !== this.confirmPassword) {
-      this.errors['confirmPassword'] = 'Las contraseñas no coinciden';
-      isValid = false;
-    }
-
-    // Validación del rol
-    if (!this.rol) {
-      this.errors['rol'] = 'Selecciona un rol';
-      isValid = false;
-    }
-
-    // Validación de la foto de perfil
-    if (!this.fotoPerfil) {
-      this.errors['fotoPerfil'] = 'Sube una foto de perfil';
-      isValid = false;
-    }
-
-    if (isValid) {
-     
-
-      // Asignar el userType según el rol seleccionado
-      let userType: string;
-      switch (this.rol) {
-        case 'entrenador':
-          userType = 'entrenador';
-          break;
-        case 'admin':
-          userType = 'admin';
-          break;
-        default:
-          userType = 'alumno';
-      }
-      
-   
-
-      // Redirigir a la página principal
-      this.router.navigate(['/']).then(() => {
-        window.location.reload();
-      });
+    console.log('Validando formulario...');
+    if (this.validarCampos()) {
+      console.log('Formulario válido, registrando usuario...');
+      this.registrarUsuario();
     } else {
-      const firstError = Object.values(this.errors)[0];
-      alert(firstError);
+      console.log('Formulario inválido, deteniendo registro.');
     }
   }
+  
 
-  // Método para manejar la subida de archivos
-  onFileSelected(event: Event): void {
-    const element = event.target as HTMLInputElement;
-    const fileList: FileList | null = element.files;
-    if (fileList && fileList.length > 0) {
-      this.fotoPerfil = fileList[0];
-      // Convertir la foto a base64
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.fotoBase64 = e.target.result;
-      };
-      reader.readAsDataURL(this.fotoPerfil);
+  private validarCampos(): boolean {
+    if (!this.usuario.nombre || !this.usuario.apellido) {
+      alert('El nombre y apellido son obligatorios');
+      return false;
     }
+
+    if (!this.usuario.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.usuario.email)) {
+      alert('Introduce un correo electrónico válido');
+      return false;
+    }
+
+    if (!this.usuario.password || !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{5,}$/.test(this.usuario.password)) {
+      alert('La contraseña debe tener al menos 5 caracteres, una mayúscula, una minúscula y un número');
+      return false;
+    }
+
+    if (this.usuario.password !== this.confirmPassword) {
+      alert('Las contraseñas no coinciden');
+      return false;
+    }
+
+    if (!this.usuario.telefono || !/^[0-9]{9}$/.test(this.usuario.telefono.toString())) {
+      alert('Introduce un número de teléfono válido (9 dígitos)');
+      return false;
+    }
+
+    return true;
   }
+ 
+private registrarUsuario(): void {
+  const user = { 
+    email: this.usuario.email, 
+    password: this.usuario.password, 
+    nombre: this.usuario.nombre, 
+    apellido: this.usuario.apellido, 
+    rol: this.usuario.rol, 
+    fechaRegistro: this.usuario.fechaRegistro 
+  };
+  
+  console.log('Registrando usuario:', this.usuario);
+  
+  this.apiService.registerPupil(user).subscribe((response) => {
+    if (response) {
+      console.log('Usuario registrado:', response);
+      this.router.navigate(['/login']);
+    } else {
+      console.error('Error al registrar usuario');
+      alert('Error al registrar el usuario');
+    }
+  });
+}
 }
