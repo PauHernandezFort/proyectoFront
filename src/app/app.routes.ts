@@ -27,6 +27,7 @@ import { CreateClassComponent } from './components/forms/create-class/create-cla
 import { PupilsComponent } from './views/pupils/pupils.component';
 import { CalendarioView } from './views/calendario/calendario.component';
 import { PupilsManagerComponent } from './views/pupils-manager/pupils-manager.component';
+import { CreateEventComponent } from './components/forms/create-event/create-event.component';
 import { CrearAlumnoComponent } from './components/forms/crear-alumno/crear-alumno.component';
 import { CrearEntrenadorComponent } from './components/forms/crear-entrenador/crear-entrenador.component';
 import { EditUserComponent } from './components/forms/edit-user/edit-user.component';
@@ -62,6 +63,7 @@ export const routes: Routes = [
     { path: 'pupilsmanager', component: PupilsManagerComponent },
     { path: 'classesMister', component: CreateClassComponent },
     { path: 'pupils', component: PupilsComponent },
+    { path: 'createEvent', component: CreateEventComponent },
     { path: 'crearAlumno', component: CrearAlumnoComponent },
     { path: 'crearEntrenador', component: CrearEntrenadorComponent },
     { path: 'editUser/:id', component: EditUserComponent },

@@ -1,48 +1,75 @@
-<form [formGroup]="createEvent" (ngSubmit)="onSubmit()">
-    <article class="col-md-8">
-        <label for="nombre-evento" class="form-label">Nombre del evento</label>
-        <input type="text" class="form-control" id="nombre-evento" formControlName="nombre" placeholder="Escribe el nombre del evento" required
-            aria-required="true" aria-describedby="nombre-evento-ayuda">
-        <p id="nombre-evento-ayuda" class="visually-hidden">Por favor, ingresa el nombre del evento.</p>
-    </article>
+<div class="event-container fade-in">
+    <div class="event-card">
+        <div class="event-header">
+            <h2>Crear Evento</h2>
+        </div>
 
-    <article>
-        <label for="informacion-evento" class="form-label">Deja aquí la información del evento</label>
-        <textarea class="form-control" id="informacion-evento" formControlName="descripcion" rows="3"
-            placeholder="Escribe la información del evento" aria-describedby="informacion-evento-ayuda"></textarea>
-        <p id="informacion-evento-ayuda" class="visually-hidden">Escribe la información del evento.</p>
-    </article>
+        <form [formGroup]="createEvent" (ngSubmit)="onSubmit()" class="event-form">
+            <div class="event-grid">
+                <div class="event-card-item">
+                    <div class="event-header-item">
+                        <i class="bi bi-calendar-event event-icon"></i>
+                        <label for="nombre-evento" class="form-label">Nombre del evento</label>
+                    </div>
+                    <input type="text" class="form-control" id="nombre-evento" formControlName="nombre"
+                        placeholder="Escribe el nombre del evento" required aria-required="true"
+                        aria-describedby="nombre-evento-ayuda">
+                    <p id="nombre-evento-ayuda" class="visually-hidden">Por favor, ingresa el nombre del evento.</p>
+                </div>
 
-    <article class="col-md-8">
-        <label for="fecha-evento" class="form-label">Fecha del evento</label>
-        <input type="date" class="form-control" id="fecha-evento" formControlName="fecha" required
-            aria-required="true" aria-describedby="fecha-evento-ayuda">
-        <p id="fecha-evento-ayuda" class="visually-hidden">Por favor, ingresa la fecha del evento.</p>
-    </article>
+                <div class="event-card-item">
+                    <div class="event-header-item">
+                        <i class="bi bi-file-text event-icon"></i>
+                        <label for="informacion-evento" class="form-label">Información del evento</label>
+                    </div>
+                    <textarea class="form-control" id="informacion-evento" formControlName="descripcion" rows="3"
+                        placeholder="Escribe la información del evento" aria-describedby="informacion-evento-ayuda"></textarea>
+                    <p id="informacion-evento-ayuda" class="visually-hidden">Escribe la información del evento.</p>
+                </div>
+            </div>
 
-    <article class="col-md-8">
-        <label for="estado-evento" class="form-label">Estado del evento</label>
-        <input type="text" class="form-control" id="estado-evento" formControlName="estado" placeholder="Escribe el estado del evento" required
-            aria-required="true" aria-describedby="estado-evento-ayuda">
-        <p id="estado-evento-ayuda" class="visually-hidden">Por favor, ingresa en qué estado está el evento.</p>
-    </article>
+            <div class="event-grid">
+                <div class="event-card-item">
+                    <div class="event-header-item">
+                        <i class="bi bi-calendar-date event-icon"></i>
+                        <label for="fecha-evento" class="form-label">Fecha del evento</label>
+                    </div>
+                    <input type="date" class="form-control" id="fecha-evento" formControlName="fecha" required
+                        aria-required="true" aria-describedby="fecha-evento-ayuda">
+                    <p id="fecha-evento-ayuda" class="visually-hidden">Por favor, ingresa la fecha del evento.</p>
+                </div>
 
-    <article class="col-md-8">
-        <label for="direccion-evento" class="form-label">Dirección del evento</label>
-        <input type="text" class="form-control" id="direccion-evento" formControlName="direccion" placeholder="Escribe la dirección del evento" required
-            aria-required="true" aria-describedby="direccion-evento-ayuda">
-        <p id="direccion-evento-ayuda" class="visually-hidden">Por favor, ingresa la dirección del evento.</p>
-    </article>
-    
-   
-<section class="row mb-3 text-center">
-    <article>
-        <button type="submit" class="btn btn-primary" aria-label="Enviar formulario de clase">Confirmar</button>
-    </article>
-</section>
-</form>
-<section class="row mb-3 text-center">
-    <article>
-        <button type="button" class="btn btn-secondary" (click)="abrirGoogleMaps()">Abrir en Google Maps</button>
-    </article>
-</section>
+                <div class="event-card-item">
+                    <div class="event-header-item">
+                        <i class="bi bi-info-circle event-icon"></i>
+                        <label for="estado-evento" class="form-label">Estado del evento</label>
+                    </div>
+                    <input type="text" class="form-control" id="estado-evento" formControlName="estado"
+                        placeholder="Escribe el estado del evento" required aria-required="true"
+                        aria-describedby="estado-evento-ayuda">
+                    <p id="estado-evento-ayuda" class="visually-hidden">Por favor, ingresa el estado del evento.</p>
+                </div>
+            </div>
+
+            <div class="event-card-item">
+                <div class="event-header-item">
+                    <i class="bi bi-geo-alt event-icon"></i>
+                    <label for="direccion-evento" class="form-label">Dirección del evento</label>
+                </div>
+                <input type="text" class="form-control" id="direccion-evento" formControlName="ubicacion"
+                    placeholder="Escribe la dirección del evento" required aria-required="true"
+                    aria-describedby="direccion-evento-ayuda">
+                <p id="direccion-evento-ayuda" class="visually-hidden">Por favor, ingresa la dirección del evento.</p>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-circle me-2"></i>Confirmar
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="abrirGoogleMaps()">
+                    <i class="bi bi-geo-alt me-2"></i>Abrir en Google Maps
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { CreateEventComponent } from "../../components/forms/create-event/create-event.component";
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-events',
-  imports: [CreateEventComponent],
+  imports: [CreateEventComponent, RouterLink],
   standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'

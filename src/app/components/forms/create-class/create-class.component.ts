@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api-service.service';
 import { HttpHeaders } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-create-class',
@@ -12,152 +11,90 @@ import { HttpHeaders } from '@angular/common/http';
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
-export class CreateClassComponent {
-
-  /*
-  classForm: FormGroup;
-  loading = false;
-  submitted = false;
-  errorMessage = '';
-
-  activities = [
-    'MMA',
-    'Capoeira',
-    'Jiu-Jitsu',
-    'Saco de Boxeo',
-    'Defensa Femenina',
-    'Chi-Kung'
-  ];
-
-  constructor(
-    private formBuilder: FormBuilder,
-    private apiService: ApiService,
-    private router: Router
-  ) {
-    this.classForm = this.formBuilder.group({
-      activity: ['', Validators.required],
-      date: ['', Validators.required],
-      startTime: ['', Validators.required],
-      endTime: ['', Validators.required],
-      maxParticipants: ['', [Validators.required, Validators.min(1)]],
-      description: ['', [Validators.required, Validators.minLength(10)]],
-      level: ['', Validators.required]
-    });
-  }
-
-  ngOnInit(): void { }
-
-  // Getter para fácil acceso a los campos del formulario
-  get f() { return this.classForm.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.classForm.invalid) {
-      return;
-    }
-
-    this.loading = true;
-    const classData = {
-      ...this.classForm.value,
-      dateTime: `${this.f['date'].value}T${this.f['startTime'].value}`
-    };
-
-    this.apiService.createClass(classData).subscribe({
-      next: () => {
-        this.router.navigate(['/calendar']);
-      },
-      error: (error: ApiError) => {
-        this.errorMessage = error.message || 'Ha ocurrido un error al crear la clase';
-        this.loading = false;
-      }
-    });
-  }
-  
-  onReset() {
-    this.submitted = false;
-    this.classForm.reset();
-  }
-    */
-
+export class CreateClassComponent implements OnInit {
 
   createClass = new FormGroup({
-    nombre: new FormControl('', Validators.required),
-    id_entrenador: new FormControl('', Validators.required),
-    capacidad: new FormControl('', [Validators.required, Validators.min(1)]),
-    estado: new FormControl(''),
-    fecha: new FormControl('', Validators.required),
-    descripcion: new FormControl('', Validators.required)
+    nombre: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    id_entrenador: new FormControl<number | null>(null, { nonNullable: true, validators: [Validators.required] }),
+    capacidad: new FormControl<number>(1, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(35)] }),
+    estado: new FormControl('', { nonNullable: true }),
+    fecha: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    descripcion: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+    ubicacion: new FormControl('', { nonNullable: true, validators: [Validators.required] })
   });
 
+  public entrenadores: any[] = [];
+  public clasesDisponibles: any[] = [];
+  public ubicacionesDisponibles: string[] = [];
+  public usuarioActual: any = null;
 
-  constructor(public apiService: ApiService) { }
+  constructor(private apiService: ApiService) { }
 
-  onSubmit() {
+  ngOnInit(): void {
+    this.cargarEntrenadores();
+    this.cargarClasesDisponibles();
+    this.cargarUbicacionesDisponibles();
+    this.obtenerUsuarioActual();
+  }
+
+  onSubmit(): void {
     if (this.createClass.valid) {
       const formData = this.createClass.value;
-
-      // Transformar formData a formato LD-JSON
-
-
-      const ldJsonData = {
-      "nombre": formData.nombre || '',
-        "capacidad": Number(formData.capacidad) || 0,
-        "estado": formData.estado || '',
-        "fecha": new Date(formData.fecha || ''),
-        "descripcion": formData.descripcion || '',
-        "usuariosApuntados": []
-      };
-
-      // Mostrar los datos transformados en formato LD-JSON
-      console.log('Datos transformados a LD-JSON:', JSON.stringify(ldJsonData));
-
-      // Enviar los datos al backend
-      this.apiService.createClass(ldJsonData).subscribe({
-        next: (response) => {
-          console.log('Clase creada con éxito:', response);
-          alert('Clase creada con éxito');
-          this.createClass.reset();
-        },
-        error: (error) => {
-          console.error('Error al crear la clase:', error);
-          console.log('Detalles del error:', {
-            message: error.message,
-            status: error.status,
-            url: error.url
-          });
-          alert('Hubo un error al crear la clase');
-        }
-      });
+      console.log('Formulario enviado con:', formData);
+      // Aquí puedes llamar a la API para enviar los datos
     } else {
-      alert('Por favor, completa todos los campos correctamente');
+      console.log('Formulario no válido');
     }
-
   }
-  /* ngOnInit() {
-     const headers = new HttpHeaders().set('Accept', 'application/ld+json');
-     this.apiService.getClases({ headers }).subscribe({
-       next: (response) => {
-         console.log('Clases obtenidas con éxito:', response);
-       },
-       error: (error) => {
-         console.error('Error al obtener las clases:', error);
-         alert('Hubo un error al obtener las clases');
-       }
-     });
-   }
-     */
 
-  public usuarios: string = '';
-  ngOnInit(): void {
+  cargarEntrenadores(): void {
     this.apiService.getUser('http://52.2.202.15/api/usuarios').subscribe({
-      next: (response) => {
-        console.log('Usuarios recibidos:', response);
-        //this.usuarios = response.nombre;  // Asigna toda la respuesta (el array de usuarios) a la variable
+      next: (response: any) => {
+        if (response && response.member) {
+          this.entrenadores = response.member.filter((u: any) => u.rol === 'entrenador');
+        }
       },
-      error: (error) => {
-        console.error('Error al obtener usuarios:', error);
+      error: (error: any) => {
+        console.error('Error al obtener entrenadores:', error);
       }
     });
   }
+
+  cargarClasesDisponibles(): void {
+    this.apiService.getClases().subscribe({
+      next: (response: unknown) => {
+        const apiResponse = response as any;
+        this.clasesDisponibles = apiResponse.member;
+      },
+      error: (error: any) => {
+        console.error('Error al obtener clases disponibles:', error);
+      }
+    });
+  }
+
+  cargarUbicacionesDisponibles(): void {
+    this.apiService.getUbicaciones().subscribe({
+      next: (response: unknown) => {
+        const apiResponse = response as any;
+        this.ubicacionesDisponibles = apiResponse.member.map((ubicacion: any) => ubicacion.nombre);
+      },
+      error: (error: any) => {
+        console.error('Error al obtener ubicaciones:', error);
+      }
+    });
+  }
+
+  obtenerUsuarioActual(): void {
+    this.apiService.getCurrentUser().subscribe({
+      next: (usuario: any) => {
+        this.usuarioActual = usuario;
+      },
+      error: (error: any) => {
+        console.error('Error al obtener el usuario actual:', error);
+      }
+    });
+  }
+
+  public mostrarClasesDisponibles: boolean = false;
+
 }

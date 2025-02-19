@@ -98,6 +98,20 @@ export class ApiService {
     return this.http.get<Notificaciones>(`${this.apiNotificaciones}/${id}`);
   }
 
+  // Obtener ubicaciones disponibles
+  getUbicaciones(): Observable<string[]> {
+    return this.http.get<ApiResponse<{ nombre: string }>>('http://52.2.202.15/api/ubicaciones').pipe(
+      map(response => response.member.map(ubicacion => ubicacion.nombre))
+    );
+  }
+
+  // Obtener el usuario autenticado actualmente
+  getCurrentUser(): Observable<Pupils> {
+    return this.http.get<Pupils>('http://52.2.202.15/api/usuarioActual');
+  }
+
+
+
   // Método para manejar dinero (por si se usa después)
   private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
