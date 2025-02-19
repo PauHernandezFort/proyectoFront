@@ -11,7 +11,6 @@ import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate 
 })
 export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {}; // Cambiado de string a number
-  public showPhotos: boolean = false;
   public members: Member[] = []; // Lista de usuarios
   public id: number = 0;
 
@@ -36,9 +35,7 @@ export class PupilsComponent implements OnInit {
   // Método para eliminar un alumno
   public deletePupil(id: number): void {
     if (!confirm('¿Estás seguro de que deseas eliminar este alumno?')) return;
-
     this.loading[id] = true; // Activar el estado de carga
-
     this.service.deletePupils(id).subscribe(
       () => {
         // Filtramos la lista para eliminar el alumno localmente
@@ -49,7 +46,7 @@ export class PupilsComponent implements OnInit {
         console.error("Error al eliminar el alumno:", error);
       },
       () => {
-        this.loading[id] = false; // Desactivar el estado de carga
+        this.loading[id] = false; 
       }
     );
   }
