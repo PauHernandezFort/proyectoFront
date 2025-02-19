@@ -71,7 +71,7 @@
   <br /><br />
 
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
-    <h3>Clases</h3>
+    <h3>Clases Inscritas</h3>
     <button class="btn btn-primary" (click)="addEvent()">Añadir nuevo</button>
   </div>
 
@@ -82,22 +82,43 @@
       <thead>
         <tr>
           <th>Título</th>
+          <th>Ubicación</th>
           <th>Inicio</th>
-          <th>Fin</th>
+          <th>Estado</th>
           <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
-        @for (event of events; track event.title) {
+        @for (event of events; track trackByEventId) {
           <tr>
             <td>
-              <input type="text" class="form-control" [(ngModel)]="event.title" (blur)="refresh.next()" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="event.title"
+                (blur)="refresh.next()"
+                [title]="event.meta?.descripcion ?? 'Sin descripción'"
+              />
+            </td>
+            <td>{{ event.meta?.ubicacion ?? 'No especificada' }}</td>
+            <td>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="event.start"
+                (ngModelChange)="refresh.next()"
+              />
             </td>
             <td>
-              <input type="text" class="form-control" [(ngModel)]="event.start" (ngModelChange)="refresh.next()" placeholder="No establecido" />
-            </td>
-            <td>
-              <input type="text" class="form-control" [(ngModel)]="event.end" (ngModelChange)="refresh.next()" placeholder="No establecido" />
+              <span class="badge" [ngClass]="{
+                'bg-success': event.color?.primary === colors.azul.primary,
+                'bg-warning': event.color?.primary === colors.amarillo.primary,
+                'bg-danger': event.color?.primary === colors.rojo.primary
+              }">
+                {{ event.color?.primary === colors.azul.primary ? 'Confirmada' : 
+                  event.color?.primary === colors.amarillo.primary ? 'Pendiente' : 
+                  'Cancelada' }}
+              </span>
             </td>
             <td>
               <button class="btn btn-danger" (click)="deleteEvent(event)">Eliminar</button>
@@ -105,7 +126,7 @@
           </tr>
         } @empty {
           <tr>
-            <td colspan="4" class="text-center">No hay eventos</td>
+            <td colspan="5" class="text-center">No hay eventos</td>
           </tr>
         }
       </tbody>
