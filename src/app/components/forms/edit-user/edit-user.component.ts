@@ -20,11 +20,12 @@ export class EditUserComponent implements OnInit {
   memberData = {
     id: 0,
     nombre: '',
-    apellidos: '',
-    telefono: '',
+    apellido: '',
     email: '',
-    photo: '',
-    rol: 'alumno'
+    telefono: '',
+    fotoPerfil: '',
+    rol: 'alumno',
+    fechaRegistro: new Date()
   };
 
   loading = false;
@@ -41,7 +42,16 @@ export class EditUserComponent implements OnInit {
     if (this.id) {
       this.loading = true;
       this.apiService.getUser(this.id).subscribe(response => {
-        this.memberData = response; // Asegúrate de asignar los datos correctamente
+        this.memberData = {
+          id: response.id || 0,
+          nombre: response.nombre,
+          apellido: response.apellido,
+          email: response.email,
+          telefono: response.telefono?.toString() || '',
+          fotoPerfil: response.fotoPerfil || '',
+          rol: response.rol,
+          fechaRegistro: response.fechaRegistro
+        };
         this.loading = false;
       }, error => {
         console.error('Error al cargar los datos del usuario:', error);
@@ -56,14 +66,18 @@ export class EditUserComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = () => this.memberData.photo = reader.result as string;
+      reader.onload = () => this.memberData.fotoPerfil = reader.result as string;
       reader.readAsDataURL(file);
     }
   }
 
   updatePupils(): void {
     this.loading = true;
-    this.apiService.updatePupils(this.memberData.id, this.memberData).subscribe(response => {
+    const updateData = {
+      ...this.memberData,
+      telefono: parseInt(this.memberData.telefono) || 0
+    };
+    this.apiService.updatePupils(this.memberData.id, updateData).subscribe(response => {
       alert('Usuario actualizado correctamente');
       this.router.navigate(['/pupils']);
     }, error => {
@@ -80,8 +94,8 @@ export class EditUserComponent implements OnInit {
   }
 
   isFormValid(): boolean {
-    if (!this.memberData.nombre || !this.memberData.apellidos) {
-      alert('El nombre y apellidos son obligatorios');
+    if (!this.memberData.nombre || !this.memberData.apellido) {
+      alert('El nombre y apellido son obligatorios');
       return false;
     }
 

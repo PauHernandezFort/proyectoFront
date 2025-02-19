@@ -1,4 +1,3 @@
-
 export interface ApiResponse<T> {
   "@context": string;
   "@id": string;
@@ -8,7 +7,7 @@ export interface ApiResponse<T> {
 }
 
 export interface Clases {
-  id?: number;
+  id?: null;
   nombre: string;
   descripcion: string;
   fecha: Date;
@@ -33,7 +32,7 @@ export interface Usuarios {
   apellido: string;
   email: string;
   password?: string; // Opcional porque no se debe devolver en respuestas
-  telefono?: number;
+  telefono?: number;  // Cambiado de number a string
   rol: string;
   fechaRegistro: Date;
   fotoPerfil?: string;
@@ -50,5 +49,15 @@ export interface Notificaciones {
   fechaEnvio: Date;
   estado: string;
   idUsuario?: number; // ID del usuario al que pertenece la notificación
+}
+
+export interface Member {
+  id: number;  // Asegúrate de que id no sea opcional
+  nombre: string;
+  apellidos: string;
+  telefono: string;
+  email: string;
+  foto?: string;
+  rol: string;
 }
 

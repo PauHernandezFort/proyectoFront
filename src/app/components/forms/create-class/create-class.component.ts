@@ -101,24 +101,19 @@ export class CreateClassComponent {
 
 
       const ldJsonData = {
-        "nombre": formData.nombre,
-        "id_entrenador": formData.id_entrenador,
-        "capacidad": formData.capacidad,
-        "estado": formData.estado,
-        "fecha": formData.fecha,
-        "descripcion": formData.descripcion
+      "nombre": formData.nombre || '',
+        "capacidad": Number(formData.capacidad) || 0,
+        "estado": formData.estado || '',
+        "fecha": new Date(formData.fecha || ''),
+        "descripcion": formData.descripcion || '',
+        "usuariosApuntados": []
       };
 
       // Mostrar los datos transformados en formato LD-JSON
       console.log('Datos transformados a LD-JSON:', JSON.stringify(ldJsonData));
 
-      // Configurar los encabezados para LD-JSON
-      const headers = new HttpHeaders({
-        'Content-Type': 'application/ld+json'
-      });
-
-      // Enviar los datos al backend con los encabezados correctos
-      this.apiService.createClass(ldJsonData, { headers }).subscribe({
+      // Enviar los datos al backend
+      this.apiService.createClass(ldJsonData).subscribe({
         next: (response) => {
           console.log('Clase creada con éxito:', response);
           alert('Clase creada con éxito');

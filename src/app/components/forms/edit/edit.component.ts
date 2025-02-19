@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Member } from '../../../models/user.interface';
-import { ApiService } from '../../../service/api.service';
 
 @Component({
   selector: 'app-edit',

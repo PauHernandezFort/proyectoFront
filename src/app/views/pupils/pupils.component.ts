@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
-import { Member } from '../../models/user.interface';
+import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
 
 @Component({
   selector: 'app-pupils',
@@ -9,57 +9,59 @@ import { Member } from '../../models/user.interface';
   templateUrl: './pupils.component.html',
   styleUrl: './pupils.component.css'
 })
-export class PupilsComponent {
-  loading: { [key: string]: boolean } = {};
-  public photo: string = "";
-  public title: string = "";
-  public urlPupils: string = "http://52.2.202.15/api/usuarios";
+export class PupilsComponent implements OnInit {
+  loading: { [key: number]: boolean } = {}; // Cambiado de string a number
   public showPhotos: boolean = false;
-  public members: Member[] = [];
+  public members: Member[] = []; // Lista de usuarios
   public id: number = 0;
 
-  constructor(private router: Router, public service: ApiService) { }
+  constructor(private router: Router, public service: ApiService) {}
 
+  // Obtener la lista de alumnos desde el servicio
   public getResponsePupils(): void {
-    this.service.getResponsePupils(this.urlPupils).subscribe((response) => {
-      this.members = response.member;
-    });
+    this.service.getResponsePupils().subscribe(
+      (response) => {
+        this.members = response; // Ya se extrae 'member' en el servicio
+      },
+      (error) => {
+        console.error("Error al obtener los alumnos:", error);
+      }
+    );
   }
 
   ngOnInit(): void {
     this.getResponsePupils();
   }
 
-  public deletePupils(): void {
-    this.service.deletePupils(this.id).subscribe(response => {
-      console.log("Miembro eliminado:", response);
-      // Si necesitas actualizar la lista de miembros después de la eliminación
-      this.members = this.members.filter(member => member.id !== this.id);
-    });
-  }
+  // Método para eliminar un alumno
+  public deletePupil(id: number): void {
+    if (!confirm('¿Estás seguro de que deseas eliminar este alumno?')) return;
 
-  eliminarAlumno(id: number) {
-    if (confirm('¿Estás seguro de que deseas eliminar este alumno?')) {
-      this.loading[id] = true;
-      this.id = id;
-      this.deletePupils();
+    this.loading[id] = true; // Activar el estado de carga
 
-      // Simulamos la eliminación con un timeout
-      setTimeout(() => {
-        this.loading[id] = false;
+    this.service.deletePupils(id).subscribe(
+      () => {
+        // Filtramos la lista para eliminar el alumno localmente
+        this.members = this.members.filter(member => member.id !== id);
         alert('Alumno eliminado correctamente');
-      }, 1000);
-    }
+      },
+      (error) => {
+        console.error("Error al eliminar el alumno:", error);
+      },
+      () => {
+        this.loading[id] = false; // Desactivar el estado de carga
+      }
+    );
   }
 
+  // Función para saber si un alumno está en proceso de eliminación
   isLoading(id: number): boolean {
     return this.loading[id] || false;
   }
 
-  editarAlumno(alumno: any) {
-    // Guardar los datos del alumno en localStorage antes de navegar
+  // Método para editar un alumno
+  editarAlumno(alumno: Member) {
     localStorage.setItem('userData', JSON.stringify(alumno));
     this.router.navigate(['/editUser']);
   }
 }
-
