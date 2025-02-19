@@ -1,6 +1,7 @@
 <div class="container mt-5 mb-5">
     <h2 class="text-center mb-5">Lista de Entrenadores</h2>
     <div class="table-responsive">
+        @if(trainers.length > 0){
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
                 <tr class="text-center">
@@ -12,23 +13,23 @@
                 </tr>
             </thead>
             <tbody class="text-center">
+                @for (trainer of trainers; track trainer; let i = $index;) {
                 <tr>
                     <td>
                         <img src="https://randomuser.me/api/portraits/men/10.jpg" class="rounded-circle" width="50"
                             height="50" alt="Juan Pérez">
                     </td>
-                    <td>Juan Pérez García</td>
-                    <td>+34 612 345 678</td>
-                    <td>carlos.sanchez.com</td>
+                    <td>{{ trainer.nombre }}</td>
+                    <td>{{ trainer.apellido }}</td>
+                    <td>{{ trainer.telefono }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2" 
-                                (click)="eliminarEntrenador('1')"
-                                [disabled]="isLoading('1')">
+                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer('1')"
+                            [disabled]="isLoading('1')">
                             @if (isLoading('1')) {
-                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                Eliminando...
+                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                            Eliminando...
                             } @else {
-                                <i class="bi bi-trash"></i> Eliminar
+                            <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
                         <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '1']">
@@ -36,56 +37,15 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <img src="https://randomuser.me/api/portraits/women/12.jpg" class="rounded-circle" width="50"
-                            height="50" alt="María López">
-                    </td>
-                    <td>María López Fernández</td>
-                    <td>+34 687 654 321</td>
-                    <td>carlosSanchez.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2"
-                                (click)="eliminarEntrenador('2')"
-                                [disabled]="isLoading('2')">
-                            @if (isLoading('2')) {
-                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                Eliminando...
-                            } @else {
-                                <i class="bi bi-trash"></i> Eliminar
-                            }
-                        </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '2']">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="rounded-circle" width="50"
-                            height="50" alt="Carlos Sánchez">
-                    </td>
-                    <td>Carlos Sánchez Martín</td>
-                    <td>+34 698 765 432</td>
-                    <td>carlos.sanchez.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2"
-                                (click)="eliminarEntrenador('3')"
-                                [disabled]="isLoading('3')">
-                            @if (isLoading('3')) {
-                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                Eliminando...
-                            } @else {
-                                <i class="bi bi-trash"></i> Eliminar
-                            }
-                        </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', '3']">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-                    </td>
-                </tr>
+                }
             </tbody>
         </table>
+        } @else {
+        <div class="alert alert-warning text-center p-4 shadow-sm">
+            <i class="bi bi-exclamation-circle-fill fs-4"></i>
+            <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
+        </div>
+        }
         <button class="btn btn-sm btn-primary" routerLink="/crearEntrenador">
             <i class="bi bi-plus"></i> Crear Entrenador
         </button>

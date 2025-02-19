@@ -1,42 +1,103 @@
 <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
-  <article class="col-md-8">
-      <label for="nombre-clase" class="form-label">Nombre de la clase</label>
-      <input type="text" class="form-control" id="nombre-clase" formControlName="nombre"
-          placeholder="Escribe el nombre de la clase">
-  </article>
+    <!-- Selección del nombre de la clase desde la base de datos -->
+    <article class="col-md-8">
+        <label for="nombre-clase" class="form-label">Nombre de la clase</label>
+        <select class="form-control" id="nombre-clase" formControlName="nombre">
+            @for (clase of clasesDisponibles; track clase.nombre) {
+                <option [value]="clase.nombre">{{ clase.nombre }}</option>
+            }
+        </select>
+    </article>
 
-  <article class="col-md-8">
-      <label for="nombre-profesor" class="form-label">Nombre del profesor</label>
-      <input type="text" class="form-control" id="nombre-profesor" formControlName="id_entrenador"
-          placeholder="Escribe el nombre del profesor">
-  </article>
+    <!-- Selección del entrenador -->
+    <article class="col-md-8">
+        <label for="nombre-profesor" class="form-label">Entrenador</label>
+        <select class="form-control" id="nombre-profesor" formControlName="id_entrenador">
+            @for (entrenador of entrenadores; track entrenador.id) {
+                <option [value]="entrenador.id">
+                    {{ entrenador.nombre }} {{ entrenador.apellido }}
+                </option>
+            }
+        </select>
+    </article>
 
-  <article class="col-md-8">
-      <label for="capacidad" class="form-label">Capacidad</label>
-      <input type="number" class="form-control" id="capacidad" formControlName="capacidad"
-          placeholder="Escribe la capacidad">
-  </article>
+    <!-- Capacidad -->
+    <article class="col-md-8">
+        <label for="capacidad" class="form-label">Capacidad</label>
+        <input type="number" class="form-control" id="capacidad" formControlName="capacidad" min="1" max="35"
+            placeholder="Escribe la capacidad">
+    </article>
 
-  <article>
-      <label for="informacion-clase" class="form-label">Información de la clase</label>
-      <textarea class="form-control" id="informacion-clase" formControlName="descripcion"
-          placeholder="Escribe la información de la clase"></textarea>
-  </article>
+    <!-- Selección de la ubicación -->
+    <article class="col-md-8">
+        <label for="ubicacion-clase" class="form-label">Ubicación</label>
+        <select class="form-control" id="ubicacion-clase" formControlName="ubicacion">
+            @for (ubicacion of ubicacionesDisponibles; track ubicacion) {
+                <option [value]="ubicacion">{{ ubicacion }}</option>
+            }
+        </select>
+    </article>
 
-  <article class="col-md-8">
-      <label for="fecha-clase" class="form-label">Fecha de la clase</label>
-      <input type="date" class="form-control" id="fecha-clase" formControlName="fecha">
-  </article>
+    <!-- Descripción -->
+    <article>
+        <label for="informacion-clase" class="form-label">Información de la clase</label>
+        <textarea class="form-control" id="informacion-clase" formControlName="descripcion"
+            placeholder="Escribe la información de la clase"></textarea>
+    </article>
 
-  <article class="col-md-8">
-      <label for="estado-clase" class="form-label">Estado de la clase</label>
-      <input type="text" class="form-control" id="estado-clase" formControlName="estado"
-          placeholder="Escribe el estado de la clase">
-  </article>
+    <!-- Fecha -->
+    <article class="col-md-8">
+        <label for="fecha-clase" class="form-label">Fecha de la clase</label>
+        <input type="date" class="form-control" id="fecha-clase" formControlName="fecha">
+    </article>
 
-  <section class="row mb-3 text-center">
-      <article>
-          <button type="submit" class="btn btn-primary">Confirmar</button>
-      </article>
-  </section>
+    <!-- Estado -->
+    <article class="col-md-8">
+        <label for="estado-clase" class="form-label">Estado de la clase</label>
+        <select class="form-control" id="estado-clase" formControlName="estado">
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+        </select>
+    </article>
+
+    <!-- Botón de confirmación -->
+    <section class="row mb-3 text-center">
+        <article>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+        </article>
+    </section>
 </form>
+
+<!-- Botón para mostrar/ocultar las clases disponibles -->
+<button class="btn btn-secondary my-3" (click)="mostrarClasesDisponibles = !mostrarClasesDisponibles">
+    {{ mostrarClasesDisponibles ? 'Ocultar Clases Disponibles' : 'Mostrar Clases Disponibles' }}
+</button>
+
+<!-- Sección para mostrar las clases disponibles solo si mostrarClasesDisponibles es true -->
+@if (mostrarClasesDisponibles) {
+    <section class="mt-5">
+        <h3>Clases Disponibles</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Capacidad</th>
+                    <th>Ubicación</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (clase of clasesDisponibles; track clase.id) {
+                    <tr>
+                        <td>{{ clase.nombre }}</td>
+                        <td>{{ clase.fecha | date:'dd/MM/yyyy' }}</td>
+                        <td>{{ clase.capacidad }}</td>
+                        <td>{{ clase.ubicacion }}</td>
+                        <td>{{ clase.estado }}</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+}
