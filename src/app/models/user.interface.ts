@@ -18,12 +18,12 @@ export interface Member {
   photo:            string;
   rol:              string;
   fecha_registro:   Date;
-  progresos:        any[];
-  clases:           any[];
-  clases_apuntadas: any[];
-  notificaciones:   any[];
-  fechaRegistro:    Date;
-  clasesApuntadas:  any[];
+  progresos:        null;
+  clases:           null;
+  clases_apuntadas: null;
+  notificaciones:   null;
+  fechaRegistro:    null;
+  clasesApuntadas:  null;
 }
 
 export interface Clase {

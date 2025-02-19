@@ -55,10 +55,20 @@ export class PupilsComponent {
   isLoading(id: number): boolean {
     return this.loading[id] || false;
   }
+  public selectedMember: Member | null = null;
 
-  editarAlumno(alumno: any) {
-    // Guardar los datos del alumno en localStorage antes de navegar
-    localStorage.setItem('userData', JSON.stringify(alumno));
-    this.router.navigate(['/editUser']);
+  public selectPupil(member: Member): void {
+    this.selectedMember = { ...member }; // Clonamos el objeto para evitar modificar el original antes de confirmar cambios.
+  }
+
+
+  public editPupil(): void {
+    if (this.selectedMember) {
+      this.service.updatePupils(this.selectedMember.id, this.selectedMember).subscribe(updatedMember => {
+        console.log("Alumno actualizado:", updatedMember);
+        this.getResponsePupils(); 
+        this.selectedMember = null; 
+      });
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
-import { Member } from '../../../interfaces/user.interface';
+import { Member } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-crear-alumno',
@@ -13,21 +13,21 @@ import { Member } from '../../../interfaces/user.interface';
   styleUrls: ['./crear-alumno.component.css']
 })
 export class CrearAlumnoComponent {
+  /*
   nuevoAlumno: Member = {
     "@id": "",
     "@type": "Usuario",
     id: 0,
     nombre: '',
-    apellido: '',
+    apellidos: '',
     email: '',
     password: '',
     telefono: '',
-    foto: '',
+    photo: '',
     rol: 'alumno',
     fecha_registro: new Date(),
     progresos: [],
     clases: [],
-    pagos: []
   };
   
   cargando = false;
@@ -36,7 +36,7 @@ export class CrearAlumnoComponent {
 
   crearAlumno(): void {
     this.cargando = true;
-    this.apiService.createUser(this.nuevoAlumno).subscribe(() => {
+    this.apiService.createPupil(this.nuevoAlumno).subscribe(() => {
       alert('Alumno creado exitosamente');
       this.cargando = false;
       this.router.navigate(['/alumnos']); 
@@ -51,9 +51,10 @@ export class CrearAlumnoComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.nuevoAlumno.foto = e.target.result;
+        this.nuevoAlumno.photo = e.target.result;
       };
       reader.readAsDataURL(file);
     }
   }
+    */
 }

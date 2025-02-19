@@ -41,7 +41,7 @@ export class EditUserComponent implements OnInit {
     if (this.id) {
       this.loading = true;
       this.apiService.getUser(this.id).subscribe(response => {
-        this.memberData = response; // Asegúrate de asignar los datos correctamente
+        /*this.memberData= response;*/ // Asegúrate de asignar los datos correctamente
         this.loading = false;
       }, error => {
         console.error('Error al cargar los datos del usuario:', error);
