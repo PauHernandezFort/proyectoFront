@@ -37,7 +37,7 @@ export class EditUserComponent implements OnInit {
 
     if (this.id) {
       this.loading = true;
-      this.apiService.getUser(1).subscribe(
+      this.apiService.getUser('1').subscribe(
         (response: Member) => {
           this.editForm.patchValue({
             nombre: response.nombre,

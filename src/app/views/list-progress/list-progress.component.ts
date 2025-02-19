@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api-service.service';
 import { Progreso, Usuarios } from '../../models/user.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-progress',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './list-progress.component.html',
   styleUrl: './list-progress.component.css'
 })
 export class ListProgressComponent {
-
   public listProgress: Progreso[] = [];
   public dateProgress: string = "";
   public namePupil: string = "";
@@ -41,10 +41,7 @@ export class ListProgressComponent {
   public getResponsePupilsById(): void {
     if (this.urlIdUser !== undefined) {
       this.service.getUser(this.urlIdUser).subscribe((usuario: Usuarios) => {
-        if (usuario.nombre !== undefined) {
-          this.namePupil = usuario.nombre;
-          console.log("Hola mundo: ", this.namePupil);
-        }
+        this.namePupil = usuario.nombre;
       });
     }
   }

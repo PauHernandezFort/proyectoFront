@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api-service.service';
 import { Usuarios as Member, Progreso } from '../../../models/user.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-progress',
@@ -17,7 +18,7 @@ export class CreateProgressComponent implements OnInit {
   public photo: string = "";
   selectedFile: File | null = null;
 
-  constructor(public service: ApiService) { }
+  constructor(public service: ApiService, private router: Router) { }
 
   createProgress = new FormGroup({
     date: new FormControl(new Date(), { nonNullable: true }),
@@ -56,6 +57,7 @@ export class CreateProgressComponent implements OnInit {
     this.service.createProgress(progress).subscribe(
       (response) => {
         console.log("Progreso creado correctamente:", response);
+        this.router.navigate(['/progress']);
       },
       (error) => {
         console.error("Error al crear progreso:", error);

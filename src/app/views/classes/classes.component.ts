@@ -25,7 +25,7 @@ export class ClassesComponent {
           if (response) {
               this.clases = response;
   
-              this.service.getUser(1).subscribe((usuario: Usuarios) => {
+              this.service.getUser('1').subscribe((usuario: Usuarios) => {
                   if (usuario && usuario.nombre !== null && usuario.nombre !== undefined) {
                       this.nombreEntrenador = usuario.nombre;
                   } else {
