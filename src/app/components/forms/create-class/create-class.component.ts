@@ -3,98 +3,123 @@ import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } 
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api-service.service';
 import { HttpHeaders } from '@angular/common/http';
+import { Router, RouterLink } from '@angular/router';
+import { Clases, Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-create-class',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,RouterLink],
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
 export class CreateClassComponent implements OnInit {
-
   createClass = new FormGroup({
-    nombre: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    id_entrenador: new FormControl<number | null>(null, { nonNullable: true, validators: [Validators.required] }),
-    capacidad: new FormControl<number>(1, { nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(35)] }),
-    estado: new FormControl('', { nonNullable: true }),
-    fecha: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    descripcion: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    ubicacion: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+    nombre: new FormControl('', { 
+      nonNullable: true, 
+      validators: [Validators.required] 
+    }),
+    idEntrenador: new FormControl('/api/entrenadors/1', { nonNullable: true }),
+    capacidad: new FormControl<number>(1, { 
+      nonNullable: true, 
+      validators: [Validators.required, Validators.min(1), Validators.max(35)] 
+    }),
+    estado: new FormControl('', { 
+      nonNullable: true, 
+      validators: [Validators.required] 
+    }),
+    fecha: new FormControl('', { 
+      nonNullable: true, 
+      validators: [Validators.required] 
+    }),
+    descripcion: new FormControl('', { 
+      nonNullable: true, 
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)] 
+    }),
+    ubicacion: new FormControl('C. de la Font de la Cabilda, 6C, 46470 Massanassa, Valencia', { 
+      nonNullable: true 
+    })
   });
 
-  public entrenadores: any[] = [];
-  public clasesDisponibles: any[] = [];
-  public ubicacionesDisponibles: string[] = [];
-  public usuarioActual: any = null;
+  public nombreEntrenador: string = '';
+  public ubicaciones: string[] = [];
+  public mostrarClasesDisponibles: boolean = false;
+  public clasesDisponibles: Clases[] = [];
+  public actividades: string[] = ['Boxeo', 'Kickboxing', 'MMA', 'Muay Thai', 'Jiu-Jitsu'];
+  public ubicacion: string[] = ['C. de la Font de la Cabilda, 6C, 46470 Massanassa, Valencia'];
+  public estadosClase: string[] = ['activa', 'inactiva'];
+  loading = false;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.cargarEntrenadores();
-    this.cargarClasesDisponibles();
-    this.cargarUbicacionesDisponibles();
-    this.obtenerUsuarioActual();
+    this.apiService.getUser(1).subscribe((usuario: Usuarios) => {
+      if (usuario && usuario.nombre) {
+        this.nombreEntrenador = usuario.nombre;
+      }
+    });
+
+    this.apiService.getClases().subscribe(response => {
+      this.clasesDisponibles = response;
+    });
+  }
+
+  isFieldInvalid(fieldName: string): boolean {
+    const field = this.createClass.get(fieldName);
+    return field ? field.invalid && (field.dirty || field.touched) : false;
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const field = this.createClass.get(fieldName);
+    if (!field) return '';
+
+    if (field.hasError('required')) return 'Este campo es obligatorio';
+    if (field.hasError('min')) return 'La capacidad mínima es 1';
+    if (field.hasError('max')) return 'La capacidad máxima es 35';
+    if (field.hasError('minlength')) return 'La descripción debe tener al menos 10 caracteres';
+    
+    return '';
   }
 
   onSubmit(): void {
-    if (this.createClass.valid) {
-      const formData = this.createClass.value;
-      console.log('Formulario enviado con:', formData);
-      // Aquí puedes llamar a la API para enviar los datos
-    } else {
-      console.log('Formulario no válido');
-    }
-  }
-
-  cargarEntrenadores(): void {
-    this.apiService.getUser('http://52.2.202.15/api/usuarios').subscribe({
-      next: (response: any) => {
-        if (response && response.member) {
-          this.entrenadores = response.member.filter((u: any) => u.rol === 'entrenador');
+    if (this.createClass.invalid) {
+      Object.keys(this.createClass.controls).forEach(key => {
+        const control = this.createClass.get(key);
+        if (control) {
+          control.markAsTouched();
         }
-      },
-      error: (error: any) => {
-        console.error('Error al obtener entrenadores:', error);
+      });
+      return;
+    }
+
+    this.loading = true;
+    const formValues = this.createClass.getRawValue();
+    const nuevaClase: Clases = {
+      nombre: formValues.nombre,
+      descripcion: formValues.descripcion,
+      fecha: new Date(formValues.fecha),
+      capacidad: formValues.capacidad,
+      estado: formValues.estado,
+      idEntrenador: '/api/usuarios/1',
+      ubicacion: formValues.ubicacion,
+      usuariosApuntados: []
+    };
+
+    this.apiService.createClass(nuevaClase).subscribe(response => {
+      if (response) {
+        alert('Clase creada exitosamente');
+        this.router.navigate(['/classesPupils']);
+      } else {
+        console.error('Error: Respuesta vacía o no válida.');
+        alert('Error al crear la clase');
       }
+      
+      this.loading = false;
+    }, error => {
+      console.error('Error al crear la clase:', error);
+      alert('Error al crear la clase');
+      this.loading = false;
     });
+    
   }
-
-  cargarClasesDisponibles(): void {
-    this.apiService.getClases().subscribe({
-      next: (response: unknown) => {
-        const apiResponse = response as any;
-        this.clasesDisponibles = apiResponse.member;
-      },
-      error: (error: any) => {
-        console.error('Error al obtener clases disponibles:', error);
-      }
-    });
-  }
-
-  cargarUbicacionesDisponibles(): void {
-    this.apiService.getUbicaciones().subscribe({
-      next: (response: unknown) => {
-        const apiResponse = response as any;
-        this.ubicacionesDisponibles = apiResponse.member.map((ubicacion: any) => ubicacion.nombre);
-      },
-      error: (error: any) => {
-        console.error('Error al obtener ubicaciones:', error);
-      }
-    });
-  }
-
-  obtenerUsuarioActual(): void {
-    this.apiService.getCurrentUser().subscribe({
-      next: (usuario: any) => {
-        this.usuarioActual = usuario;
-      },
-      error: (error: any) => {
-        console.error('Error al obtener el usuario actual:', error);
-      }
-    });
-  }
-
-  public mostrarClasesDisponibles: boolean = false;
-
 }

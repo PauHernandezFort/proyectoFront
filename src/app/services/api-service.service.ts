@@ -24,7 +24,7 @@ export class ApiService {
   }
 
   // Obtener usuario por ID
-  getUser(userId: string): Observable<Pupils> {
+  getUser(userId: number): Observable<Pupils> {
     return this.http.get<Pupils>(`${this.apiPupils}/${userId}`);
   }
 
@@ -63,10 +63,13 @@ export class ApiService {
       map(response => response.member)
     );
   }
+  deleteClases(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiClass}/${userId}`);
+  }
 
   // Crear clase
   createClass(data: Clases): Observable<Clases> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
     return this.http.post<Clases>(this.apiClass, data, { headers });
   }
 

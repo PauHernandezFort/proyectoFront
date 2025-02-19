@@ -7,15 +7,15 @@ export interface ApiResponse<T> {
 }
 
 export interface Clases {
-  id?: null;
+  id?: number;
   nombre: string;
   descripcion: string;
   fecha: Date;
-  capacidad?: number;
+  capacidad: number;
   estado: string;
-  idEntrenador?: number;
-  ubicacion?: string;
-  usuariosApuntados: number[];
+  idEntrenador: string;
+  ubicacion: string;
+  usuariosApuntados: any[];
 }
 
 export interface Progreso {

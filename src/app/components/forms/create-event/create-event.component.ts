@@ -48,6 +48,7 @@ export class CreateEventComponent {
         "fecha": new Date(formData.fecha || ''),
         "descripcion": formData.descripcion || '',
         "ubicacion": formData.ubicacion || '',
+        "idEntrenador": "/api/entrenadors/1",
         "usuariosApuntados": []
       };
 
