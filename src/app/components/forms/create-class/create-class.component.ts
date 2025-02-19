@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } 
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api-service.service';
 import { HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class CreateClassComponent {
 
-  /*
+ 
   classForm: FormGroup;
   loading = false;
   submitted = false;
@@ -78,7 +79,7 @@ export class CreateClassComponent {
     this.submitted = false;
     this.classForm.reset();
   }
-    */
+  */  
 
 
   createClass = new FormGroup({
