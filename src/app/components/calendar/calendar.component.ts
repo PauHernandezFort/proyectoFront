@@ -6,8 +6,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { ApiService } from '../../service/api.service';
-import { Clase } from '../../models/user.interface';
+import { ApiService } from '../../services/api-service.service';
+import { Clases } from '../../models/user.interface';
 
 @Component({
   selector: 'app-calendar',
@@ -70,7 +70,7 @@ export class CalendarComponent implements OnInit {
   loadEvents() {
     const userId = 'user-id-aqui'; // Reemplazar dinámicamente según autenticación
     this.apiService.getClasesInscritas(userId).subscribe({
-      next: (pupils: Clase[]) => {
+      next: (pupils: Clases[]) => {
         this.events = pupils.map(pupil => ({
           title: `${pupil.nombre} - ${pupil.descripcion}`,
           start: new Date(pupil.fecha),

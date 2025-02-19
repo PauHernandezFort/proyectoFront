@@ -1,74 +1,102 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Clases } from '../interfaces/addClass.interface';
-import { Pupils } from '../models/user.interface';
+import { map } from 'rxjs/operators';
+import { Clases, Usuarios as Pupils, Notificaciones, Progreso } from '../models/user.interface';
+import { ApiResponse } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUsers= 'http://52.2.202.15/api/users';
-  private apiUrl = 'http://52.2.202.15/api/clases';
+  private apiPupils = 'http://52.2.202.15/api/usuarios';
+  private apiClass = 'http://52.2.202.15/api/clases';
+  private apiProgress = 'http://52.2.202.15/api/progresos';
+  private apiNotificaciones = 'http://52.2.202.15/api/notificaciones';
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  public getResponsePupils(url: string): Observable<Pupils> {
-    return this.http.get<Pupils>(url);
+  // Obtener usuarios (pupils)
+  getResponsePupils(): Observable<Pupils[]> {
+    return this.http.get<ApiResponse<Pupils>>(this.apiPupils).pipe(
+      map(response => response.member)
+    );
   }
 
-  createClass(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
+  // Obtener usuario por ID
+  getUser(userId: string): Observable<Pupils> {
+    return this.http.get<Pupils>(`${this.apiPupils}/${userId}`);
+  }
+
+  // Crear usuario (pupil)
+  createPupil(userData: Pupils): Observable<Pupils> {
+    return this.http.post<Pupils>(this.apiPupils, userData);
+  }
+
+  // Actualizar usuario (pupil)
+  updatePupils(userId: number, userData: Partial<Pupils>): Observable<Pupils> {
+    return this.http.put<Pupils>(`${this.apiPupils}/${userId}`, userData);
+  }
+
+  // Eliminar usuario (pupil)
+  deletePupils(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiPupils}/${userId}`);
+  }
+
+  // Obtener clases
+  getClases(): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Obtener clases por fecha
+  getClasesByDate(fecha: string): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-date/${fecha}`).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Obtener clases inscritas por usuario
+  getClasesInscritas(userId: string): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-user/${userId}`).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Crear clase
+  createClass(data: Clases): Observable<Clases> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Clases>(this.apiUrl, data, { headers });
-  }
-  getClases(options: { headers: HttpHeaders }): Observable<any> {
-    return this.http.get(this.apiUrl, options); // Aquí no necesitas cambiar nada, solo asegúrate de que los headers estén correctos
+    return this.http.post<Clases>(this.apiClass, data, { headers });
   }
 
-  public getUsuario(url: string): Observable<ApiService> {
-    return this.http.get<ApiService>(url);
+  // Obtener progreso
+  getProgreso(): Observable<Progreso[]> {
+    return this.http.get<ApiResponse<Progreso>>(this.apiProgress).pipe(
+      map(response => response.member)
+    );
   }
 
-
-  private apiUrlEvents: string = 'http://52.2.202.15/api/clases';
-  createEvent(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Clases>(this.apiUrlEvents, data, { headers });
-
-
+  // Obtener progreso por ID
+  getProgresoById(id: number): Observable<Progreso> {
+    return this.http.get<Progreso>(`${this.apiProgress}/${id}`);
   }
-  /*
-  private apiUrlEnroll: string = 'aqui pondremos la url de la peticion de la apli';
-  
-  Enrolls(data: any): Observable<any> {
-    return this.http.post(this.apiUrlEnroll, data);
+
+  // Obtener notificaciones
+  getNotificaciones(): Observable<Notificaciones[]> {
+    return this.http.get<ApiResponse<Notificaciones>>(this.apiNotificaciones).pipe(
+      map(response => response.member)
+    );
   }
-  
 
+  // Obtener notificación por ID
+  getNotificacionById(id: number): Observable<Notificaciones> {
+    return this.http.get<Notificaciones>(`${this.apiNotificaciones}/${id}`);
+  }
 
-  private apiUrlMoney: string = 'aqui pondremos la url de la peticion de la apli';
+  // Método para manejar dinero (por si se usa después)
+  private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
     return this.http.post(this.apiUrlMoney, data);
-  }
-
-  createClass(data: ClassData): Observable<any> {
-    return this.http.post(this.apiUrlClass, data);
-  }
-*/
-
-  deleteUser(userId: string): Observable<any> {
-    return this.http.delete(`${this.apiUsers}/${userId}`);
-  }
-
-  getUser(userId: string): Observable<ApiService> {
-    return this.http.get<ApiService>(`${this.apiUsers}/${userId}`);
-  }
-
-  updateUser(userId: string, userData: Partial<ApiService>): Observable<ApiService> {
-    return this.http.put<ApiService>(`${this.apiUsers}/${userId}`, userData);
-  }
-
-  createUser(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUsers}`, userData);
   }
 }

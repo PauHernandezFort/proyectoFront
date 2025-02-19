@@ -14,11 +14,12 @@ import { ApiService } from '../../../services/api-service.service';
 export class CrearEntrenadorComponent {
   entrenador = {
     nombre: '',
-    apellidos: '',
-    telefono: '',
+    apellido: '',
     email: '',
-    foto: '',
-    rol: 'entrenador'
+    telefono: 0,
+    fotoPerfil: '',
+    rol: 'entrenador',
+    fechaRegistro: new Date()
   };
 
   constructor(private apiService: ApiService) {}
@@ -28,7 +29,7 @@ export class CrearEntrenadorComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.entrenador.foto = e.target.result;
+        this.entrenador.fotoPerfil = e.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -37,7 +38,7 @@ export class CrearEntrenadorComponent {
   onSubmit() {
     if (this.validarFormulario()) {
       // Aquí iría la lógica para enviar los datos al servidor
-      this.apiService.createUser(this.entrenador).subscribe(
+      this.apiService.createPupil(this.entrenador).subscribe(
         (response) => {
           alert('Entrenador creado correctamente');
           // Redirigir a la lista de entrenadores
@@ -52,12 +53,12 @@ export class CrearEntrenadorComponent {
   }
 
   validarFormulario(): boolean {
-    if (!this.entrenador.nombre || !this.entrenador.apellidos) {
-      alert('El nombre y apellidos son obligatorios');
+    if (!this.entrenador.nombre || !this.entrenador.apellido) {
+      alert('El nombre y apellido son obligatorios');
       return false;
     }
 
-    if (!this.entrenador.telefono || !/^[0-9]{9}$/.test(this.entrenador.telefono)) {
+    if (!this.entrenador.telefono || !/^[0-9]{9}$/.test(this.entrenador.telefono.toString())) {
       alert('Introduce un número de teléfono válido (9 dígitos)');
       return false;
     }

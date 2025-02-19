@@ -18,17 +18,16 @@
                         <img [src]="" class="rounded-circle" width="50" height="50" alt="Imagen sobre miembro">
                     </td>
                     <td>{{ member.nombre }}</td>
-                    <td>{{ member.apellido }}</td>
+                    <td>{{ member.telefono }}</td>
                     <td>{{ member.email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2" 
-                                (click)="eliminarAlumno(member.id)"
-                                [disabled]="isLoading(member.id)">
-                            @if (isLoading(member.id)) {
-                                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                                Eliminando...
+                        <button class="btn btn-sm btn-danger me-2" (click)="deletePupil(member.id!)"
+                            [disabled]="isLoading(member.id!)">
+                            @if (isLoading(member.id!)) {
+                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                            Eliminando...
                             } @else {
-                                <i class="bi bi-trash"></i> Eliminar
+                            <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
                         <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', member.id]">

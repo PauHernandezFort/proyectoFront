@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Pupils, Member } from '../../../models/user.interface';
+import { Usuarios, Member } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-sign-in',
@@ -15,15 +15,17 @@ export class SignInComponent {
   correo: string = '';
   password: string = '';
   errors: { [key: string]: string } = {};
-  pupils: Pupils;
+  pupils: Usuarios;
 
   constructor(private router: Router) {
     this.pupils = {
-      "@context": "tu_contexto_aqui",
-      "@id": "tu_id_aqui",
-      "@type": "tu_tipo_aqui",
-      totalItems: 0,
-      member: []
+      id: 0,
+      nombre: '',
+      apellido: '',
+      email: '',
+      rol: '',
+      fechaRegistro: new Date(),
+      telefono: 0
     };
   }
 
@@ -47,13 +49,14 @@ export class SignInComponent {
     }
 
     if (isValid) {
+      /*
       // Simulamos que obtenemos los datos del usuario del backend
       const userData: Member = {
         "@id": "miembro_id_aqui",
         "@type": "miembro_tipo_aqui",
         id: 1,
         nombre: 'Juan',
-        apellido: 'Pérez García',
+        apellidos: 'Pérez García',
         email: this.correo,
         password: this.password,
         telefono: '123456789',
@@ -82,10 +85,13 @@ export class SignInComponent {
       const firstError = Object.values(this.errors)[0];
       alert(firstError);
     }
+      */
+    }
   }
 
   // Método para navegar al registro
   irARegistro(): void {
     this.router.navigate(['/signUp']);
   }
+
 }

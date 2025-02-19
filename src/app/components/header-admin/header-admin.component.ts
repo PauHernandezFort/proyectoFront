@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { Pupils } from '../../models/user.interface';
+import { Usuarios } from '../../models/user.interface';
 
 @Component({
   selector: 'app-header-admin',
@@ -10,7 +10,7 @@ import { Pupils } from '../../models/user.interface';
   styleUrls: ['./header-admin.component.css']
 })
 export class HeaderAdminComponent implements OnInit {
-  userData: Pupils | null = null;
+  userData: Usuarios | null = null;
 
   constructor(private router: Router) {}
 
