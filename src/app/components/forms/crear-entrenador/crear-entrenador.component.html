@@ -10,8 +10,8 @@
             <!-- Foto -->
             <div class="mb-4 text-center">
               <div class="profile-image-container mb-3">
-                @if (entrenador.foto) {
-                  <img [src]="entrenador.foto" alt="Foto de perfil" class="profile-image">
+                @if (entrenador.fotoPerfil) {
+                  <img [src]="entrenador.fotoPerfil" alt="Foto de perfil" class="profile-image">
                 } @else {
                   <div class="default-image">
                     <i class="bi bi-person-circle"></i>
@@ -52,7 +52,7 @@
                 class="form-control" 
                 id="apellidos"
                 name="apellidos"
-                [(ngModel)]="entrenador.apellidos"
+                [(ngModel)]="entrenador.apellido"
                 required
                 placeholder="Introduce los apellidos">
             </div>
