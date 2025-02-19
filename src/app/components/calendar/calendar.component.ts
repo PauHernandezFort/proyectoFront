@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ApiService } from '../../service/api.service';
-import { Clase } from '../../interfaces/user.interface';
+import { Clase } from '../../models/user.interface';
 
 @Component({
   selector: 'app-calendar',

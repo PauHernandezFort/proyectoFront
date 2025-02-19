@@ -73,7 +73,7 @@
         top: 100%;
         left: 0;
         width: 100vw; /* Ocupar el 100% del ancho de la pantalla */
-        background-color: #343a40; /* Mismo color de fondo del navbar */
+        background-color: #212529; /* Mismo color de fondo del navbar */
         z-index: 1000; /* Para que quede por encima de otros elementos */
         padding: 10px 0;
     }

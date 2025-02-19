@@ -4,6 +4,7 @@ import { CreateEventComponent } from "../../components/forms/create-event/create
 @Component({
   selector: 'app-events',
   imports: [CreateEventComponent],
+  standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })

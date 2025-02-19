@@ -1,0 +1,83 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Editar Alumno</h2>
+        </div>
+        <div class="card-body">
+          <!-- Mostrar spinner mientras se está cargando -->
+          <div *ngIf="loading">
+            <div class="text-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mostrar formulario si no está cargando -->
+          <div *ngIf="!loading">
+            <form (ngSubmit)="onSubmit()" [formGroup]="reactiveForm">
+              <!-- Foto -->
+              <div class="mb-4 text-center">
+                <div class="profile-image-container mb-3">
+                  <img *ngIf="memberData.photo; else defaultImage" [src]="memberData.photo" alt="Foto de perfil"
+                    class="profile-image">
+                  <ng-template #defaultImage>
+                    <div class="default-image">
+                      <i class="bi bi-person-circle"></i>
+                    </div>
+                  </ng-template>
+                </div>
+                <div class="mb-3">
+                  <label for="foto" class="btn btn-outline-primary">
+                    <i class="bi bi-camera"></i> Cambiar Foto
+                  </label>
+                  <input type="file" id="foto" class="d-none" accept="image/*" (change)="onFileSelected($event)">
+                </div>
+              </div>
+
+              <!-- Nombre -->
+              <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="memberData.nombre"
+                  required placeholder="Introduce el nombre">
+              </div>
+
+              <!-- Apellidos -->
+              <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" name="apellidos"
+                  [(ngModel)]="memberData.apellidos" required placeholder="Introduce los apellidos">
+              </div>
+
+              <!-- Teléfono -->
+              <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono</label>
+                <input type="tel" class="form-control" id="telefono" name="telefono" [(ngModel)]="memberData.telefono"
+                  required pattern="[0-9]{9}" placeholder="Introduce el teléfono">
+              </div>
+
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="memberData.email" required
+                  placeholder="Introduce el correo electrónico">
+              </div>
+
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary me-2" [disabled]="loading">
+                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+                  <span *ngIf="!loading"><i class="bi bi-save"></i> Guardar Cambios</span>
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                  Cancelar
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

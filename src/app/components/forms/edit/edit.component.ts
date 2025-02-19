@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Member } from '../../../interfaces/user.interface';
+import { Member } from '../../../models/user.interface';
 import { ApiService } from '../../../service/api.service';
 
 @Component({
@@ -12,17 +12,46 @@ import { ApiService } from '../../../service/api.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
+
+  
+  /*
   public pupil: Member = {
     "@id": "",
     "@type": "",
     id: 0,
   };
   errors: { [key: string]: string } = {};
+  loading = false;
+  isEntrenador = false;
+  entrenadorId: string = '';
 
-  constructor(private router: Router, service: ApiService) {}
+  constructor(private route: Router, service: ApiService) {}
 
-  ngOnInit() {
+
+  cargarDatosEntrenador(id: string) {
+    this.loading = true;
+    this.apiService.getUser(id).subscribe(
+      (user: any) => {
+        this.userData = {
+          id: user.id,
+          nombre: user.nombre,
+          apellidos: user.apellidos,
+          telefono: user.telefono,
+          email: user.email,
+          foto: user.foto,
+          rol: user.rol
+        };
+        this.loading = false;
+      },
+      (error) => {
+        alert('Error al cargar los datos del entrenador');
+        this.loading = false;
+      }
+    );
+  }
+
+  cargarDatosPerfil() {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       this.pupil = JSON.parse(userDataString);
@@ -32,7 +61,6 @@ export class EditComponent implements OnInit {
         this.pupil.rol = userType || 'No especificado';
       }
     } else {
-      // Si no hay datos, redirigir al perfil
       this.router.navigate(['/showProfile']);
     }
 
@@ -65,7 +93,7 @@ export class EditComponent implements OnInit {
       clasesApuntadas: []
     };
 
-    this.pupils.member.push(newMember); // Agrega el nuevo miembro al array
+    this.pupil.member.push(newMember); // Agrega el nuevo miembro al array
   }
 
   validarFormulario(): boolean {
@@ -135,7 +163,11 @@ export class EditComponent implements OnInit {
   }
 
   cancelar() {
-    // Volver al perfil sin guardar cambios
-    this.router.navigate(['/showProfile']);
+    if (this.isEntrenador) {
+      this.router.navigate(['/pupilsmanager']);
+    } else {
+      this.router.navigate(['/showProfile']);
+    }
   }
+    */
 }

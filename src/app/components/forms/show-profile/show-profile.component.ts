@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Pupils, Member } from '../../../interfaces/user.interface';
+import { Pupils, Member } from '../../../models/user.interface';
 import { ImageModalComponent } from '../../image-modal/image-modal.component';
 import { RouterLink } from '@angular/router';
 
@@ -35,12 +35,14 @@ export class ShowProfileComponent implements OnInit {
     };
 
     // Ejemplo de cómo agregar un miembro
+
+    /*
     const newMember: Member = {
       "@id": "miembro_id_aqui",
       "@type": "miembro_tipo_aqui",
       id: 1,
       nombre: "Nombre",
-      apellido: "Apellido",
+      apellidos: "Apellido",
       email: "email@ejemplo.com",
       password: "tu_contraseña",
       telefono: "123456789",
@@ -55,9 +57,10 @@ export class ShowProfileComponent implements OnInit {
     };
 
     this.userData.member.push(newMember); // Agrega el nuevo miembro al array
+    */
   }
 
-  openImageModal(imageUrl: string, title: string) {
+  openImageModal(imageUrl: Pupils, title: string) {
     this.selectedImage = {
       url: imageUrl,
       title: title,

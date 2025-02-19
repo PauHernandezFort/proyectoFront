@@ -12,43 +12,34 @@
                 </tr>
             </thead>
             <tbody class="text-center">
+                @for (member of members; track member; let i = $index;) {
                 <tr>
                     <td>
-                        <img src="https://randomuser.me/api/portraits/men/10.jpg" class="rounded-circle" width="50"
-                            height="50" alt="Juan Pérez">
+                        <img [src]="" class="rounded-circle" width="50" height="50" alt="Imagen sobre miembro">
                     </td>
-                    <td>Juan Pérez García</td>
-                    <td>+34 612 345 678</td>
-                    <td>carlos.sanchez.com</td>
+                    <td>{{ member.nombre }}</td>
+                    <td>{{ member.telefono }}</td>
+                    <td>{{ member.email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
+                        <button class="btn btn-sm btn-danger me-2" (click)="eliminarAlumno(member.id)"
+                            [disabled]="isLoading(member.id)">
+                            @if (isLoading(member.id)) {
+                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                            Eliminando...
+                            } @else {
+                            <i class="bi bi-trash"></i> Eliminar
+                            }
+                        </button>
+                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', member.id]">
+                            <i class="bi bi-pencil"></i> Editar
+                        </button>
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <img src="https://randomuser.me/api/portraits/women/12.jpg" class="rounded-circle" width="50"
-                            height="50" alt="María López">
-                    </td>
-                    <td>María López Fernández</td>
-                    <td>+34 687 654 321</td>
-                    <td>carlosSanchez.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i>Eliminar</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <img src="https://randomuser.me/api/portraits/men/22.jpg" class="rounded-circle" width="50"
-                            height="50" alt="Carlos Sánchez">
-                    </td>
-                    <td>Carlos Sánchez Martín</td>
-                    <td>+34 698 765 432</td>
-                    <td>carlos.sanchez.com</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</button>
-                    </td>
-                </tr>
+                }
             </tbody>
         </table>
+        <button class="btn btn-sm btn-primary" routerLink="/crearAlumno">
+            <i class="bi bi-plus"></i> Crear Alumno
+        </button>
     </div>
 </div>

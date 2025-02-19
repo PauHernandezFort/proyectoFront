@@ -3,10 +3,10 @@
         <div class="profile-card">
             <div class="profile-header">
                 <div class="profile-image">
-                    @if (userData.foto) {
-                        <img [src]="userData.foto" 
+                    @if (userData) {
+                        <img [src]="userData" 
                              alt="Foto de perfil" 
-                             (click)="openImageModal(userData.foto, 'Foto de Perfil')" 
+                             (click)="openImageModal(userData, 'Foto de Perfil')" 
                              style="cursor: pointer;">
                     } @else {
                         <i class="bi bi-person-circle" style="font-size: 80px; cursor: pointer;"></i>
@@ -16,34 +16,7 @@
                 <h2>Mi Perfil</h2>
             </div>
             
-            <div class="profile-info">
-                <div class="info-group">
-                    <label>Nombre:</label>
-                    <p>{{ userData.nombre }}</p>
-                </div>
-                
-                <div class="info-group">
-                    <label>Apellidos:</label>
-                    <p>{{ userData.apellidos }}</p>
-                </div>
-                
-                <div class="info-group">
-                    <label>Email:</label>
-                    <p>{{ userData.email }}</p>
-                </div>
-                
-                <div class="info-group">
-                    <label>Teléfono:</label>
-                    <p>{{ userData.telefono }}</p>
-                </div>
-
-                @if (userData.rol) {
-                    <div class="info-group">
-                        <label>Rol:</label>
-                        <p>{{ userData.rol }}</p>
-                    </div>
-                }
-            </div>
+            
 
             <div class="profile-actions"> <button type="submit" class="btn btn-primary fw-bold px-4 py-2 shadow-sm animated-button"
                 aria-label="Enviar formulario de contacto"  (click)="editProfile()">
