@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../../services/api-service.service';
-import { Member } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-crear-alumno',
@@ -13,48 +11,49 @@ import { Member } from '../../../models/user.interface';
   styleUrls: ['./crear-alumno.component.css']
 })
 export class CrearAlumnoComponent {
-  /*
-  nuevoAlumno: Member = {
-    "@id": "",
-    "@type": "Usuario",
-    id: 0,
+  alumno = {
     nombre: '',
     apellidos: '',
-    email: '',
-    password: '',
     telefono: '',
-    photo: '',
-    rol: 'alumno',
-    fecha_registro: new Date(),
-    progresos: [],
-    clases: [],
+    email: '',
+    foto: ''
   };
-  
-  cargando = false;
-
-  constructor(private apiService: ApiService, private router: Router) {}
-
-  crearAlumno(): void {
-    this.cargando = true;
-    this.apiService.createPupil(this.nuevoAlumno).subscribe(() => {
-      alert('Alumno creado exitosamente');
-      this.cargando = false;
-      this.router.navigate(['/alumnos']); 
-    }, error => {
-      console.error('Error al crear el alumno:', error);
-      this.cargando = false;
-    });
-  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.nuevoAlumno.photo = e.target.result;
+        this.alumno.foto = e.target.result;
       };
       reader.readAsDataURL(file);
     }
   }
-    */
+
+  onSubmit() {
+    if (this.validarFormulario()) {
+      console.log('Alumno creado:', this.alumno);
+      // Aquí iría la lógica para enviar los datos al servidor
+      alert('Alumno creado correctamente');
+    }
+  }
+
+  validarFormulario(): boolean {
+    if (!this.alumno.nombre || !this.alumno.apellidos) {
+      alert('El nombre y apellidos son obligatorios');
+      return false;
+    }
+
+    if (!this.alumno.telefono || !/^[0-9]{9}$/.test(this.alumno.telefono)) {
+      alert('Introduce un número de teléfono válido (9 dígitos)');
+      return false;
+    }
+
+    if (!this.alumno.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.alumno.email)) {
+      alert('Introduce un correo electrónico válido');
+      return false;
+    }
+
+    return true;
+  }
 }

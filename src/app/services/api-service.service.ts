@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Clases } from '../interfaces/addClass.interface';
-import { Member, Pupils } from '../models/user.interface';
+import { map } from 'rxjs/operators';
+import { Clases, Usuarios as Pupils, Notificaciones, Progreso, Usuarios } from '../models/user.interface';
+import { ApiResponse } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,57 +12,127 @@ export class ApiService {
   private apiPupils = 'http://52.2.202.15/api/usuarios';
   private apiClass = 'http://52.2.202.15/api/clases';
   private apiProgress = 'http://52.2.202.15/api/progresos';
+  private apiNotificaciones = 'http://52.2.202.15/api/notificaciones';
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  getResponsePupils(url: string): Observable<Pupils> {
-    return this.http.get<Pupils>(url);
+  // Obtener usuarios (pupils)
+  getResponsePupils(): Observable<Pupils[]> {
+    return this.http.get<ApiResponse<Pupils>>(this.apiPupils).pipe(
+      map(response => response.member)
+    );
   }
 
-  createClass(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
+  // Obtener usuario por ID
+  getUser(userId: string): Observable<Pupils> {
+    return this.http.get<Pupils>(`${this.apiPupils}/${userId}`);
+  }
+
+  // Crear usuario (pupil)
+  createPupil(userData: Pupils): Observable<Pupils> {
+    return this.http.post<Pupils>(this.apiPupils, userData);
+  }
+
+  // Actualizar usuario (pupil)
+  updatePupils(userId: number, userData: Partial<Pupils>): Observable<Pupils> {
+    return this.http.put<Pupils>(`${this.apiPupils}/${userId}`, userData);
+  }
+
+  // Eliminar usuario (pupil)
+  deletePupils(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiPupils}/${userId}`);
+  }
+
+  // Obtener clases
+  getClases(): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Obtener clases por fecha
+  getClasesByDate(fecha: string): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-date/${fecha}`).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Obtener clases inscritas por usuario
+  getClasesInscritas(userId: string): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-user/${userId}`).pipe(
+      map(response => response.member)
+    );
+  }
+
+  // Crear clase
+  createClass(data: Clases): Observable<Clases> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<Clases>(this.apiClass, data, { headers });
   }
 
-  getClases(options: { headers: HttpHeaders }): Observable<any> {
-    return this.http.get(this.apiClass, options); // Aquí no necesitas cambiar nada, solo asegúrate de que los headers estén correctos
+  // Obtener progreso
+  getProgreso(): Observable<Progreso[]> {
+    return this.http.get<ApiResponse<Progreso>>(this.apiProgress).pipe(
+      map(response => response.member)
+    );
   }
 
-  getUser(userId: string): Observable<ApiService> {
-    return this.http.get<ApiService>(`${this.apiPupils}/${userId}`);
+  // Obtener progreso por ID
+  getProgresoById(id: number): Observable<Progreso> {
+    return this.http.get<Progreso>(`${this.apiProgress}/${id}`);
   }
 
-  createPupil(userData: any): Observable<Member> {
-    return this.http.post<Member>(this.apiPupils, userData);
+  // Obtener notificaciones
+  getNotificaciones(): Observable<Notificaciones[]> {
+    return this.http.get<ApiResponse<Notificaciones>>(this.apiNotificaciones).pipe(
+      map(response => response.member)
+    );
   }
 
-  deletePupils(userId: number): Observable<any> {
-    const apiUrl = `http://52.2.202.15/api/usuarios/${userId}`;
-    return this.http.delete(apiUrl);
+  // Obtener notificación por ID
+  getNotificacionById(id: number): Observable<Notificaciones> {
+    return this.http.get<Notificaciones>(`${this.apiNotificaciones}/${id}`);
   }
 
-  private apiUrlEvents: string = 'http://52.2.202.15/api/clases';
-  createEvent(data: any, p0: { headers: HttpHeaders; }): Observable<Clases> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<Clases>(this.apiUrlEvents, data, { headers });
-  }
-
-  updatePupils(userId: number, userData: Partial<Member>): Observable<Member> {
-    return this.http.put<Member>(`${this.apiPupils}/${userId}`, userData);
-  }
-
-  
-  private apiUrlEnroll: string = 'aqui pondremos la url de la peticion de la apli';
-  
-  Enrolls(data: any): Observable<any> {
-    return this.http.post(this.apiUrlEnroll, data);
-  }
-
-  private apiUrlMoney: string = 'aqui pondremos la url de la peticion de la apli';
+  // Método para manejar dinero (por si se usa después)
+  private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
     return this.http.post(this.apiUrlMoney, data);
   }
+  
+  // Método para registrar un nuevo usuario
+  registerPupil(userData: Usuarios): Observable<Usuarios> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/ld+json',
+      'Accept': 'application/ld+json'
+    });
+  
+    const userDataToSend = {
+      nombre: userData.nombre,
+      apellido: userData.apellido,
+      email: userData.email,
+      password: userData.password,
+      telefono: userData.telefono?.toString() ?? '0',
+      rol: userData.rol,
+      fechaRegistro: new Date().toISOString(),
+      progresos: [],
+      clases: [],
+      notificaciones: [],
+      fotoPerfil: userData.fotoPerfil || ''
+    };
+  
+    console.log('Enviando datos:', userDataToSend);
+    return this.http.post<Usuarios>(this.apiPupils, JSON.stringify(userDataToSend), { headers });
+  }
+  
 
+  // Método para iniciar sesión
+  loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/ld+json'
+    });
 
-
+    return this.http.post<Usuarios>(`${this.apiPupils}/login`, credentials, { headers });
+  }
 }
