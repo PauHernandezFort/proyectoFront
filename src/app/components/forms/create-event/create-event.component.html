@@ -41,6 +41,16 @@
 
                 <div class="event-card-item">
                     <div class="event-header-item">
+                        <i class="bi bi-calendar-date event-icon"></i>
+                        <label for="fecha-evento" class="form-label">capacidad del evento</label>
+                    </div>
+                    <input type="text" class="form-control" id="capacidad-evento" formControlName="capacidad" required
+                        aria-required="true" aria-describedby="capacidad-evento-ayuda">
+                    <p id="capacidad-evento-ayuda" class="visually-hidden">Por favor, ingresa la capacidad del evento.</p>
+                </div>
+
+                <div class="event-card-item">
+                    <div class="event-header-item">
                         <i class="bi bi-info-circle event-icon"></i>
                         <label for="estado-evento" class="form-label">Estado del evento</label>
                     </div>

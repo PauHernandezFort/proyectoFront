@@ -37,10 +37,7 @@ export class CreateEventComponent {
   onSubmit() {
     if (this.createEvent.valid) {
       const formData = this.createEvent.value;
-
       // Transformar formData a formato LD-JSON
-
-
       const ldJsonData = {
         "nombre": formData.nombre || '',
         "capacidad": Number(formData.capacidad) || 0,
@@ -74,7 +71,6 @@ export class CreateEventComponent {
     } else {
       alert('Por favor, completa todos los campos correctamente');
     }
-
   }
   /*
   onSubmit2() {
