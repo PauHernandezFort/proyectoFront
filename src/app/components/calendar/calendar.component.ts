@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, Output, EventEmitter, Input, ViewEncapsulation, OnInit } from '@angular/core';
-import { startOfDay, endOfDay, isSameDay, isSameMonth } from 'date-fns';
+import { isSameDay, isSameMonth, startOfDay, endOfDay } from 'date-fns';
 import { Subject } from 'rxjs';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import { CommonModule } from '@angular/common';
@@ -68,16 +68,28 @@ export class CalendarComponent implements OnInit {
   }
 
   loadEvents() {
-    const userId = 'user-id-aqui'; // Reemplazar dinámicamente según autenticación
+    const userId = this.getUserId();
+
+    if (!userId) {
+      console.error('No se pudo obtener el ID del usuario.');
+      return;
+    }
+
     this.apiService.getClasesInscritas(userId).subscribe({
-      next: (pupils: Clases[]) => {
-        this.events = pupils.map(pupil => ({
-          title: `${pupil.nombre} - ${pupil.descripcion}`,
-          start: new Date(pupil.fecha),
-          end: new Date(pupil.fecha), // Asumiendo que la fecha es el inicio y fin
-          color: this.colors.azul,
-          draggable: false,
-        }));
+      next: (clases: Clases[]) => {
+        this.events = clases
+          .filter((clase) => clase.usuariosApuntados.includes(Number(userId))) // Solo clases en las que está inscrito
+          .map((clase, index) => ({
+            id: clase.id ?? `event-${index}`, // Usar `id` si está disponible, de lo contrario generar uno
+            title: `${clase.nombre} - ${clase.descripcion}`,
+            start: new Date(clase.fecha), // La fecha de la clase
+            end: new Date(clase.fecha), // Se usa la misma fecha para inicio y fin
+            color: this.getColorByEstado(clase.estado), // Asigna color según estado
+            actions: this.actions,
+            draggable: false,
+            resizable: { beforeStart: false, afterEnd: false },
+            meta: { ubicacion: clase.ubicacion ?? 'Sin ubicación' }, // Guardamos la ubicación
+          }));
         this.refresh.next();
       },
       error: (error) => {
@@ -86,8 +98,16 @@ export class CalendarComponent implements OnInit {
     });
   }
 
-  trackEvent(index: number, event: CalendarEvent): string {
-    return event.id ? event.id.toString() : index.toString();
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  getColorByEstado(estado: string) {
+    switch (estado.toLowerCase()) {
+      case 'confirmada': return this.colors.azul;
+      case 'pendiente': return this.colors.amarillo;
+      default: return this.colors.rojo; // Estado "cancelado" o desconocido
+    }
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -111,7 +131,7 @@ export class CalendarComponent implements OnInit {
 
   addEvent(): void {
     const newEvent: CalendarEvent = {
-      title: 'Nuevo evento',
+      title: 'Nueva Clase',
       start: startOfDay(new Date()),
       end: endOfDay(new Date()),
       color: this.colors.rojo,
@@ -135,4 +155,9 @@ export class CalendarComponent implements OnInit {
   closeOpenMonthViewDay(): void {
     this.activeDayIsOpen = false;
   }
+
+  trackByEventId(index: number, event: CalendarEvent): string {
+    return event.id ? event.id.toString() : `event-${index}`;
+  }
 }
+
