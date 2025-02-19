@@ -53,7 +53,7 @@ export class CreateClassComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.apiService.getUser(1).subscribe((usuario: Usuarios) => {
+    this.apiService.getUser('1').subscribe((usuario: Usuarios) => {
       if (usuario && usuario.nombre) {
         this.nombreEntrenador = usuario.nombre;
       }

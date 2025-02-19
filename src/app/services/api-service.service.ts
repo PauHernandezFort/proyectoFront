@@ -24,8 +24,8 @@ export class ApiService {
   }
 
   // Obtener usuario por ID
-  getUser(userId: number): Observable<Pupils> {
-    return this.http.get<Pupils>(`${this.apiPupils}/${userId}`);
+  getUser(urlIdUser: string): Observable<Pupils> {
+    return this.http.get<Pupils>(`http://52.2.202.15${urlIdUser}`);
   }
 
   // Crear usuario (pupil)
@@ -80,8 +80,9 @@ export class ApiService {
     );
   }
 
-  createProgress(progreso: Progreso): Observable<Progreso> {
-    return this.http.post<Progreso>(this.apiProgress, progreso);
+  createProgress(data: Progreso) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.post<Progreso>(this.apiProgress, data, { headers });
   }
 
   // Obtener progreso por ID

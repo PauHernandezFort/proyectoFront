@@ -14,7 +14,7 @@ export class EditUserComponent implements OnInit {
 
   editForm!: FormGroup;
   loading = false;
-  id: string = '';
+  public id: string = "";
   photo: string | null = null;
 
   constructor(
@@ -95,5 +95,5 @@ export class EditUserComponent implements OnInit {
 
   cancelar(): void {
     this.router.navigate(['/pupils']);
-  }
+  }
 }

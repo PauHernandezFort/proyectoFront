@@ -32,6 +32,7 @@ import { CrearAlumnoComponent } from './components/forms/crear-alumno/crear-alum
 import { CrearEntrenadorComponent } from './components/forms/crear-entrenador/crear-entrenador.component';
 import { EditUserComponent } from './components/forms/edit-user/edit-user.component';
 import { EditTrainerComponent } from './components/forms/edit-trainer/edit-trainer.component';
+import { ListProgressComponent } from './views/list-progress/list-progress.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -59,7 +60,8 @@ export const routes: Routes = [
     { path: 'showProfile', component: ShowProfileComponent },
     { path: 'calendar', component: CalendarComponent },
     { path: 'classesPupils', component: ClassesComponent },
-    { path: 'progress', component: CreateProgressComponent },
+    { path: 'progress', component: ListProgressComponent },
+    { path: 'createProgress', component: CreateProgressComponent },
     { path: 'pupilsmanager', component: PupilsManagerComponent },
     { path: 'classesMister', component: CreateClassComponent },
     { path: 'pupils', component: PupilsComponent },

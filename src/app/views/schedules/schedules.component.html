@@ -20,26 +20,26 @@
     <table border="1">
       <thead>
         <tr>
-          <th>Hora</th> 
+          <th>Hora</th>
           @for (dia of dias(); track dia) {
-            <th>{{ dia }}</th> 
+          <th>{{ dia }}</th>
           }
         </tr>
       </thead>
       <tbody>
         @for (horario of horarios(); track horario) {
-          <tr>
-            <td><strong>{{ horario }}</strong></td> 
-            @for (dia of dias(); track dia) {
-              }
-          </tr>
+        <tr>
+          <td><strong>{{ horario }}</strong></td>
+          @for (dia of dias(); track dia) {
+          }
+        </tr>
         }
         @for(arteMarical of artesMarciales; track arteMarical) {
-          <tr>
-            <td><strong>{{ arteMarical }}</strong></td> 
-            @for (dia of dias(); track dia) {
-              }
-          </tr>
+        <tr>
+          <td><strong>{{ arteMarical }}</strong></td>
+          @for (dia of dias(); track dia) {
+          }
+        </tr>
         }
       </tbody>
     </table>
