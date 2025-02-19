@@ -1,6 +1,7 @@
 <div class="container mt-5 mb-5">
     <h2 class="text-center mb-5">Lista de Alumnos</h2>
     <div class="table-responsive">
+        @if(members.length > 0){
         <table class="table table-bordered table-striped align-middle">
             <thead class="table-dark">
                 <tr class="text-center">
@@ -15,7 +16,8 @@
                 @for (member of members; track member; let i = $index;) {
                 <tr>
                     <td>
-                        <img [src]="" class="rounded-circle" width="50" height="50" alt="Imagen sobre miembro">
+                        <img [src]="member.fotoPerfil" class="rounded-circle" width="50" height="50"
+                            alt="Imagen sobre miembro">
                     </td>
                     <td>{{ member.nombre }}</td>
                     <td>{{ member.telefono }}</td>
@@ -38,6 +40,12 @@
                 }
             </tbody>
         </table>
+        } @else {
+        <div class="alert alert-warning text-center p-4 shadow-sm">
+            <i class="bi bi-exclamation-circle-fill fs-4"></i>
+            <p class="mt-2 mb-0">No hay alumnos disponibles en este momento.</p>
+        </div>
+        }
         <button class="btn btn-sm btn-primary" routerLink="/crearAlumno">
             <i class="bi bi-plus"></i> Crear Alumno
         </button>

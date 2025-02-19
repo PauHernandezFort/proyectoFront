@@ -22,8 +22,8 @@ export interface Progreso {
   id?: number;
   fecha: Date;
   descripcion: string;
-  archivo?: string; // Puede ser null en PHP, por eso es opcional
-  idMiembro?: number; // ID del usuario relacionado con el progreso
+  archivo: string; // Puede ser null en PHP, por eso es opcional
+  idMiembro: number; // ID del usuario relacionado con el progreso
 }
 
 export interface Usuarios {

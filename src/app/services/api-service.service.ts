@@ -71,14 +71,18 @@ export class ApiService {
   }
 
   // Obtener progreso
-  getProgreso(): Observable<Progreso[]> {
+  getProgress(): Observable<Progreso[]> {
     return this.http.get<ApiResponse<Progreso>>(this.apiProgress).pipe(
       map(response => response.member)
     );
   }
 
+  createProgress(progreso: Progreso): Observable<Progreso> {
+    return this.http.post<Progreso>(this.apiProgress, progreso);
+  }
+
   // Obtener progreso por ID
-  getProgresoById(id: number): Observable<Progreso> {
+  getProgressById(id: number): Observable<Progreso> {
     return this.http.get<Progreso>(`${this.apiProgress}/${id}`);
   }
 

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api-service.service';
-import { Usuarios } from '../../models/user.interface';
+import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
 
 @Component({
   selector: 'app-pupils-manager',
@@ -12,9 +12,10 @@ import { Usuarios } from '../../models/user.interface';
   styleUrl: './pupils-manager.component.css'
 })
 
+
 export class PupilsManagerComponent {
   loading: { [key: string]: boolean } = {};
-  public trainers: Usuarios[] = [];
+  public trainers: Member[] = [];
   public id: number = 0;
 
   constructor(public service: ApiService) { }
