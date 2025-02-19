@@ -1,37 +1,54 @@
-export interface Pupils {
+
+export interface ApiResponse<T> {
   "@context": string;
-  "@id":      string;
-  "@type":    string;
+  "@id": string;
+  "@type": string;
   totalItems: number;
-  member:     Member[];
+  member: T[];
 }
 
-export interface Member {
-  "@id":            string;
-  "@type":          string;
-  id:               number;
-  nombre:           string;
-  apellidos:        string;
-  email:            string;
-  password:         string;
-  telefono:         string;
-  photo:            string;
-  rol:              string;
-  fecha_registro:   Date;
-  progresos:        any[];
-  clases:           any[];
-  clases_apuntadas: any[];
-  notificaciones:   any[];
-  fechaRegistro:    Date;
-  clasesApuntadas:  any[];
-}
-
-export interface Clase {
-  id: number;
+export interface Clases {
+  id?: number;
   nombre: string;
   descripcion: string;
-  fecha: string;
-  capacidad: number;
+  fecha: Date;
+  capacidad?: number;
   estado: string;
-  ubicacion: string;
+  idEntrenador?: number;
+  ubicacion?: string;
+  usuariosApuntados: number[];
 }
+
+export interface Progreso {
+  id?: number;
+  fecha: Date;
+  descripcion: string;
+  archivo?: string; // Puede ser null en PHP, por eso es opcional
+  idMiembro?: number; // ID del usuario relacionado con el progreso
+}
+
+export interface Usuarios {
+  id?: number;
+  nombre: string;
+  apellido: string;
+  email: string;
+  password?: string; // Opcional porque no se debe devolver en respuestas
+  telefono?: number;
+  rol: string;
+  fechaRegistro: Date;
+  fotoPerfil?: string;
+  progresos?: number[]; // Array con los IDs de los progresos del usuario
+  clases?: number[]; // Array con los IDs de clases donde es entrenador
+  clasesApuntadas?: number[]; // Array con los IDs de clases en las que el usuario está inscrito
+  notificaciones?: number[]; // Array con los IDs de notificaciones
+}
+
+export interface Notificaciones {
+  id?: number;
+  titulo: string;
+  mensaje: string;
+  fechaEnvio: Date;
+  estado: string;
+  idUsuario?: number; // ID del usuario al que pertenece la notificación
+}
+
