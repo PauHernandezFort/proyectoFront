@@ -36,9 +36,6 @@ export class CreateClassComponent implements OnInit {
       nonNullable: true, 
       validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)] 
     }),
-    ubicacion: new FormControl('C. de la Font de la Cabilda, 6C, 46470 Massanassa, Valencia', { 
-      nonNullable: true 
-    })
   });
 
   public nombreEntrenador: string = '';
@@ -53,16 +50,28 @@ export class CreateClassComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-    this.apiService.getUser('1').subscribe((usuario: Usuarios) => {
-      if (usuario && usuario.nombre) {
-        this.nombreEntrenador = usuario.nombre;
-      }
-    });
+   this.getResponseClass();
+  } 
 
-    this.apiService.getClases().subscribe(response => {
-      this.clasesDisponibles = response;
-    });
-  }
+  public listClass: Clases[] = [];
+  public dateClass: string = "";
+    public getResponseClass(): void {
+    this.apiService.getClases().subscribe(
+    (response) => {
+      this.listClass = response;
+      response.forEach((clase) => {
+        this.urlIdUser = clase.idEntrenador;
+        console.log('ID del entrenador:', this.urlIdUser);
+        this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
+        this.obtenerNombreEntrenador(clase.idEntrenador);
+      });
+      this.getResponsePupilsById();
+    },
+    (error) => {
+      console.error("Error al obtener las clases:", error);
+    }
+  );
+}
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.createClass.get(fieldName);
@@ -101,7 +110,6 @@ export class CreateClassComponent implements OnInit {
       capacidad: formValues.capacidad,
       estado: formValues.estado,
       idEntrenador: '/api/usuarios/1',
-      ubicacion: formValues.ubicacion,
       usuariosApuntados: []
     };
 
@@ -121,5 +129,27 @@ export class CreateClassComponent implements OnInit {
       this.loading = false;
     });
     
+  }
+  public urlIdUser: string | undefined = undefined;
+  public nameClass: string = "";
+
+  public getResponsePupilsById(): void {
+    if (this.urlIdUser !== undefined) {
+      this.apiService.getUser(this.urlIdUser).subscribe((usuario: Usuarios) => {
+        this.nameClass = usuario.nombre;
+      });
+    }
+  }
+
+  private obtenerNombreEntrenador(idEntrenador: string): void {
+    this.apiService.getUser(idEntrenador).subscribe(
+      (entrenador) => {
+        this.nombreEntrenador = `${entrenador.nombre} ${entrenador.apellido}`;
+        console.log('Nombre del entrenador:', this.nombreEntrenador);
+      },
+      (error) => {
+        console.error('Error al obtener el entrenador:', error);
+      }
+    );
   }
 }
