@@ -54,18 +54,18 @@ export class CreateEventComponent {
       // Enviar los datos al backend
       this.apiService.createClass(ldJsonData).subscribe({
         next: (response) => {
-          console.log('Clase creada con éxito:', response);
-          alert('Clase creada con éxito');
+          console.log('Evento creada con éxito:', response);
+          alert('EVneto creada con éxito');
           this.createEvent.reset();
         },
         error: (error) => {
-          console.error('Error al crear la clase:', error);
+          console.error('Error al crear el evento:', error);
           console.log('Detalles del error:', {
             message: error.message,
             status: error.status,
             url: error.url
           });
-          alert('Hubo un error al crear la clase');
+          alert('Hubo un error al crear el evento');
         }
       });
     } else {
