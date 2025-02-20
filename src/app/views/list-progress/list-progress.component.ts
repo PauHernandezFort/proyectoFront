@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../services/api-service.service';
 import { Progreso, Usuarios } from '../../models/user.interface';
 import { RouterLink } from '@angular/router';
+import { CardsProgressComponent } from '../../components/cards-progress/cards-progress.component';
 
 @Component({
   selector: 'app-list-progress',
-  imports: [RouterLink],
+  imports: [RouterLink, CardsProgressComponent],
   templateUrl: './list-progress.component.html',
   styleUrl: './list-progress.component.css'
 })
