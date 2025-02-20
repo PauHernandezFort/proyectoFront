@@ -1,19 +1,17 @@
-<div class="col-md-6 col-lg-4 mt-5">
-    <div class="card shadow-lg rounded-3 overflow-hidden h-100">
-        <div class="card-body p-4">
-            <h3 class="card-title text-success text-center fw-bold mb-4">{{ description }}</h3>
-            <div class="d-flex align-items-center text-muted mb-3">
-                <i class="bi bi-calendar-event me-2"></i>
-                {{ dateProgress }}
-            </div>
-            <p class="card-text">
-                <i class="bi bi-person-fill me-2"></i>{{ namePupil }}
-            </p>
+<div class="card shadow-lg rounded-3 h-100">
+    <div class="card-body p-4">
+        <h3 class="card-title text-success text-center fw-bold mb-4">{{ description }}</h3>
+        <div class="d-flex align-items-center text-muted mb-3">
+            <i class="bi bi-calendar-event me-2"></i>
+            {{ dateProgress }}
         </div>
-        <div class="position-relative">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoRct5MDKg-tnHxN6JIsWFyFw50v1vOuYPfw&s"
-                alt="Imagen de progreso" class="w-100 h-100 object-fit-cover">
-            <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25"></div>
-        </div>
+        <p class="card-text">
+            <i class="bi bi-person-fill me-2"></i>{{ namePupil }}
+        </p>
+    </div>
+    <div class="position-relative">
+        <img [src]="photo"
+            alt="Imagen de progreso" class="w-100 h-100 object-fit-cover">
+        <div class="position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-25"></div>
     </div>
 </div>

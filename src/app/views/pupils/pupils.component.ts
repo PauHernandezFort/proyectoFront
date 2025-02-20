@@ -10,8 +10,8 @@ import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate 
   styleUrl: './pupils.component.css'
 })
 export class PupilsComponent implements OnInit {
-  loading: { [key: number]: boolean } = {}; // Cambiado de string a number
-  public members: Member[] = []; // Lista de usuarios
+  loading: { [key: number]: boolean } = {};
+  public members: Member[] = []; 
   public id: number = 0;
 
   constructor(private router: Router, public service: ApiService) {}
@@ -20,7 +20,12 @@ export class PupilsComponent implements OnInit {
   public getResponsePupils(): void {
     this.service.getResponsePupils().subscribe(
       (response) => {
-        this.members = response; // Ya se extrae 'member' en el servicio
+        response.forEach((member) => {
+          if (member.rol !== "entrenador") {
+            this.members.push(member);
+          }
+        });
+        console.log(this.members);
       },
       (error) => {
         console.error("Error al obtener los alumnos:", error);

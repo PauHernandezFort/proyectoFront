@@ -7,7 +7,8 @@ import { Component, Input } from '@angular/core';
   styleUrl: './cards-progress.component.css'
 })
 export class CardsProgressComponent {
-  @Input() description = "url('https://frutasolivar.com/wp-content/uploads/2019/02/rawpixel-603025-unsplash-e1579691765526.jpg')";
-  @Input() dateProgress = new Date();
-  @Input() namePupil = "Alberto";
+  @Input() description: string = "";
+  @Input() dateProgress: string = "";
+  @Input() namePupil: string = "Alberto";
+  @Input() photo = "url('https://frutasolivar.com/wp-content/uploads/2019/02/rawpixel-603025-unsplash-e1579691765526.jpg')";
 }
