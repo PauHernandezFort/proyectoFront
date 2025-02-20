@@ -32,9 +32,13 @@
                             <i class="bi bi-trash"></i> Eliminar
                             }
                         </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editUser', member.id]">
+                        <button class="btn btn-sm btn-primary me-2" [routerLink]="['/editUser', member.id]">
                             <i class="bi bi-pencil"></i> Editar
                         </button>
+                        <a routerLink="/createProgress" class="btn btn-sm btn-primary shadow-lg px-2">
+                            <i class="bi bi-graph-up-arrow me-2"></i>
+                            Crear Nuevo Progreso
+                        </a>
                     </td>
                 </tr>
                 }
