@@ -56,6 +56,12 @@ export class ApiService {
     );
   }
 
+  getEvent(): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
+      map(response => response.member)
+    );
+  }
+
   // Obtener clases por fecha
   getClasesByDate(fecha: string): Observable<Clases[]> {
     return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-date/${fecha}`).pipe(
