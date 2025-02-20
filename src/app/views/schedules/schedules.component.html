@@ -17,36 +17,166 @@
         <option value="horario2">Sala 2</option>
       </select>
     </div>
-    <table border="1">
+    @if(showTableHailFirst) {
+    <table>
       <thead>
         <tr>
-          <th>Hora</th>
-          @for (dia of dias(); track dia) {
-          <th>{{ dia }}</th>
-          }
+          <th></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
         </tr>
       </thead>
       <tbody>
-        @for (horario of horarios(); track horario) {
         <tr>
-          <td><strong>{{ horario }}</strong></td>
-          @for (dia of dias(); track dia) {
-          }
+          <td>9:00 - 10:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Multifuncional</td>
+          <td></td>
         </tr>
-        }
-        @for(arteMarical of artesMarciales; track arteMarical) {
         <tr>
-          <td><strong>{{ arteMarical }}</strong></td>
-          @for (dia of dias(); track dia) {
-          }
+          <td>10:00 - 11:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Multifuncional</td>
+          <td>Multifuncional</td>
         </tr>
-        }
+        <tr>
+          <td>11:00 - 12:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Sacos de boxeo</td>
+          <td>Multifuncional</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:00 - 13:00 h</td>
+          <td>Personales</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Defensa femenina</td>
+        </tr>
+        <tr>
+          <td>13:00 - 14:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:00 - 18:00 h</td>
+          <td>Jiu jitsu 3 a 6 años</td>
+          <td>Capoeira 3 a 6 años</td>
+          <td></td>
+          <td>Capoeira 3 a 6 años</td>
+          <td>Jiu jitsu 3 a 6 años</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:00 - 19:00 h</td>
+          <td>Jiu jitsu 7 a 11 años</td>
+          <td>Capoeira 7 a 11 años</td>
+          <td></td>
+          <td>Capoeira 7 a 11 años</td>
+          <td>Jiu jitsu 7 a 11 años</td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
+    }@else {
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9:00 - 10:00 h</td>
+          <td>Chi Kung</td>
+          <td>Yoga</td>
+          <td>Chi Kung</td>
+          <td>Yoga</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>10:00 - 11:00 h</td>
+          <td></td>
+          <td>Ritmo latino</td>
+          <td></td>
+          <td>Ritmo latino</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>11:00 - 12:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>12:00 - 13:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>13:00 - 14:00 h</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>17:00 - 18:00 h</td>
+          <td>Jiu jitsu</td>
+          <td>Capoeira</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>18:00 - 19:00 h</td>
+          <td>Jiu jitsu Avanzados</td>
+          <td>Capoeira Avanzados</td>
+          <td></td>
+          <td>Capoeira Avanzados</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    }
   </div>
-
-  <app-add-martial-art (create)="getMartialArt($event)"></app-add-martial-art>
-
 </body>
 
 </html>

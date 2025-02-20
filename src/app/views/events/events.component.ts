@@ -5,14 +5,18 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-events',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
 })
 export class EventsComponent {
+  public userRole: string | null = null;
   public ubication: string = "Calle Torero Antonio Carpio, Carrer Emili Ferrer Gómez, 16 Esquina, 46470 Catarroja, Valencia";
 
+  public constructor() {
+    this.userRole = localStorage.getItem('userType');
+  }
   public abrirGoogleMaps(): void {
     const direccionElement = document.getElementById('direccion-evento');
 

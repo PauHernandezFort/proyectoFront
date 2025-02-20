@@ -8,16 +8,16 @@
                 <img class="rounded-pill" src="../../../../images/logo2.png" routerLink="/home" alt="Logo">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#">Clases</a>
+                        <a class="nav-link" href="#" routerLink="classesMister" routerLinkActive="active">Crear Clase</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#">Calendario</a>
+                        <a class="nav-link" href="#" routerLink="calendar" routerLinkActive="active">Calendario</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#">Eventos</a>
+                        <a class="nav-link" href="#" routerLink="events" routerLinkActive="active">Eventos</a>
                     </li>
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#">alumnos</a>
+                        <a class="nav-link" href="#" routerLink="pupils" routerLinkActive="active">Alumnos</a>
                     </li>
                 </ul>
                 <div class="dropdown">
@@ -30,7 +30,7 @@
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" routerLink="/showProfile">Ver Perfil</a></li>
-                        <li><a class="dropdown-item" routerLink="/editProfile">Editar Perfil</a></li>
+                        <li><a class="dropdown-item" routerLink="/editTrainer">Editar Perfil</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
                     </ul>
