@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Clases, Usuarios as Pupils, Notificaciones, Progreso } from '../models/user.interface';
+import { Clases, Usuarios as Pupils, Notificaciones, Progreso, Usuarios } from '../models/user.interface';
 import { ApiResponse } from '../models/user.interface';
 
 @Injectable({
@@ -24,8 +24,8 @@ export class ApiService {
   }
 
   // Obtener usuario por ID
-  getUser(userId: string): Observable<Pupils> {
-    return this.http.get<Pupils>(`${this.apiPupils}/${userId}`);
+  getUser(urlIdUser: string): Observable<Pupils> {
+    return this.http.get<Pupils>(`http://52.2.202.15${urlIdUser}`);
   }
 
   // Crear usuario (pupil)
@@ -63,11 +63,18 @@ export class ApiService {
       map(response => response.member)
     );
   }
+  deleteClases(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiClass}/${userId}`);
+  }
 
   // Crear clase
   createClass(data: Clases): Observable<Clases> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
     return this.http.post<Clases>(this.apiClass, data, { headers });
+  }
+
+  getClasseById(id: string): Observable<Clases> {
+    return this.http.get<Clases>(`${this.apiClass}/${id}`);
   }
 
   // Obtener progreso
@@ -77,8 +84,9 @@ export class ApiService {
     );
   }
 
-  createProgress(progreso: Progreso): Observable<Progreso> {
-    return this.http.post<Progreso>(this.apiProgress, progreso);
+  createProgress(data: Progreso) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.post<Progreso>(this.apiProgress, data, { headers });
   }
 
   // Obtener progreso por ID
@@ -116,5 +124,41 @@ export class ApiService {
   private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
     return this.http.post(this.apiUrlMoney, data);
+  }
+  
+  // Método para registrar un nuevo usuario
+  registerPupil(userData: Usuarios): Observable<Usuarios> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/ld+json',
+      'Accept': 'application/ld+json'
+    });
+  
+    const userDataToSend = {
+      nombre: userData.nombre,
+      apellido: userData.apellido,
+      email: userData.email,
+      password: userData.password,
+      telefono: userData.telefono?.toString() ?? '0',
+      rol: userData.rol,
+      fechaRegistro: new Date().toISOString(),
+      progresos: [],
+      clases: [],
+      notificaciones: [],
+      fotoPerfil: userData.fotoPerfil || ''
+    };
+  
+    console.log('Enviando datos:', userDataToSend);
+    return this.http.post<Usuarios>(this.apiPupils, JSON.stringify(userDataToSend), { headers });
+  }
+  
+
+  // Método para iniciar sesión
+  loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/ld+json'
+    });
+
+    return this.http.post<Usuarios>(`${this.apiPupils}/login`, credentials, { headers });
   }
 }

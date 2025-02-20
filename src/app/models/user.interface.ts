@@ -7,23 +7,23 @@ export interface ApiResponse<T> {
 }
 
 export interface Clases {
-  id?: null;
+  id?: number;
   nombre: string;
   descripcion: string;
   fecha: Date;
-  capacidad?: number;
+  capacidad: number;
   estado: string;
-  idEntrenador?: number;
+  idEntrenador: string;
   ubicacion?: string;
-  usuariosApuntados: number[];
+  usuariosApuntados: any[];
 }
 
 export interface Progreso {
   id?: number;
   fecha: Date;
   descripcion: string;
-  archivo: string; // Puede ser null en PHP, por eso es opcional
-  idMiembro: number; // ID del usuario relacionado con el progreso
+  archivo: string;
+  idMiembro: string;
 }
 
 export interface Usuarios {
@@ -34,7 +34,7 @@ export interface Usuarios {
   password?: string; // Opcional porque no se debe devolver en respuestas
   telefono?: number;  // Cambiado de number a string
   rol: string;
-  fechaRegistro: Date;
+  fechaRegistro: Date | string;
   fotoPerfil?: string;
   progresos?: number[]; // Array con los IDs de los progresos del usuario
   clases?: number[]; // Array con los IDs de clases donde es entrenador

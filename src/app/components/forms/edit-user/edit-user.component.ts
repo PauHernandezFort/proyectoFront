@@ -14,7 +14,7 @@ export class EditUserComponent implements OnInit {
 
   editForm!: FormGroup;
   loading = false;
-  id: string = '';
+  public id: string = "";
   photo: string | null = null;
 
   constructor(
@@ -37,7 +37,7 @@ export class EditUserComponent implements OnInit {
 
     if (this.id) {
       this.loading = true;
-      this.apiService.getUser(this.id).subscribe(
+      this.apiService.getUser('1').subscribe(
         (response: Member) => {
           this.editForm.patchValue({
             nombre: response.nombre,
@@ -95,5 +95,5 @@ export class EditUserComponent implements OnInit {
 
   cancelar(): void {
     this.router.navigate(['/pupils']);
-  }
+  }
 }

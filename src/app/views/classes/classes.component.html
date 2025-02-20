@@ -1,84 +1,54 @@
-<div class="container mt-5 mb-5">
-    <div class="row g-4">
-        <!-- Clase 1: Muay Thai -->
-        <div class="col-md-4">
-            <div class="card shadow-lg h-100">
-                <img src="https://blogscvc.cervantes.es/martes-neologico/wp-content/uploads/sites/2/2017/07/capoeira_500.jpg"
-                    class="card-img-top" alt="Clase de Muay Thai">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4">Muay Thai</h5>
-                    <p class="card-text">
-                        <i class="bi bi-person-badge me-2"></i>Juan Pérez
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-people me-2"></i>20 alumnos
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-calendar me-2"></i>20/02/2025
-                    </p>
-                    <button class="btn btn-primary w-100 mt-2" data-bs-toggle="collapse"
-                        data-bs-target="#infoMuayThai">
-                        Ver más 
-                        <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <div id="infoMuayThai" class="collapse mt-2">
-                        <p class="card-text">Clase enfocada en resistencia y técnica de Muay Thai.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Clases Disponibles</h2>
+    <button class="btn btn-primary" routerLink="/classesMister">
+      <i class="bi bi-plus-circle"></i> Nueva Clase
+    </button>
+  </div>
 
-        <!-- Clase 2: MMA Avanzado -->
-        <div class="col-md-4">
-            <div class="card shadow-lg h-100">
-                <img src="https://blogscvc.cervantes.es/martes-neologico/wp-content/uploads/sites/2/2017/07/capoeira_500.jpg"
-                    class="card-img-top" alt="Clase de MMA">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4 mt-2">MMA Avanzado</h5>
-                    <p class="card-text">
-                        <i class="bi bi-person-badge me-2"></i>Carlos Rodríguez
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-people me-2"></i>15 alumnos
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-calendar me-2"></i>22/02/2025
-                    </p>
-                    <button class="btn btn-primary w-100 mt-2" data-bs-toggle="collapse" data-bs-target="#infoMMA">
-                        Ver más <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <div id="infoMMA" class="collapse mt-2">
-                        <p class="card-text">Entrenamiento de lucha en suelo, golpeo y sumisiones para competidores.</p>
-                    </div>
-                </div>
+  @if (clases.length > 0) {
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      @for (clase of clases; track clase.id) {
+        <div class="col">
+          <div class="card h-100 shadow-sm">
+            <div class="card-header">
+              <h5 class="card-title mb-0">{{ clase.nombre }}</h5>
             </div>
-        </div>
-
-        <!-- Clase 3: Jiu-Jitsu -->
-        <div class="col-md-4">
-            <div class="card shadow-lg h-100">
-                <img src="https://blogscvc.cervantes.es/martes-neologico/wp-content/uploads/sites/2/2017/07/capoeira_500.jpg"
-                    class="card-img-top" alt="Clase de Jiu-Jitsu">
-                <div class="card-body">
-                    <h5 class="card-title fw-bold mb-4">Jiu-Jitsu</h5>
-                    <p class="card-text">
-                        <i class="bi bi-person-badge me-2"></i>Diego Santos
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-people me-2"></i>12 alumnos
-                    </p>
-                    <p class="card-text">
-                        <i class="bi bi-calendar me-2"></i>25/02/2025
-                    </p>
-                    <button class="btn btn-primary w-100 mt-2" data-bs-toggle="collapse"
-                        data-bs-target="#infoJiuJitsu">
-                        Ver más <i class="bi bi-chevron-down"></i>
-                    </button>
-                    <div id="infoJiuJitsu" class="collapse mt-3 mb-3">
-                        <p class="card-text">Aprende técnicas de sumisión y defensa personal.</p>
-                    </div>
-                </div>
+            <div class="card-body">
+              <p class="card-text">{{ clase.descripcion }}</p>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
+                <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
+                <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador}}</li>
+              </ul>
+              <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
+                {{ clase.estado }}
+              </span>
+              <br>
+              <br>
+              <button class="btn btn-sm btn-danger me-2" (click)="deleteClases(clase.id ?? 0)"
+                            [disabled]="isLoading(clase.id ?? 0)">
+                            @if (isLoading(clase.id ?? 0)) {
+                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                            Eliminando...
+                            } @else {
+                            <i class="bi bi-trash"></i> Eliminar
+                            }
+                        </button>
             </div>
+          </div>
         </div>
+      } @empty {
+        <div class="col-12">
+          <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No hay clases disponibles
+          </div>
+        </div>
+      }
     </div>
+  } @else {
+    <div class="alert alert-info">
+      <i class="bi bi-info-circle"></i> No hay clases disponibles en este momento
+    </div>
+  }
 </div>

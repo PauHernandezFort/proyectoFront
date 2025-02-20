@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api-service.service';
 import { Usuarios as Member, Progreso } from '../../../models/user.interface';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-progress',
@@ -15,8 +16,9 @@ export class CreateProgressComponent implements OnInit {
   progressPercentage: number = 0;
   public members: Member[] = [];
   public photo: string = "";
+  selectedFile: File | null = null;
 
-  constructor(public service: ApiService) { }
+  constructor(public service: ApiService, private router: Router) { }
 
   createProgress = new FormGroup({
     date: new FormControl(new Date(), { nonNullable: true }),
@@ -40,23 +42,22 @@ export class CreateProgressComponent implements OnInit {
 
   onSubmit() {
     if (this.createProgress.valid) {
-      const progreso: Progreso = {
+      const dataProgress: Progreso = {
         fecha: this.createProgress.getRawValue().date,
         descripcion: this.createProgress.getRawValue().comentarios,
-        archivo: this.createProgress.getRawValue().photo, // Se debe manejar como FormData si es un archivo
-        idMiembro: Number(this.createProgress.getRawValue().idMember)
+        idMiembro: `/api/usuarios/${this.createProgress.getRawValue().idMember}`,
+        archivo: this.createProgress.getRawValue().photo,
       };
-      console.log("Enviando progreso:", progreso);
-      this.postResponseProgress(progreso);
-    } else {
-      console.error("El formulario no es válido");
+      console.log(dataProgress.archivo);
+      this.postResponseProgress(dataProgress);
     }
   }
 
-  public postResponseProgress(progreso: Progreso): void {
-    this.service.createProgress(progreso).subscribe(
+  public postResponseProgress(progress: Progreso): void {
+    this.service.createProgress(progress).subscribe(
       (response) => {
         console.log("Progreso creado correctamente:", response);
+        this.router.navigate(['/progress']);
       },
       (error) => {
         console.error("Error al crear progreso:", error);
@@ -67,18 +68,11 @@ export class CreateProgressComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const result = reader.result;
-        if (typeof result === 'string') {
-          this.createProgress.patchValue({ photo: result });
-        }
-      };
+      this.selectedFile = file;
     }
   }
 
-  private updateProgress() {
+  updateProgress(): void {
     this.progressPercentage = Math.min(
       Math.round((this.photosUploaded / this.targetPhotos) * 100),
       100
@@ -91,6 +85,6 @@ export class CreateProgressComponent implements OnInit {
   }
 
   cancelar() {
-    window.location.reload();
+    this.router.navigate(['/progress']);
   }
 }
