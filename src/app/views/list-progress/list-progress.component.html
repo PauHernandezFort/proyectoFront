@@ -1,11 +1,18 @@
 <div class="container py-5">
+    <div class="d-flex justify-content-end mb-4">
+        <a routerLink="/createProgress" class="btn btn-md btn-primary shadow-lg px-3">
+            <i class="bi bi-graph-up-arrow me-2"></i>
+            Crear Nuevo Progreso
+        </a>
+    </div>
+    @if (listProgress.length > 0) {
     <h2 class="text-center mb-5 fw-bold">Lista de Progresos</h2>
     <div class="row g-4">
         @for (progress of listProgress; track progress; let i = $index;) {
-        <div class="col-md-6 col-lg-4">
+        <div class="col-md-6 col-lg-4 mt-5">
             <div class="card shadow-lg rounded-3 overflow-hidden h-100">
                 <div class="card-body p-4">
-                    <h3 class="card-title text-primary fw-bold mb-4">{{ progress.descripcion }}</h3>
+                    <h3 class="card-title text-success text-center fw-bold mb-4">{{ progress.descripcion }}</h3>
                     <div class="d-flex align-items-center text-muted mb-3">
                         <i class="bi bi-calendar-event me-2"></i>
                         {{ dateProgress }}
@@ -25,4 +32,10 @@
         </div>
         }
     </div>
+    } @else {
+    <div class="alert alert-warning text-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        No hay progresos disponibles en este momento.
+    </div>
+    }
 </div>
