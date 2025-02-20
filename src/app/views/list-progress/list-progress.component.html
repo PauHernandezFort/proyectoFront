@@ -3,8 +3,10 @@
     <h2 class="text-center mb-5 fw-bold">Lista de Progresos</h2>
     <div class="row g-4">
         @for (progress of listProgress; track progress; let i = $index;) {
-        <app-cards-progress [description]="progress.descripcion" [dateProgress]="progress.fecha"
-            [namePupil]="namePupil"></app-cards-progress>
+        <div class="col-md-4 col-lg-4 mt-5">
+            <app-cards-progress [description]="progress.descripcion" [dateProgress]="dateProgress"
+                [namePupil]="namePupil" [photo]="progress.archivo"></app-cards-progress>
+        </div>
         }
     </div>
     } @else {
