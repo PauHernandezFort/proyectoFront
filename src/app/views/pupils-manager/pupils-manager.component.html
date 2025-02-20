@@ -19,9 +19,9 @@
                         <img src="https://randomuser.me/api/portraits/men/10.jpg" class="rounded-circle" width="50"
                             height="50" alt="Juan Pérez">
                     </td>
-                    <td>{{ trainer.nombre }}</td>
-                    <td>{{ trainer.apellido }}</td>
+                    <td>{{ trainer.nombre }} {{ trainer.apellido }}</td>
                     <td>{{ trainer.telefono }}</td>
+                    <td>{{ trainer.email }}</td>
                     <td class="text-center">
                         <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer('1')"
                             [disabled]="isLoading('1')">
