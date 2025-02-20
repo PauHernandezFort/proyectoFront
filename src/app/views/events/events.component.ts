@@ -7,7 +7,7 @@ import { ApiService } from '../../services/api-service.service';
 
 @Component({
   selector: 'app-events',
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, CreateEventComponent],
   standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'

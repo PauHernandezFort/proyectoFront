@@ -57,7 +57,7 @@ export class CreateEventComponent {
    public nombreEntrenador: string = '';
    public ubicaciones: string[] = [];
    public mostrarClasesDisponibles: boolean = false;
-   public clasesDisponibles: Clases[] = [];
+   public eventosDisponibles: Clases[] = [];
    public actividades: string = "";
    public estadosClase: string[] = ['activa', 'inactiva'];
    loading = false;
