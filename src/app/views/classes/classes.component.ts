@@ -14,32 +14,38 @@ import { Usuarios } from '../../models/user.interface';
   styleUrl: './classes.component.css'
 })
 export class ClassesComponent {
+  public clases: Clases[] = [];
+  public id: number = 0;
+  loading: { [key: number]: boolean } = {};
+  public nombresEntrenadores: { [key: string]: string } = {};  // Mapa para guardar nombres de entrenadores
+
   constructor(private router: Router, public service: ApiService) {}
-    public clases: Clases[] = []; // Lista de usuarios
-    public id: number = 0;
-    loading: { [key: number]: boolean } = {}; // Cambiado de string a number
-    public nombreEntrenador: string = 'Juan';  // Nueva propiedad para el nombre
-   
-    public getResponseClasses(): void {
-      this.service.getClases().subscribe((response) => {
-          if (response) {
-              this.clases = response;
-  
-              this.service.getUser('1').subscribe((usuario: Usuarios) => {
-                  if (usuario && usuario.nombre !== null && usuario.nombre !== undefined) {
-                      this.nombreEntrenador = usuario.nombre;
-                  } else {
-                      console.error("Error: Nombre del entrenador no disponible.");
-                      this.nombreEntrenador = 'No disponible';
-                  }
-              });
-  
-          } else {
-              console.error("Error: No se pudieron obtener las clases.");
-          }
-      });
+
+  public getResponseClasses(): void {
+    this.service.getClases().subscribe((response) => {
+      if (response) {
+        this.clases = response;
+        // Obtener el nombre de cada entrenador
+        this.clases.forEach(clase => {
+          this.obtenerNombreEntrenador(clase.idEntrenador);
+        });
+      } else {
+        console.error("Error: No se pudieron obtener las clases.");
+      }
+    });
   }
-  
+
+  private obtenerNombreEntrenador(idEntrenador: string): void {
+    this.service.getUser(idEntrenador).subscribe(
+      (entrenador) => {
+        this.nombresEntrenadores[idEntrenador] = `${entrenador.nombre} ${entrenador.apellido}`;
+      },
+      (error) => {
+        console.error('Error al obtener el entrenador:', error);
+        this.nombresEntrenadores[idEntrenador] = 'No disponible';
+      }
+    );
+  }
 
   ngOnInit(): void {
     this.getResponseClasses();
