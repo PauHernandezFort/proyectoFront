@@ -73,6 +73,11 @@ export class ApiService {
     return this.http.post<Clases>(this.apiClass, data, { headers });
   }
 
+  createEvent(data: Clases): Observable<Clases> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.post<Clases>(this.apiClass, data, { headers });
+  }
+
   getClasseById(id: string): Observable<Clases> {
     return this.http.get<Clases>(`${this.apiClass}/${id}`);
   }

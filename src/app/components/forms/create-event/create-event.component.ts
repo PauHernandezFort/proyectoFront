@@ -13,12 +13,13 @@ import { HttpHeaders } from '@angular/common/http';
 export class CreateEventComponent {
   createEvent = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    capacidad: new FormControl('', Validators.required),
+    capacidad: new FormControl<number | null>(null, [Validators.required, Validators.min(1), Validators.max(500)]), 
     estado: new FormControl('', Validators.required),
     fecha: new FormControl('', Validators.required),
     descripcion: new FormControl('', Validators.required),
     ubicacion: new FormControl('', Validators.required),
   });
+  
 
   public ubication: string = "";
 
@@ -53,7 +54,7 @@ export class CreateEventComponent {
       console.log('Datos transformados a LD-JSON:', JSON.stringify(ldJsonData));
 
       // Enviar los datos al backend
-      this.apiService.createClass(ldJsonData).subscribe({
+      this.apiService.createEvent(ldJsonData).subscribe({
         next: (response) => {
           console.log('Evento creada con éxito:', response);
           alert('EVneto creada con éxito');
