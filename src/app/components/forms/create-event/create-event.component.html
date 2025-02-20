@@ -111,12 +111,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let clase of clasesDisponibles">
-          <td>{{ clase.nombre }}</td>
-          <td>{{ clase.fecha | date:'dd/MM/yyyy' }}</td>
-          <td>{{ clase.capacidad }}</td>
-          <td>{{ clase.ubicacion }}</td>
-          <td>{{ clase.estado }}</td>
+        <tr *ngFor="let evento of eventosDisponibles">
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.fecha | date:'dd/MM/yyyy' }}</td>
+          <td>{{ evento.capacidad }}</td>
+          <td>{{ evento.ubicacion }}</td>
+          <td>{{ evento.estado }}</td>
         </tr>
       </tbody>
     </table>
