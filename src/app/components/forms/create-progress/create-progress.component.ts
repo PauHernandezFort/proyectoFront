@@ -85,6 +85,6 @@ export class CreateProgressComponent implements OnInit {
   }
 
   cancelar() {
-    this.router.navigate(['/progress']);
+    this.router.navigate(['/pupils']);
   }
 }
