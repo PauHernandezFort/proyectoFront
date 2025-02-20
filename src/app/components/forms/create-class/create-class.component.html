@@ -23,10 +23,7 @@
         <input type="text" class="form-control" [value]="nombreEntrenador" disabled>
       </div>
 
-      <div class="form-group">
-        <label for="ubicacion">Ubicación</label>
-        <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion" >
-      </div>
+     
 
       <div class="form-group">
         <label for="fecha">Fecha y Hora</label>
@@ -118,7 +115,6 @@
                         <td>{{ clase.nombre }}</td>
                         <td>{{ clase.fecha | date:'dd/MM/yyyy' }}</td>
                         <td>{{ clase.capacidad }}</td>
-                        <td>{{ clase.ubicacion }}</td>
                         <td>{{ clase.estado }}</td>
                     </tr>
                 }

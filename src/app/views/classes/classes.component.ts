@@ -18,7 +18,7 @@ export class ClassesComponent {
     public clases: Clases[] = []; // Lista de usuarios
     public id: number = 0;
     loading: { [key: number]: boolean } = {}; // Cambiado de string a number
-    public nombreEntrenador: string = '';  // Nueva propiedad para el nombre
+    public nombreEntrenador: string = 'Juan';  // Nueva propiedad para el nombre
    
     public getResponseClasses(): void {
       this.service.getClases().subscribe((response) => {

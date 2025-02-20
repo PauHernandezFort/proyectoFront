@@ -73,6 +73,10 @@ export class ApiService {
     return this.http.post<Clases>(this.apiClass, data, { headers });
   }
 
+  getClasseById(id: string): Observable<Clases> {
+    return this.http.get<Clases>(`${this.apiClass}/${id}`);
+  }
+
   // Obtener progreso
   getProgress(): Observable<Progreso[]> {
     return this.http.get<ApiResponse<Progreso>>(this.apiProgress).pipe(
