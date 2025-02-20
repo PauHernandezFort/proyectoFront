@@ -1,41 +1,55 @@
-<div class="container mt-4 mb-5">
-    <div class="d-flex justify-content-end mb-5">
-        @if (userRole === 'entrenador') {
-            <a routerLink="/createEvent" class="btn btn-md btn-primary mt-3 px-3">
-                <i class="bi bi-calendar-event me-2"></i>
-                Crear Nuevo Evento
-            </a>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2>Clases Disponibles</h2>
+    </div>
+  
+    @if (events.length > 0) {
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @for (event of events; track event.id) {
+          @if(event.ubicacion){
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-header">
+                <h5 class="card-title mb-0">{{ event.nombre }}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ event.descripcion }}</p>
+                <ul class="list-unstyled">
+                  <li><i class="bi bi-calendar"></i> {{ event.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
+                  <li><i class="bi bi-people"></i> Capacidad: {{ event.capacidad }}</li>
+                  <li><i class="bi bi-person"></i> Entrenador: {{ nombresEntrenadores[event.idEntrenador] || 'Cargando...' }}</li>
+                  <li><i class="bi bi-person"></i> ubicacion {{ event.ubicacion }}</li>
+                </ul>
+                <span class="badge" [class.bg-success]="event.estado === 'activa'" [class.bg-danger]="event.estado !== 'activa'">
+                  {{ event.estado }}
+                </span>
+                <br>
+                <br>
+              
+                <button class="btn btn-sm btn-danger me-2" (click)="deleteEvent(event.id ?? 0)"
+                              [disabled]="isLoading(event.id ?? 0)">
+                              @if (isLoading(event.id ?? 0)) {
+                              <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+                              Eliminando...
+                              } @else {
+                              <i class="bi bi-trash"></i> Eliminar
+                              }
+                          </button>
+              </div>
+            </div>
+          </div>
         }
-    </div>
-    <div class="card shadow-lg">
-        <div class="card-header text-dark p-4">
-            <div class="d-flex align-items-center w-100">
-                <hr class="me-2" style="width: 40px; height: 3px; background-color: blue">
-                <span class="text-uppercase fw-bold">Eventos</span>
+        } @empty {
+          <div class="col-12">
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle"></i> No hay eventos disponibles
             </div>
-            <h3 class="mt-2 mb-4">Noche de MMA y Proyección de Peleas</h3>
-            <div class="d-flex align-items-center text-muted mb-3">
-                <i class="bi bi-calendar-event me-2"></i>
-                Mar 15, 2025
-            </div>
-            <div id="direccion-evento" (click)="abrirGoogleMaps()" class="d-flex align-items-center text-muted mt-3"
-                style="cursor: pointer;">
-                <i class="bi bi-geo-alt me-2"></i>
-                <span>{{ ubication }}</span>
-            </div>
-        </div>
-        <div class="card-body p-4">
-            <p class="mt-2">
-                ¡Únete a nosotros para una increíble noche de MMA! Organizamos una velada especial donde analizaremos
-                las mejores peleas de UFC, Bellator y otras ligas. Disfruta de una proyección en pantalla grande y
-                participa en debates estratégicos sobre las técnicas utilizadas por los peleadores profesionales.
-            </p>
-            <p>
-                Además, contaremos con la presencia de entrenadores expertos que compartirán su conocimiento sobre las
-                estrategias de combate, tácticas de defensa y técnicas avanzadas. Una gran oportunidad para aprender,
-                socializar y vivir la emoción del mundo de las Artes Marciales Mixtas.
-            </p>
-        </div>
-        <img src="../../../../images/boxeo.jpg" class="card-img-top" alt="Noche de MMA">
-    </div>
-</div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No hay eventos disponibles en este momento
+      </div>
+    }
+  </div>

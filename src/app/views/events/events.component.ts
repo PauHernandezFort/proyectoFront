@@ -77,4 +77,8 @@ export class EventsComponent {
     });
   }
 
+  isLoading(id: number): boolean {
+    return this.loading[id] || false;
+  }
+
 }

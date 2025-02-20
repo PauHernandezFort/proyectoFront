@@ -6,6 +6,7 @@
   @if (clases.length > 0) {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       @for (clase of clases; track clase.id) {
+        @if(!clase.ubicacion){
         <div class="col">
           <div class="card h-100 shadow-sm">
             <div class="card-header">
@@ -23,6 +24,7 @@
               </span>
               <br>
               <br>
+            
               <button class="btn btn-sm btn-danger me-2" (click)="deleteClases(clase.id ?? 0)"
                             [disabled]="isLoading(clase.id ?? 0)">
                             @if (isLoading(clase.id ?? 0)) {
@@ -35,6 +37,7 @@
             </div>
           </div>
         </div>
+      }
       } @empty {
         <div class="col-12">
           <div class="alert alert-info">
