@@ -13,6 +13,7 @@ export class ApiService {
   private apiClass = 'http://52.2.202.15/api/clases';
   private apiProgress = 'http://52.2.202.15/api/progresos';
   private apiNotificaciones = 'http://52.2.202.15/api/notificaciones';
+  private apiUrl = 'http://52.2.202.15/api/qr/';
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +22,11 @@ export class ApiService {
     return this.http.get<ApiResponse<Pupils>>(this.apiPupils).pipe(
       map(response => response.member)
     );
+  }
+
+  // Metodo generar QR
+  getQrCode(userId: number): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}${userId}`, { responseType: 'blob' });
   }
 
   // Obtener usuario por ID
