@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import {  Usuarios } from '../../../models/user.interface';
+import { Usuarios } from '../../../models/user.interface';
 import { ImageModalComponent } from '../../image-modal/image-modal.component';
 import { RouterLink } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class ShowProfileComponent implements OnInit {
   userData: Usuarios | null = null;
   selectedImage: any = null;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit() {
     // Recuperar los datos del usuario del localStorage
@@ -74,7 +74,10 @@ export class ShowProfileComponent implements OnInit {
   }
 
   editProfile() {
-    this.router.navigate(['/editProfile']);
+    if (localStorage.getItem('userType') === 'alumno') {
+      this.router.navigate(['/editUser', this.userData?.id]);
+    } else if (localStorage.getItem('userType') === 'entrenador') {
+    } this.router.navigate(['/editTrainer', this.userData?.id]);
   }
 
   cerrarSesion() {
@@ -82,7 +85,7 @@ export class ShowProfileComponent implements OnInit {
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
     localStorage.setItem('userType', 'invitado');
-    
+
     // Redirigir al home
     this.router.navigate(['/home']).then(() => {
       // Recargar la página para que se actualice el header
