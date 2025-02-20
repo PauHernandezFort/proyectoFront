@@ -1,56 +1,70 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api-service.service';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [CommonModule, FormsModule,RouterLink],
-  templateUrl: './sign-in.component.html'
+  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  templateUrl: './sign-in.component.html',
+  styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent {
-  credentials = {
-    email: '',
-    password: ''
-  };
+export class SignInComponent implements OnInit {
+  loginForm!: FormGroup;
+  isLoading = false;
+  showPassword = false;
 
   constructor(
+    private fb: FormBuilder,
     private router: Router,
     private apiService: ApiService
   ) {}
 
-  onSubmit(event: Event): void {
-    event.preventDefault();
-    
-    this.apiService.loginPupil(this.credentials).subscribe({
-      next: (response) => {
-        console.log('Login exitoso:', response);
-        
-        // Guardar datos del usuario en localStorage
-        localStorage.setItem('userData', JSON.stringify(response));
-        
-        // Redirigir según el rol
-        switch(response.rol) {
-          case 'alumno':
-            this.router.navigate(['/alumno']);
-            break;
-          case 'entrenador':
-            this.router.navigate(['/entrenador']);
-            break;
-          case 'admin':
-            this.router.navigate(['/admin']);
-            break;
-          default:
-            console.error('Rol no reconocido');
-            alert('Error en el rol del usuario');
-        }
-      },
-      error: (error) => {
-        console.error('Error en el login:', error);
-        alert('Email o contraseña incorrectos');
-      }
+  ngOnInit(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      rememberMe: [false]
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  
+
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.isLoading = true;
+      const credentials = {
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      };
+
+      this.apiService.loginPupil(credentials).subscribe({
+        next: (response) => {
+          // Manejar el éxito del login
+          this.router.navigate(['/home']);
+        },
+        error: (error) => {
+          // Manejar el error
+          console.error('Error en el login:', error);
+          // Aquí podrías mostrar un mensaje de error al usuario
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
+    } else {
+      Object.keys(this.loginForm.controls).forEach(key => {
+        const control = this.loginForm.get(key);
+        if (control?.invalid) {
+          control.markAsTouched();
+        }
+      });
+    }
   }
 }
