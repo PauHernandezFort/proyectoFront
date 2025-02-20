@@ -1,45 +1,59 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import Swiper from 'swiper';
-import 'swiper/swiper-bundle.css';
+import { Component, Input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+interface ActivityCard {
+  title: string;
+  description: string;
+  imageUrl: string;
+  routerLink: string;
+}
 
 @Component({
   selector: 'app-cards',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [RouterLink, CommonModule],
   templateUrl: './cards.component.html',
   styleUrls: ['./cards.component.css']
-}) export class CardsComponent implements AfterViewInit {
+})
+export class CardsComponent {
+  @Input() activities: ActivityCard[] = [
+    {
+      title: 'Capoeira',
+      description: '¡Conoce el ritmo de Brasil! Combina danza, acrobacia y artes marciales para mejorar tu agilidad y energía.',
+      imageUrl: '../../../../images/capoeira.jpg',
+      routerLink: '/activities/capoeira'
+    },
+    {
+      title: 'MMA',
+      description: '¡Desafía tus límites! Aprende técnicas de boxeo, lucha y jiu-jitsu en un ambiente seguro y lleno de acción.',
+      imageUrl: '../../../../images/mma cards.jpg',
+      routerLink: '/activities/mma'
+    },
+    {
+      title: 'Jiu-Jitsu',
+      description: '¿Te gustaría dominar el combate? Practica técnicas de sumisión y control en el suelo para tu defensa personal.',
+      imageUrl: '../../../../images/jui-jitsu.jpg',
+      routerLink: '/activities/jui-jitsu'
+    },
+     {
+      title: 'Saco de boxeo',
+      description: '¡Golpea con fuerza! Mejora tu resistencia, coordinación y fuerza mientras te diviertes con el saco de boxeo.',
+      imageUrl: '../../../../images/saco.jpg',
+      routerLink: '/activities/saco-boxeo'
+    },
+    {
+      title: 'Defensa femenina',
+      description: '¡Empoderate! Aprende autodefensa adaptada a las mujeres y siente mayor seguridad y confianza en ti misma.',
+      imageUrl: '../../../../images/defensa femenina.jpg',
+      routerLink: '/activities/defensa-femenina'
+    },
+    {
+      title: 'Chi-Kung',
+      description: 'Relaja tu cuerpo y mente. Practica Chi-Kung y encuentra el equilibrio con movimientos suaves y respiración profunda.',
+      imageUrl: '../../../../images/chi-kung.jpg',
+      routerLink: '/activities/chi-kung'
+    },
+  ];
 
-  ngAfterViewInit() {
-    const swiper = new Swiper('.swiper-container', {
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      },
-      slidesPerView: 3, // Change default to 3 (or based on your design)
-      spaceBetween: 20, // Space between cards
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
-      breakpoints: {
-        620: {
-          slidesPerView: 1,
-          spaceBetween: 10,
-        },
-        680: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        920: {
-          slidesPerView: 3, // Show 3 cards from 920px screen width
-          spaceBetween: 30,
-        },
-        1240: {
-          slidesPerView: 4, // Show 4 cards on larger screens
-          spaceBetween: 40,
-        },
-      }
-    });
-  }
 }

@@ -5,105 +5,21 @@
       cuerpo como tu mente. ¡Descubre nuevas experiencias deportivas y alcanza tus metas con nosotros!</p>
   </section>
   <section class="row mt-4" aria-label="Actividades">
-    <!-- Capoeira -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Capoeira</h5>
+    @for (activity of activities; track activity.title) {
+      <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">{{activity.title}}</h5>
+          </div>
+          <div class="card-body">
+            <img [src]="activity.imageUrl" class="card-img-top" [alt]="'Imagen de la actividad ' + activity.title">
+          </div>
+          <div class="card-footer text-body-secondary">
+            <p class="card-text">{{activity.description}}</p>
+            <button class="btn btn-success" [routerLink]="activity.routerLink" type="button">Ver Más</button>
+          </div>
         </div>
-        <div class="card-body">
-          <img src="../../../../images/capoeira.jpg" class="card-img-top" alt="Imagen de la actividad Capoeira">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p class="card-text">¡Conoce el ritmo de Brasil! Combina danza, acrobacia y artes marciales para mejorar tu
-            agilidad y energía.</p>
-          <button class="btn btn-success" routerLink="/activities/capoeira" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
-
-    <!-- MMA -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">MMA</h5>
-        </div>
-        <div class="card-body">
-          <img src="../../../../images/mma cards.jpg" class="card-img-top" alt="Imagen de la actividad mma">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p>¡Desafía tus límites! Aprende técnicas de boxeo, lucha y jiu-jitsu en un ambiente seguro y lleno de
-            acción.</p>
-          <button routerLink="/activities/mma" class="btn btn-success" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
-
-    <!-- Jiu-Jitsu -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Jiu-Jitsu</h5>
-        </div>
-        <div class="card-body">
-          <img src="../../../../images/jui-jitsu.jpg" class="card-img-top" alt="Imagen de la actividad jui-jitsu">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p>¿Te gustaría dominar el combate? Practica técnicas de sumisión y control en el suelo para tu defensa
-            personal.</p>
-          <button class="btn btn-success" routerLink="/activities/jui-jitsu" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
-
-    <!-- Saco de Boxeo -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Saco de boxeo</h5>
-        </div>
-        <div class="card-body">
-          <img src="../../../../images/saco.jpg" class="card-img-top" alt="Imagen de la actividad de saco de boxeo">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p>¡Golpea con fuerza! Mejora tu resistencia, coordinación y fuerza mientras te diviertes con el saco de
-            boxeo.</p>
-          <button class="btn btn-success" routerLink="/activities/saco-boxeo" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
-
-    <!-- Defensa Femenina -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Defensa femenina</h5>
-        </div>
-        <div class="card-body">
-          <img src="../../../../images/defensa femenina.jpg" class="card-img-top" alt="Imagen de la actividad de defensa femenina">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p>¡Empoderate! Aprende autodefensa adaptada a las mujeres y siente mayor seguridad y confianza en ti misma.</p>
-          <button class="btn btn-success" routerLink="/activities/defensa-femenina" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
-
-    <!-- Chi-Kung -->
-    <article class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Chi-Kung</h5>
-        </div>
-        <div class="card-body">
-          <img src="../../../../images/chi-kung.jpg" class="card-img-top" alt="Imagen de la actividad Chi-Kung">
-        </div>
-        <div class="card-footer text-body-secondary">
-          <p>Relaja tu cuerpo y mente. Practica Chi-Kung y encuentra el equilibrio con movimientos suaves y
-            respiración profunda.</p>
-          <button class="btn btn-success" routerLink="/activities/chi-kung" type="button">Ver Más</button>
-        </div>
-      </div>
-    </article>
+      </article>
+    }
   </section>
 </main>
