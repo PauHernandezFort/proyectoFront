@@ -34,7 +34,7 @@ export interface Usuarios {
   password?: string; // Opcional porque no se debe devolver en respuestas
   telefono?: number;  // Cambiado de number a string
   rol: string;
-  fechaRegistro: Date | string;
+  fechaRegistro?: Date | string;
   fotoPerfil?: string;
   progresos?: number[]; // Array con los IDs de los progresos del usuario
   clases?: number[]; // Array con los IDs de clases donde es entrenador

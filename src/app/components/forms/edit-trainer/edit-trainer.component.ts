@@ -3,16 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
-
-interface TrainerData {
-  id?: string;
-  nombre: string;
-  apellidos: string;
-  telefono: string;
-  email: string;
-  foto: string;
-  rol: string;
-}
+import { Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-edit-trainer',
@@ -22,15 +13,15 @@ interface TrainerData {
   styleUrls: ['./edit-trainer.component.css']
 })
 export class EditTrainerComponent implements OnInit {
-  trainerData: TrainerData = {
+  public trainerData: Usuarios = {
     nombre: '',
-    apellidos: '',
-    telefono: '',
+    apellido: '',
+    telefono: 0,
     email: '',
-    foto: '',
+    fotoPerfil: '',
     rol: 'entrenador'
   };
-  loading = false;
+  public loading = false;
 
   constructor(
     private router: Router,
@@ -41,16 +32,17 @@ export class EditTrainerComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     if (id) {
-      this.loading = true;
-      this.apiService.getUser(id).subscribe(
+      this.loading = false;
+
+      this.apiService.getUser(`/api/usuarios/${id}`).subscribe(
         (user: any) => {
           this.trainerData = {
             id: user.id,
             nombre: user.nombre,
-            apellidos: user.apellidos,
+            apellido: user.apellidos,
             telefono: user.telefono,
             email: user.email,
-            foto: user.foto,
+            fotoPerfil: user.foto,
             rol: 'entrenador'
           };
           this.loading = false;
@@ -62,6 +54,7 @@ export class EditTrainerComponent implements OnInit {
           this.router.navigate(['/pupilsmanager']);
         }
       );
+
     }
   }
 
@@ -70,7 +63,7 @@ export class EditTrainerComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.trainerData.foto = e.target.result;
+        this.trainerData.fotoPerfil = e.target.result;
       };
       reader.readAsDataURL(file);
     }
@@ -98,12 +91,12 @@ export class EditTrainerComponent implements OnInit {
   }
 
   validarFormulario(): boolean {
-    if (!this.trainerData.nombre || !this.trainerData.apellidos) {
+    if (!this.trainerData.nombre || !this.trainerData.apellido) {
       alert('El nombre y apellidos son obligatorios');
       return false;
     }
 
-    if (!this.trainerData.telefono || !/^[0-9]{9}$/.test(this.trainerData.telefono)) {
+    if (!this.trainerData.telefono || !/^[0-9]{9}$/.test(this.trainerData.telefono.toString())) {
       alert('Introduce un número de teléfono válido (9 dígitos)');
       return false;
     }
