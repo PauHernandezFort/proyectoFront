@@ -1,0 +1,9 @@
+<div class="qr-container">
+    <!-- Mostrar la imagen del código QR si ya ha sido cargada -->
+    @if (qrImageUrl) {
+      <img [src]="qrImageUrl" alt="Código QR">
+    } @else {
+      <p>Cargando código QR...</p>
+    }
+</div>
+  
