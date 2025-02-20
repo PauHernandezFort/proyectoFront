@@ -14,7 +14,7 @@ export interface Clases {
   capacidad: number;
   estado: string;
   idEntrenador: string;
-  ubicacion: string;
+  ubicacion?: string;
   usuariosApuntados: any[];
 }
 

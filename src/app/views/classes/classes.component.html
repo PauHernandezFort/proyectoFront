@@ -19,8 +19,7 @@
               <ul class="list-unstyled">
                 <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
                 <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
-                <li><i class="bi bi-geo-alt"></i> {{ clase.ubicacion }}</li>
-                <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador}}</li>
+                <li><i class="bi bi-person"></i> Entrenador: {{ nombresEntrenadores[clase.idEntrenador] || 'Cargando...' }}</li>
               </ul>
               <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
                 {{ clase.estado }}
