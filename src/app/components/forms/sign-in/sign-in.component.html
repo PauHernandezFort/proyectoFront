@@ -1,47 +1,93 @@
-<form (ngSubmit)="onSubmit($event)" class="login-form mt-4">
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h3>Iniciar Sesión</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input 
-                                type="email" 
-                                class="form-control" 
-                                id="email" 
-                                name="email" 
-                                [(ngModel)]="credentials.email" 
-                                required>
-                        </div>
+<div class="container-fluid">
+    <main>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Contraseña</label>
-                            <input 
-                                type="password" 
-                                class="form-control" 
-                                id="password" 
-                                name="password" 
-                                [(ngModel)]="credentials.password" 
-                                required>
-                        </div>
-                        <section class="row mb-3">
-                            <article class="col-md-6">
-                                <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
-                            </article>
-                            <article class="col-md-6">
-                                <button type="button" class="btn btn-secondary w-100" routerLink="/signUp">Registrarse</button>
-                            </article>
-                        </section>
-                        
-        
-                        
-                    </div>
-                </div>
-            </div>
+  <div class="row justify-content-center min-vh-100 align-items-center">
+    <div class="col-11 col-sm-8 col-md-6 col-lg-4">
+      <div class="card shadow-lg border-0">
+        <div class="card-header text-white text-center py-4">
+          <h2 class="mb-0">Iniciar Sesión</h2>
         </div>
+        <div class="card-body p-4">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="needs-validation">
+            <!-- Email Field -->
+            <div class="form-floating mb-3">
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                formControlName="email"
+                placeholder="Correo Electrónico"
+                [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+                
+              >
+              @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                <div class="invalid-feedback">
+                  @if (loginForm.get('email')?.errors?.['required']) {
+                    <span>El correo electrónico es requerido</span>
+                  }
+                  @if (loginForm.get('email')?.errors?.['email']) {
+                    <span>Por favor, introduce un correo electrónico válido</span>
+                  }
+                </div>
+              }
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group position-relative mb-4">
+                <input 
+                  [type]="showPassword ? 'text' : 'password'" 
+                  class="form-control" 
+                  id="password" 
+                  formControlName="password"
+                  placeholder="Contraseña"
+                  [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+                >
+                <span class="password-toggle position-absolute end-0 top-50 translate-middle-y me-3" 
+                      (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </span>
+                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                  <div class="invalid-feedback">
+                    La contraseña es requerida
+                  </div>
+                }
+              </div>
+              
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="row mb-4">
+              <div class="col-6">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="rememberMe" formControlName="rememberMe">
+                  <label class="form-check-label" for="rememberMe">Recordarme</label>
+                </div>
+              </div>
+             
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              class="btn btn-primary w-100 py-2 mb-3"
+              [disabled]="loginForm.invalid || isLoading"
+            >
+              @if (isLoading) {
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Cargando...
+              } @else {
+                Iniciar Sesión
+              }
+            </button>
+
+            <!-- Register Link -->
+            <div class="text-center">
+              <span class="text-primary text-decoration-none" >¿No tienes una cuenta? </span>
+              <a routerLink="/signUp" class="text-primary text-decoration-none">Regístrate aquí</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</form>
+  </div>
+</main>
+</div>

@@ -33,6 +33,7 @@ import { CrearEntrenadorComponent } from './components/forms/crear-entrenador/cr
 import { EditUserComponent } from './components/forms/edit-user/edit-user.component';
 import { EditTrainerComponent } from './components/forms/edit-trainer/edit-trainer.component';
 import { ListProgressComponent } from './views/list-progress/list-progress.component';
+import { EnrollComponent } from './components/forms/enroll/enroll.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -70,6 +71,8 @@ export const routes: Routes = [
     { path: 'crearEntrenador', component: CrearEntrenadorComponent },
     { path: 'editUser/:id', component: EditUserComponent },
     { path: 'editTrainer/:id', component: EditTrainerComponent },
+    { path: 'inscribirse', component: EnrollComponent },
+
 ];
 
 
