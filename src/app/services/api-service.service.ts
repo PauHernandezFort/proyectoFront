@@ -56,6 +56,12 @@ export class ApiService {
     );
   }
 
+  getEvent(): Observable<Clases[]> {
+    return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
+      map(response => response.member)
+    );
+  }
+
   // Obtener clases por fecha
   getClasesByDate(fecha: string): Observable<Clases[]> {
     return this.http.get<ApiResponse<Clases>>(`${this.apiClass}/by-date/${fecha}`).pipe(
@@ -75,6 +81,11 @@ export class ApiService {
 
   // Crear clase
   createClass(data: Clases): Observable<Clases> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.post<Clases>(this.apiClass, data, { headers });
+  }
+
+  createEvent(data: Clases): Observable<Clases> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
     return this.http.post<Clases>(this.apiClass, data, { headers });
   }
