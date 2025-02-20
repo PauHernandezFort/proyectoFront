@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 import { Clases, Usuarios as Pupils, Notificaciones, Progreso, Usuarios } from '../models/user.interface';
 import { ApiResponse } from '../models/user.interface';
 
@@ -139,25 +139,25 @@ export class ApiService {
       'Accept': 'application/ld+json'
     });
   
-    const userDataToSend = {
+    const userDataToSend: any = {
       nombre: userData.nombre,
       apellido: userData.apellido,
       email: userData.email,
       password: userData.password,
-      telefono: userData.telefono?.toString() ?? '0',
-      rol: userData.rol,
-      fechaRegistro: new Date().toISOString(),
-      progresos: [],
-      clases: [],
-      notificaciones: [],
-      fotoPerfil: userData.fotoPerfil || ''
+      telefono: Number(userData.telefono) || 0,
+      rol: userData.rol
     };
   
     console.log('Enviando datos:', userDataToSend);
-    return this.http.post<Usuarios>(this.apiPupils, JSON.stringify(userDataToSend), { headers });
+  
+    return this.http.post<Usuarios>('http://52.2.202.15/api/usuarios', userDataToSend, { headers }).pipe(
+      catchError((error: any) => {
+        console.error('Error en registro:', error);
+        return throwError(() => new Error(error.error?.message || 'Error en el registro del usuario.'));
+      })
+    );
   }
   
-
   // Método para iniciar sesión
   loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
     const headers = new HttpHeaders({
