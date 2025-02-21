@@ -23,9 +23,9 @@
                     <td>{{ trainer.telefono }}</td>
                     <td>{{ trainer.email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer('1')"
-                            [disabled]="isLoading('1')">
-                            @if (isLoading('1')) {
+                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer(trainer.id!.toString())"
+                            [disabled]="isLoading(trainer.id!.toString())">
+                            @if (isLoading(trainer.id!.toString())) {
                             <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                             Eliminando...
                             } @else {
@@ -51,3 +51,12 @@
         </button>
     </div>
 </div>
+
+<app-confirm-modal
+  [isOpen]="showModal"
+  title="Confirmar eliminación"
+  message="¿Estás seguro de que deseas eliminar este entrenador?"
+  (onConfirm)="confirmDelete()"
+  (onCancel)="CancelDelete()">
+</app-confirm-modal>
+

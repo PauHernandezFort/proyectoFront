@@ -1,4 +1,5 @@
 <div class="create-class-container">
+
   <div class="form-wrapper">
     <h2>Crear Nueva Clase</h2>
     <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
@@ -88,35 +89,44 @@
   </div>
 </div>
 
-<!-- Botón para mostrar/ocultar las clases disponibles -->
-<button class="btn btn-secondary my-3" (click)="mostrarClasesDisponibles = !mostrarClasesDisponibles">
-    {{ mostrarClasesDisponibles ? 'Ocultar Clases Disponibles' : 'Mostrar Clases Disponibles' }}
-</button>
 
-<!-- Sección para mostrar las clases disponibles solo si mostrarClasesDisponibles es true -->
+<!-- Botón para mostrar/ocultar las clases disponibles -->
+<div class="d-flex justify-content-between align-items-center my-3">
+  <button class="btn btn-secondary" (click)="mostrarClasesDisponibles = !mostrarClasesDisponibles">
+    {{ mostrarClasesDisponibles ? 'Ocultar Clases Disponibles' : 'Mostrar Clases Disponibles' }}
+  </button>
+  <button class="btn btn-secondary" routerLink="/classesPupils">
+    Ver Clases
+  </button>
+</div>
+
+<!-- Sección para mostrar las clases disponibles -->
 @if (mostrarClasesDisponibles) {
     <section class="mt-5">
         <h3>Clases Disponibles</h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Fecha</th>
-                    <th>Capacidad</th>
-                    <th>Ubicación</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (clase of clasesDisponibles; track clase.id) {
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td>{{ clase.nombre }}</td>
-                        <td>{{ clase.fecha | date:'dd/MM/yyyy' }}</td>
-                        <td>{{ clase.capacidad }}</td>
-                        <td>{{ clase.estado }}</td>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Capacidad</th>
+                        <th>Estado</th>
+                        <th>Descripción</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (clase of clasesDisponibles; track clase.id) {
+                        <tr>
+                            <td>{{ clase.nombre }}</td>
+                            <td>{{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td>{{ clase.capacidad }}</td>
+                            <td>{{ clase.estado }}</td>
+                            <td>{{ clase.descripcion }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </section>
 }

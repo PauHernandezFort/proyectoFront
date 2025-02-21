@@ -1,126 +1,144 @@
+/* Contenedor principal */
 .create-class-container {
     max-width: 800px;
-    margin: 2rem auto;
+    margin: 20px auto;
     padding: 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.form-wrapper {
-    padding: 1.5rem;
-}
-
-.form-wrapper h2 {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Títulos */
+  h2 {
     text-align: center;
-    color: #2c3e50;
-    font-weight: 600;
-    margin-bottom: 1rem;
-}
-
-/* Estilo general de los campos de formulario */
-.form-group {
-    margin-bottom: 1.25rem;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #34495e;
-    font-weight: 600;
-}
-
-.form-control {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  /* Formulario */
+  .form-wrapper {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    color: #555;
     font-size: 1rem;
-    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
-
-.form-control:focus {
-    border-color: #4CAF50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
-    outline: none;
-}
-
-/* Ajustes para los campos inválidos */
-.is-invalid {
-    border-color: #dc3545;
-}
-
-.invalid-feedback {
-    color: #dc3545;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-}
-
-/* Distribución flexible de los campos */
-.form-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.col-md-8 {
+  }
+  
+  select, input, textarea {
     width: 100%;
-    max-width: 600px;
-}
-
-/* Botones */
-.form-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 2rem;
-}
-
-.btn {
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    min-width: 150px;
-}
-
-.btn-primary {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.btn-primary:hover {
-    background-color: #45a049;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
-}
-
-/* Mejorar el diseño del textarea */
-textarea.form-control {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+  }
+  
+  select:focus, input:focus, textarea:focus {
+    border-color: #007bff;
+  }
+  
+  textarea {
     resize: vertical;
-    min-height: 100px;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    .create-class-container {
-        margin: 1rem;
-        padding: 15px;
-    }
-
-    .form-row {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .form-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .btn {
-        width: 100%;
-    }
-}
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+  }
+  
+  /* Botones */
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .btn {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a636a;
+  }
+  
+  /* Spinner */
+  .spinner-border {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* Tabla de clases disponibles */
+  .table-responsive {
+    margin-top: 30px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  table td, table th {
+    font-size: 1rem;
+  }
+  
+  /* Botón para mostrar/ocultar clases */
+  .btn-secondary.my-3 {
+    display: block;
+    background-color: #343a40;
+  }
+  
+  .btn-secondary.my-3:hover {
+    background-color: #23272b;
+  }
+  

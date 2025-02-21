@@ -28,21 +28,20 @@
                     <td>{{ member.telefono }}</td>
                     <td>{{ member.email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-3" (click)="deletePupil(member.id!)"
+                        <button class="btn btn-sm btn-danger me-2" (click)="deletePupils(member.id!)"
                             [disabled]="isLoading(member.id!)">
                             @if (isLoading(member.id!)) {
                             <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                             Eliminando...
                             } @else {
-                            <i class="bi bi-trash"></i> Eliminar
+                            <i class="bi bi-trash"></i> 
                             }
                         </button>
-                        <button class="btn btn-sm btn-primary me-3" [routerLink]="['/editUser', member.id]">
-                            <i class="bi bi-pencil"></i> Editar
+                        <button class="btn btn-sm btn-primary me-2" alt="Editar Usuario" [routerLink]="['/editUser', member.id]">
+                            <i class="bi bi-pencil"></i> 
                         </button>
-                        <a routerLink="/createProgress" class="btn btn-sm btn-primary shadow-lg px-2">
+                        <a routerLink="/createProgress"  alt="Crear Progreso" class="btn btn-sm btn-primary shadow-lg px-2">
                             <i class="bi bi-graph-up-arrow me-2"></i>
-                            Crear Nuevo Progreso
                         </a>
                     </td>
                 </tr>
@@ -57,3 +56,11 @@
         }
     </div>
 </div>
+
+<app-confirm-modal
+  [isOpen]="showModal"
+  title="Confirmar eliminación"
+  message="¿Estás seguro de que deseas eliminar este alumno?"
+  (onConfirm)="confirmDelete()"
+  (onCancel)="CancelDelete()">
+</app-confirm-modal>

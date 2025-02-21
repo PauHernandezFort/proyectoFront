@@ -4,7 +4,7 @@ footer {
     width: 100%;
     margin: 0;
     padding: 0;
-    background-color: #212529; /* Asegura que el fondo oscuro cubra todo */
+    background-color: #0c0c0c ;
 }
 
 .white-link{
@@ -72,7 +72,8 @@ h5::after {
 footer{
     width: 100%;
     height: 100%;
-    background-color: #212529;
+    background-color: #0c0c0c ;
+
 }
 /* Estilos para enlaces */
 .footer-links {

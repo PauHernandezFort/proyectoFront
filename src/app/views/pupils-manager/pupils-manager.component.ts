@@ -3,20 +3,22 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api-service.service';
 import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-pupils-manager',
   standalone: true,
-  imports: [RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule, ConfirmModalComponent],
   templateUrl: './pupils-manager.component.html',
   styleUrl: './pupils-manager.component.css'
 })
-
 
 export class PupilsManagerComponent {
   loading: { [key: string]: boolean } = {};
   public trainers: Member[] = [];
   public id: number = 0;
+  public showModal: boolean = false;
+  public selectedTrainerId: string | null = null;
 
   constructor(public service: ApiService) { }
 
@@ -41,14 +43,33 @@ export class PupilsManagerComponent {
     );
   }
 
-  deleteTrainer(id: string) {
-    if (confirm('¿Estás seguro de que deseas eliminar este entrenador?')) {
-      this.loading[id] = true;
-      setTimeout(() => {
-        this.loading[id] = false;
+  public deleteTrainer(id: string): void {
+    this.selectedTrainerId = id;
+    this.showModal = true;
+  }
+
+  public confirmDelete(): void {
+    if (!this.selectedTrainerId) return;
+    
+    const id = this.selectedTrainerId;
+    this.loading[id] = true;
+
+    this.service.deletePupils(Number(id)).subscribe((success) => {
+      if (this.service) {
+        this.trainers = this.trainers.filter(trainer => trainer.id !== Number(id));
         alert('Entrenador eliminado correctamente');
-      }, 1000);
-    }
+      } else {
+        alert('Error al eliminar el entrenador');
+      }
+      this.loading[id] = false;
+      this.showModal = false;
+      this.selectedTrainerId = null;
+    });
+  }
+
+  public CancelDelete(): void {
+    this.showModal = false;
+    this.selectedTrainerId = null;
   }
 
   isLoading(id: string): boolean {

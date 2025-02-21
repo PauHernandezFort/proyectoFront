@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api-service.service';
+  import { Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-sign-in',
   standalone: true,
-  imports: [CommonModule, RouterLink, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
@@ -43,21 +43,15 @@ export class SignInComponent implements OnInit {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
-
       this.apiService.loginPupil(credentials).subscribe({
-        next: (response) => {
-          // Manejar el éxito del login
-          this.router.navigate(['/home']);
+        next: (response: any) => {
+          console.log('Respuesta del servidor:', response);
         },
         error: (error) => {
-          // Manejar el error
-          console.error('Error en el login:', error);
-          // Aquí podrías mostrar un mensaje de error al usuario
-        },
-        complete: () => {
-          this.isLoading = false;
+          console.error('Error en la solicitud:', error);
         }
       });
+      
     } else {
       Object.keys(this.loginForm.controls).forEach(key => {
         const control = this.loginForm.get(key);
