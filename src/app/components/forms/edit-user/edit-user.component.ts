@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
-import { Usuarios as Member } from '../../../models/user.interface';
+import { Usuarios as Member, Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-edit-user',
@@ -26,7 +26,6 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
 
-    // *Definir el FormGroup correctamente*
     this.editForm = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
       apellido: new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -37,8 +36,8 @@ export class EditUserComponent implements OnInit {
 
     if (this.id) {
       this.loading = false;
-      this.apiService.getUser('1').subscribe(
-        (response: Member) => {
+      this.apiService.getUser(`/api/usuarios/${this.id}`).subscribe(
+        (response: Usuarios) => {
           this.editForm.patchValue({
             nombre: response.nombre,
             apellido: response.apellido,
@@ -53,9 +52,10 @@ export class EditUserComponent implements OnInit {
           console.error('Error al cargar los datos del usuario:', error);
           alert('No se pudo cargar el usuario');
           this.loading = false;
-          this.router.navigate(['/pupils']);
         }
       );
+
+
     }
   }
 
@@ -76,10 +76,8 @@ export class EditUserComponent implements OnInit {
       alert('Por favor, completa todos los campos correctamente.');
       return;
     }
-
     this.loading = true;
     const updateData = { ...this.editForm.value };
-
     this.apiService.updatePupils(Number(this.id), updateData).subscribe(
       () => {
         alert('Usuario actualizado correctamente');

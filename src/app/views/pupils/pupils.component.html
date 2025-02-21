@@ -1,4 +1,9 @@
 <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/crearAlumno">
+            <i class="bi bi-plus"></i> Crear Alumno
+        </button>
+    </div>
     <h2 class="text-center mb-5">Lista de Alumnos</h2>
     <div class="table-responsive">
         @if(members.length > 0){
@@ -49,9 +54,6 @@
             <p class="mt-2 mb-0">No hay alumnos disponibles en este momento.</p>
         </div>
         }
-        <button class="btn btn-sm btn-primary" routerLink="/crearAlumno">
-            <i class="bi bi-plus"></i> Crear Alumno
-        </button>
     </div>
 </div>
 

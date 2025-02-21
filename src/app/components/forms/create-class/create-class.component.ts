@@ -9,32 +9,32 @@ import { Clases, Usuarios } from '../../../models/user.interface';
 @Component({
   selector: 'app-create-class',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
 export class CreateClassComponent implements OnInit {
   createClass = new FormGroup({
-    nombre: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    nombre: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
     idEntrenador: new FormControl('/api/entrenadors/1', { nonNullable: true }),
-    capacidad: new FormControl<number>(1, { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.min(1), Validators.max(35)] 
+    capacidad: new FormControl<number>(1, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(1), Validators.max(35)]
     }),
-    estado: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    estado: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
-    fecha: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    fecha: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
-    descripcion: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)] 
+    descripcion: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)]
     }),
   });
 
@@ -47,7 +47,7 @@ export class CreateClassComponent implements OnInit {
   public estadosClase: string[] = ['activa', 'inactiva'];
   loading = false;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.getResponseClass();
@@ -90,7 +90,7 @@ export class CreateClassComponent implements OnInit {
     if (field.hasError('min')) return 'La capacidad mínima es 1';
     if (field.hasError('max')) return 'La capacidad máxima es 35';
     if (field.hasError('minlength')) return 'La descripción debe tener al menos 10 caracteres';
-    
+
     return '';
   }
 
