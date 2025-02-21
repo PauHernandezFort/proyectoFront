@@ -6,80 +6,88 @@
           <h2 class="text-center">Editar Alumno</h2>
         </div>
         <div class="card-body">
-          <!-- Mostrar spinner mientras se está cargando -->
-          @if (loading) {
-            <div class="text-center">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Cargando...</span>
+
+          <!-- Mostrar formulario si no está cargando -->
+          <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
+            <!-- Foto -->
+            <div class="mb-4 text-center">
+              <div class="profile-image-container mb-3">
+                @if (photo) {
+                <img [src]="photo" alt="Foto de perfil" class="profile-image">
+                } @else {
+                <div class="default-image">
+                  <i class="bi bi-person-circle"></i>
+                </div>
+                }
+              </div>
+              <div class="mb-3">
+                <label for="foto" class="btn btn-outline-primary">
+                  <i class="bi bi-camera"></i> Cambiar Foto
+                </label>
+                <input type="file" id="foto" class="d-none" accept="image/*" (change)="onFileSelected($event)">
               </div>
             </div>
-          } @else {
-            <!-- Mostrar formulario si no está cargando -->
-            <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
-              <!-- Foto -->
-              <div class="mb-4 text-center">
-                <div class="profile-image-container mb-3">
-                  @if (photo) {
-                    <img [src]="photo" alt="Foto de perfil" class="profile-image">
-                  } @else {
-                    <div class="default-image">
-                      <i class="bi bi-person-circle"></i>
-                    </div>
-                  }
-                </div>
-                <div class="mb-3">
-                  <label for="foto" class="btn btn-outline-primary">
-                    <i class="bi bi-camera"></i> Cambiar Foto
-                  </label>
-                  <input type="file" id="foto" class="d-none" accept="image/*" (change)="onFileSelected($event)">
-                </div>
-              </div>
 
-              <!-- Nombre -->
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="nombre" formControlName="nombre"
-                  required placeholder="Introduce el nombre">
-              </div>
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" formControlName="nombre" required
+                placeholder="Introduce el nombre">
+            </div>
 
-              <!-- Apellidos -->
-              <div class="mb-3">
-                <label for="apellidos" class="form-label">Apellidos</label>
-                <input type="text" class="form-control" id="apellidos" formControlName="apellidos"
-                  required placeholder="Introduce los apellidos">
-              </div>
+            <!-- Apellidos -->
+            <div class="mb-3">
+              <label for="apellidos" class="form-label">Apellidos</label>
+              <input type="text" class="form-control" id="apellidos" formControlName="apellido" required
+                placeholder="Introduce los apellidos">
+            </div>
 
-              <!-- Teléfono -->
-              <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="tel" class="form-control" id="telefono" formControlName="telefono"
-                  required pattern="[0-9]{9}" placeholder="Introduce el teléfono">
-              </div>
+            <!-- Teléfono -->
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Teléfono</label>
+              <input type="number" class="form-control" id="telefono" formControlName="telefono"
+                placeholder="Introduce el teléfono">
+              @if (getControl('telefono')?.invalid && getControl('telefono')?.touched) {
+              <small class="text-danger">Debe tener 9 dígitos.</small>
+              }
+            </div>
 
-              <!-- Email -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input type="email" class="form-control" id="email" formControlName="email"
-                  required placeholder="Introduce el correo electrónico">
-              </div>
+            <!-- Email -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo Electrónico</label>
+              <input type="email" class="form-control" id="email" formControlName="email" required
+                placeholder="Introduce el correo electrónico">
+            </div>
 
-              <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary me-2" [disabled]="loading || editForm.invalid">
-                  @if (loading) {
-                    <span class="spinner-border spinner-border-sm me-2"></span>
-                    Guardando...
-                  } @else {
-                    <i class="bi bi-save"></i> Guardar Cambios
-                  }
-                </button>
-                <button type="button" class="btn btn-secondary" (click)="cancelar()">
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          }
+            <div class="mb-3">
+              <label for="password" class="form-label">Nueva Contraseña</label>
+              <input type="password" class="form-control" id="newPassword" formControlName="newPassword"
+                placeholder="Introduce la contraseña">
+              @if (getControl('newPassword')?.invalid && getControl('newPassword')?.touched) {
+              <small class="text-danger">Debe tener al menos 5 caracteres.</small>
+              }
+            </div>
+
+            <div class="mb-3">
+              <label for="confirm-password" class="form-label">Confirmar contraseña</label>
+              <input type="password" class="form-control" id="confirmPassword" formControlName="password"
+                placeholder="Confirme la contraseña">
+              @if (getControl('confirmPassword')?.invalid && getControl('confirmPassword')?.touched) {
+              <small class="text-danger">Debe tener al menos 5 caracteres.</small>
+              }
+            </div>
+
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary me-2">
+                <i class="bi bi-save"></i> Guardar Cambios
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="cancelar()">
+                Cancelar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </div>
+  </div>
 </div>

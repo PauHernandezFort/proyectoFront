@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
-import { Usuarios as Member, Usuarios } from '../../../models/user.interface';
+import { Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-edit-user',
@@ -11,11 +11,32 @@ import { Usuarios as Member, Usuarios } from '../../../models/user.interface';
   styleUrls: ['./edit-user.component.css']
 })
 export class EditUserComponent implements OnInit {
-
-  editForm!: FormGroup;
-  loading = false;
-  public id: string = "";
+  id: string = "";
   photo: string | null = null;
+
+  editForm = new FormGroup({
+    nombre: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(2)]
+    }),
+    apellido: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(2)]
+    }),
+    telefono: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.pattern('[0-9]{9}')]
+    }),
+    email: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.email]
+    }),
+    newPassword: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(5)]
+    }),
+    fotoPerfil: new FormControl('', { nonNullable: true })
+  });
 
   constructor(
     private router: Router,
@@ -25,37 +46,29 @@ export class EditUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
+    this.loadUserData();
+  }
 
-    this.editForm = new FormGroup({
-      nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      apellido: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      telefono: new FormControl('', [Validators.required, Validators.pattern('[0-9]{9}')]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      fotoPerfil: new FormControl('')
-    });
-
+  loadUserData(): void {
     if (this.id) {
-      this.loading = false;
       this.apiService.getUser(`/api/usuarios/${this.id}`).subscribe(
         (response: Usuarios) => {
           this.editForm.patchValue({
             nombre: response.nombre,
             apellido: response.apellido,
-            telefono: response.telefono?.toString() || '',
+            telefono: response.telefono?.toString(),
             email: response.email,
-            fotoPerfil: response.fotoPerfil || ''
+            newPassword: '',
+            fotoPerfil: response.fotoPerfil || '',
           });
+
           this.photo = response.fotoPerfil || null;
-          this.loading = false;
         },
         (error) => {
           console.error('Error al cargar los datos del usuario:', error);
           alert('No se pudo cargar el usuario');
-          this.loading = false;
         }
       );
-
-
     }
   }
 
@@ -66,19 +79,34 @@ export class EditUserComponent implements OnInit {
       reader.onload = () => {
         this.photo = reader.result as string;
         this.editForm.patchValue({ fotoPerfil: this.photo });
+
+        const imageData = {
+          fotoPerfil: this.photo,
+        };
+
+        const jsonString = JSON.stringify(imageData);
+        console.log(jsonString);
       };
       reader.readAsDataURL(file);
     }
   }
 
   onSubmit(): void {
-    if (this.editForm.invalid) {
-      alert('Por favor, completa todos los campos correctamente.');
-      return;
-    }
-    this.loading = true;
-    const updateData = { ...this.editForm.value };
-    this.apiService.updatePupils(Number(this.id), updateData).subscribe(
+    const userData: Usuarios = {
+      nombre: this.editForm.getRawValue().nombre,
+      apellido: this.editForm.getRawValue().apellido,
+      telefono: Number(this.editForm.getRawValue().telefono),
+      email: this.editForm.getRawValue().email,
+      password: this.editForm.getRawValue().newPassword,
+      fotoPerfil: this.photo || '',
+    };
+    console.log("Pepe: ", userData);
+
+    this.updatePupils(userData);
+  }
+
+  public updatePupils(userData: Usuarios): void {
+    this.apiService.updatePupils(Number(this.id), userData).subscribe(
       () => {
         alert('Usuario actualizado correctamente');
         this.router.navigate(['/pupils']);
@@ -86,12 +114,15 @@ export class EditUserComponent implements OnInit {
       (error) => {
         console.error('Error al actualizar el usuario:', error);
         alert('Error al actualizar el usuario');
-        this.loading = false;
       }
     );
   }
 
   cancelar(): void {
     this.router.navigate(['/pupils']);
+  }
+
+  getControl(controlName: string) {
+    return this.editForm.get(controlName);
   }
 }

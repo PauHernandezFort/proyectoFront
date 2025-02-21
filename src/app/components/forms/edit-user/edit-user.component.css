@@ -38,7 +38,7 @@
 }
 
 .card {
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   border: none;
 }
 
@@ -49,15 +49,21 @@
 
 .form-control:focus {
   border-color: #0d6efd;
-  box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .25);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @media (max-width: 768px) {
   .col-md-8 {
     padding: 0 15px;
   }
-  
+
   .card {
     border-radius: 0;
   }
-} 
+}
