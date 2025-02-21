@@ -1,13 +1,10 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CreateClassComponent } from "../../components/forms/create-class/create-class.component";
-import { AddMartialArtComponent } from "../../components/forms/add-martial-art/add-martial-art.component";
-
 
 @Component({
   selector: 'app-calendario-view',
   standalone: true,
-  imports: [CommonModule, AddMartialArtComponent],
+  imports: [CommonModule],
   templateUrl: './schedules.component.html',
   styleUrls: ['./schedules.component.css']
 })
