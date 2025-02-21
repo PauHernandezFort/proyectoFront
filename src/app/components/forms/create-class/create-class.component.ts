@@ -50,7 +50,8 @@ export class CreateClassComponent implements OnInit {
   constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit(): void {
-   this.getResponseClass();
+    this.getResponseClass();
+    this.cargarClasesDisponibles();
   } 
 
   public listClass: Clases[] = [];
@@ -149,6 +150,18 @@ export class CreateClassComponent implements OnInit {
       },
       (error) => {
         console.error('Error al obtener el entrenador:', error);
+      }
+    );
+  }
+
+  private cargarClasesDisponibles(): void {
+    this.apiService.getClases().subscribe(
+      (clases) => {
+        this.clasesDisponibles = clases;
+        console.log('Clases cargadas:', this.clasesDisponibles);
+      },
+      (error) => {
+        console.error('Error al cargar las clases:', error);
       }
     );
   }

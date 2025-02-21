@@ -153,10 +153,10 @@ export class ApiService {
   
 
   // Método para iniciar sesión
-  loginPupil(credentials: { correo: string; contraseña: string }): Observable<Usuarios> {
+  loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/ld+json'
     });
 
     return this.http.post<Usuarios>(`${this.apiPupils}/login`, credentials, { headers });
