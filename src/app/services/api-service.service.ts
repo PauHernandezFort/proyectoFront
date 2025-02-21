@@ -41,8 +41,9 @@ export class ApiService {
   }
 
   // Actualizar usuario (pupil)
-  updatePupils(userId: number, userData: Partial<Usuarios>): Observable<Usuarios> {
-    return this.http.put<Pupils>(`${this.apiPupils}/${userId}`, userData);
+  updatePupils(userId: number, userData: Usuarios): Observable<Usuarios> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.put<Usuarios>(`${this.apiPupils}/:${userId}`, userData, { headers });
   }
 
   // Eliminar usuario (pupil)
