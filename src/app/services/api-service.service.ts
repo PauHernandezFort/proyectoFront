@@ -35,12 +35,13 @@ export class ApiService {
   }
 
   // Crear usuario (pupil)
-  createPupil(userData: Pupils): Observable<Pupils> {
-    return this.http.post<Pupils>(this.apiPupils, userData);
+  createPupil(userData: Usuarios): Observable<Usuarios> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
+    return this.http.post<Usuarios>(this.apiPupils, userData, { headers });
   }
 
   // Actualizar usuario (pupil)
-  updatePupils(userId: number, userData: Partial<Pupils>): Observable<Pupils> {
+  updatePupils(userId: number, userData: Partial<Usuarios>): Observable<Usuarios> {
     return this.http.put<Pupils>(`${this.apiPupils}/${userId}`, userData);
   }
 
@@ -135,21 +136,19 @@ export class ApiService {
     return this.http.get<Pupils>('http://52.2.202.15/api/usuarioActual');
   }
 
-
-
   // Método para manejar dinero (por si se usa después)
   private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
     return this.http.post(this.apiUrlMoney, data);
   }
-  
+
   // Método para registrar un nuevo usuario
   registerPupil(userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/ld+json',
       'Accept': 'application/ld+json'
     });
-  
+
     const userDataToSend: any = {
       nombre: userData.nombre,
       apellido: userData.apellido,
@@ -158,9 +157,9 @@ export class ApiService {
       telefono: Number(userData.telefono) || 0,
       rol: userData.rol
     };
-  
+
     console.log('Enviando datos:', userDataToSend);
-  
+
     return this.http.post<Usuarios>('http://52.2.202.15/api/usuarios', userDataToSend, { headers }).pipe(
       catchError((error: any) => {
         console.error('Error en registro:', error);
@@ -168,7 +167,7 @@ export class ApiService {
       })
     );
   }
-  
+
   // Método para iniciar sesión
   loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
     const headers = new HttpHeaders({

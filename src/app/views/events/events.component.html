@@ -1,57 +1,32 @@
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2>Eventos Disponibles</h2>
-    </div>
-  
-    @if (events.length > 0) {
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @for (event of events; track event.id) {
-          @if(event.ubicacion){
-          <div class="col">
-            <div class="card h-100 shadow-sm">
-              <div class="card-header">
-                <h5 class="card-title mb-0">{{ event.nombre }}</h5>
-              </div>
-              <div class="card-body">
-                <p class="card-text">{{ event.descripcion }}</p>
-                <ul class="list-unstyled">
-                  <li><i class="bi bi-calendar"></i> {{ event.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
-                  <li><i class="bi bi-people"></i> Capacidad: {{ event.capacidad }}</li>
-                  <li><i class="bi bi-person"></i> Entrenador: {{ nombresEntrenadores[event.idEntrenador] || 'Cargando...' }}</li>
-                  <li><i class="bi bi-person"></i> ubicacion {{ event.ubicacion }}</li>
-                </ul>
-                <span class="badge" [class.bg-success]="event.estado === 'activa'" [class.bg-danger]="event.estado !== 'activa'">
-                  {{ event.estado }}
-                </span>
-                <br>
-                <br>
-              
-                <button class="btn btn-sm btn-danger me-2" (click)="deleteEvent(event.id ?? 0)"
-                              [disabled]="isLoading(event.id ?? 0)">
-                              @if (isLoading(event.id ?? 0)) {
-                              <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                              Eliminando...
-                              } @else {
-                              <i class="bi bi-trash"></i> Eliminar
-                              }
-                          </button>
-              </div>
-            </div>
-          </div>
-        }
-        } @empty {
-          <div class="col-12">
-            <div class="alert alert-info">
-              <i class="bi bi-info-circle"></i> No hay eventos disponibles
-            </div>
-          </div>
-        }
-      </div>
-    } @else {
-      <div class="alert alert-info">
-        <i class="bi bi-info-circle"></i> No hay eventos disponibles en este momento
-      </div>
-    }
-
-    <app-create-event></app-create-event>
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/createEvent">
+      <i class="bi bi-calendar-plus"></i> <span>Crear Evento</span>
+    </button>
   </div>
+  <div class="d-flex justify-content-center align-items-center mb-4">
+    <h2 class="mb-4">Eventos Disponibles</h2>
+  </div>
+
+  @if (events.length > 0) {
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @for (event of events; track event.id) {
+    @if(event.ubicacion){
+    <app-cards-events [nombre]="event.nombre" [descripcion]="event.descripcion" [fecha]="event.descripcion"
+      [event]="events" [nombresEntrenadores]="nombresEntrenadores" (eventDeleted)="handleEventDeleted($event)">
+    </app-cards-events>
+    }
+    } @empty {
+    <div class="col-12">
+      <div class="alert alert-info">
+        <i class="bi bi-info-circle"></i> No hay eventos disponibles
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="alert alert-info mb-5">
+    <i class="bi bi-info-circle"></i> No hay eventos disponibles en este momento
+  </div>
+  }
+</div>

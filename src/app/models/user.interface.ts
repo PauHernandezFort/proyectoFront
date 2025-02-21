@@ -29,11 +29,11 @@ export interface Progreso {
 export interface Usuarios {
   id?: number;
   nombre: string;
-  apellido: string;
-  email: string;
+  apellido?: string;
+  email?: string;
   password?: string; // Opcional porque no se debe devolver en respuestas
   telefono?: number;  // Cambiado de number a string
-  rol: string;
+  rol?: string;
   fechaRegistro?: Date | string;
   fotoPerfil?: string;
   progresos?: number[]; // Array con los IDs de los progresos del usuario
@@ -52,7 +52,7 @@ export interface Notificaciones {
 }
 
 export interface Member {
-  id: number;  // Asegúrate de que id no sea opcional
+  id: number; 
   nombre: string;
   apellidos: string;
   telefono: string;

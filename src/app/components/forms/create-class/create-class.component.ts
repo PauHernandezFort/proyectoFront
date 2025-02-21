@@ -9,32 +9,32 @@ import { Clases, Usuarios } from '../../../models/user.interface';
 @Component({
   selector: 'app-create-class',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './create-class.component.html',
   styleUrls: ['./create-class.component.css']
 })
 export class CreateClassComponent implements OnInit {
   createClass = new FormGroup({
-    nombre: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    nombre: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
     idEntrenador: new FormControl('/api/entrenadors/1', { nonNullable: true }),
-    capacidad: new FormControl<number>(1, { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.min(1), Validators.max(35)] 
+    capacidad: new FormControl<number>(1, {
+      nonNullable: true,
+      validators: [Validators.required, Validators.min(1), Validators.max(35)]
     }),
-    estado: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    estado: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
-    fecha: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required] 
+    fecha: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required]
     }),
-    descripcion: new FormControl('', { 
-      nonNullable: true, 
-      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)] 
+    descripcion: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)]
     }),
   });
 
@@ -47,31 +47,32 @@ export class CreateClassComponent implements OnInit {
   public estadosClase: string[] = ['activa', 'inactiva'];
   loading = false;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
-   this.getResponseClass();
-  } 
+    this.getResponseClass();
+  }
 
   public listClass: Clases[] = [];
   public dateClass: string = "";
-    public getResponseClass(): void {
+
+  public getResponseClass(): void {
     this.apiService.getClases().subscribe(
-    (response) => {
-      this.listClass = response;
-      response.forEach((clase) => {
-        this.urlIdUser = clase.idEntrenador;
-        console.log('ID del entrenador:', this.urlIdUser);
-        this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-        this.obtenerNombreEntrenador(clase.idEntrenador);
-      });
-      this.getResponsePupilsById();
-    },
-    (error) => {
-      console.error("Error al obtener las clases:", error);
-    }
-  );
-}
+      (response) => {
+        this.listClass = response;
+        response.forEach((clase) => {
+          this.urlIdUser = clase.idEntrenador;
+          console.log('ID del entrenador:', this.urlIdUser);
+          this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
+          this.obtenerNombreEntrenador(clase.idEntrenador);
+        });
+        this.getResponsePupilsById();
+      },
+      (error) => {
+        console.error("Error al obtener las clases:", error);
+      }
+    );
+  }
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.createClass.get(fieldName);
@@ -86,7 +87,7 @@ export class CreateClassComponent implements OnInit {
     if (field.hasError('min')) return 'La capacidad mínima es 1';
     if (field.hasError('max')) return 'La capacidad máxima es 35';
     if (field.hasError('minlength')) return 'La descripción debe tener al menos 10 caracteres';
-    
+
     return '';
   }
 
@@ -121,14 +122,14 @@ export class CreateClassComponent implements OnInit {
         console.error('Error: Respuesta vacía o no válida.');
         alert('Error al crear la clase');
       }
-      
+
       this.loading = false;
     }, error => {
       console.error('Error al crear la clase:', error);
       alert('Error al crear la clase');
       this.loading = false;
     });
-    
+
   }
   public urlIdUser: string | undefined = undefined;
   public nameClass: string = "";

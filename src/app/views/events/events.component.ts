@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { CreateEventComponent } from "../../components/forms/create-event/create-event.component";
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Clases } from '../../models/user.interface';
 import { ApiService } from '../../services/api-service.service';
+import { CardsEventsComponent } from '../../components/cards-events/cards-events.component';
 
 @Component({
   selector: 'app-events',
-  imports: [RouterLink, CommonModule, CreateEventComponent],
+  imports: [RouterLink, CommonModule, CardsEventsComponent],
   standalone: true,
   templateUrl: './events.component.html',
   styleUrl: './events.component.css'
@@ -19,7 +19,8 @@ export class EventsComponent {
   public nombresEntrenadores: { [key: string]: string } = {};
   loading: { [key: number]: boolean } = {};
 
-  public constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
+  
   public abrirGoogleMaps(): void {
     const direccionElement = document.getElementById('direccion-evento');
 
@@ -79,6 +80,11 @@ export class EventsComponent {
 
   isLoading(id: number): boolean {
     return this.loading[id] || false;
+  }
+
+  handleEventDeleted(eventId: number) {
+    console.log(`Evento con id ${eventId} ha sido eliminado`);
+    // Aquí puedes realizar la lógica para eliminar el evento del array o base de datos
   }
 
 }

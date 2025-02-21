@@ -1,8 +1,13 @@
-.event-container {
-    max-width: 900px;
+.create-event-container {
+    max-width: 800px;
     margin: 2rem auto;
     padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 0.5px solid rgb(233, 224, 224);
 }
+
 
 .event-card {
     background: white;
@@ -93,6 +98,13 @@
     min-width: 150px;
 }
 
+.form-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
 .btn-primary {
     background-color: #4CAF50;
     color: white;
@@ -124,6 +136,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);

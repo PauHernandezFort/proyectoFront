@@ -14,7 +14,8 @@ import { Clases, Usuarios } from '../../../models/user.interface';
 })
 export class CreateEventComponent {
   constructor(public apiService: ApiService, private router: Router) { }
-   createEvent = new FormGroup({
+   
+  createEvent = new FormGroup({
      nombre: new FormControl('', { 
        nonNullable: true, 
        validators: [Validators.required] 
@@ -41,8 +42,6 @@ export class CreateEventComponent {
       validators: [Validators.required, Validators.minLength(10), Validators.maxLength(500)] 
     }),
    });
-
-   
 
    public abrirGoogleMaps(): void {
      const eventDirection = this.createEvent.value.ubicacion;
