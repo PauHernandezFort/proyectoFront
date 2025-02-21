@@ -1,9 +1,45 @@
-.boton-icono {
-    border-radius: 20px;
-    width: 33px;
-    height: 32px;
-}
-
-.icono-add {
-    font-size: 24px;
-}
+.container {
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .card {
+    border: 1px solid grey;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.02);
+  }
+  
+  .card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .card-body {
+    padding: 15px;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+  }
+  
+  .btn-danger {
+    transition: background 0.3s;
+  }
+  
+  .btn-danger:hover {
+    background: #b30000;
+  }
+  
+  .alert {
+    text-align: center;
+    font-size: 1.1rem;
+  }

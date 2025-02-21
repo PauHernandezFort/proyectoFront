@@ -9,7 +9,7 @@ import { Usuarios } from '../../models/user.interface';
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule,RouterLink],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css'
 })

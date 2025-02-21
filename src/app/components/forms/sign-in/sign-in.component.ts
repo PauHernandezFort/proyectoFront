@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api-service.service';
+import { Usuarios } from '../../../models/user.interface';
 
 @Component({
   selector: 'app-sign-in',
@@ -40,21 +41,26 @@ export class SignInComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
       const credentials = {
-        email: this.loginForm.value.email,
-        password: this.loginForm.value.password
+        correo: this.loginForm.value.email,
+        contraseña: this.loginForm.value.password
       };
 
       this.apiService.loginPupil(credentials).subscribe({
-        next: (response) => {
-          // Manejar el éxito del login
-          this.router.navigate(['/home']);
+        next: (response: any) => {
+          console.log('Credenciales enviadas:', credentials);
+          console.log('Login exitoso:', response);
+          if (response && response.rol) {
+            localStorage.setItem('userType', response.rol);
+            localStorage.setItem('userData', JSON.stringify(response));
+            this.router.navigate(['/home']);
+          } else {
+            alert('Respuesta del servidor inválida');
+          }
+          this.isLoading = false;
         },
         error: (error) => {
-          // Manejar el error
           console.error('Error en el login:', error);
-          // Aquí podrías mostrar un mensaje de error al usuario
-        },
-        complete: () => {
+          alert('Error al iniciar sesión: ' + (error.error?.message || 'Credenciales incorrectas'));
           this.isLoading = false;
         }
       });
