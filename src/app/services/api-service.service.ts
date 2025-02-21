@@ -42,8 +42,10 @@ export class ApiService {
 
   // Actualizar usuario (pupil)
   updatePupils(userId: number, userData: Usuarios): Observable<Usuarios> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
-    return this.http.put<Usuarios>(`${this.apiPupils}/:${userId}`, userData, { headers });
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/merge-patch+json'
+    }); 
+    return this.http.patch<Usuarios>(`${this.apiPupils}/${userId}`, userData, { headers });
   }
 
   // Eliminar usuario (pupil)
