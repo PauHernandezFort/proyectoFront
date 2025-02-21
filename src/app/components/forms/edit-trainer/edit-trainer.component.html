@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mt-5 mb-5">
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
@@ -17,8 +17,8 @@
               <!-- Foto -->
               <div class="mb-4 text-center">
                 <div class="profile-image-container mb-3">
-                  @if (trainerData.foto) {
-                    <img [src]="trainerData.foto" alt="Foto de perfil" class="profile-image">
+                  @if (trainerData.fotoPerfil) {
+                    <img [src]="trainerData.fotoPerfil" alt="Foto de perfil" class="profile-image">
                   } @else {
                     <div class="default-image">
                       <i class="bi bi-person-circle"></i>
@@ -59,7 +59,7 @@
                   class="form-control" 
                   id="apellidos"
                   name="apellidos"
-                  [(ngModel)]="trainerData.apellidos"
+                  [(ngModel)]="trainerData.apellido"
                   required
                   placeholder="Introduce los apellidos">
               </div>
