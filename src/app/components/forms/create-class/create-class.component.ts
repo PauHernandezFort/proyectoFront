@@ -56,23 +56,26 @@ export class CreateClassComponent implements OnInit {
 
   public listClass: Clases[] = [];
   public dateClass: string = "";
-    public getResponseClass(): void {
-    this.apiService.getClases().subscribe(
-    (response) => {
-      this.listClass = response;
-      response.forEach((clase) => {
-        this.urlIdUser = clase.idEntrenador;
-        console.log('ID del entrenador:', this.urlIdUser);
-        this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-        this.obtenerNombreEntrenador(clase.idEntrenador);
+  public getResponseClass(): void {
+    if (this.apiService.getClases()) {
+      this.apiService.getClases().subscribe((response) => {
+        if (response && response.length > 0) {
+          this.listClass = response;
+          response.forEach((clase) => {
+            this.urlIdUser = clase.idEntrenador;
+            console.log('ID del entrenador:', this.urlIdUser);
+            this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
+            this.obtenerNombreEntrenador(clase.idEntrenador);
+          });
+          this.getResponsePupilsById();
+        } else {
+          console.log('No hay clases disponibles');
+        }
       });
-      this.getResponsePupilsById();
-    },
-    (error) => {
-      console.error("Error al obtener las clases:", error);
+    } else {
+      console.error("Error al obtener las clases");
     }
-  );
-}
+  }
 
   isFieldInvalid(fieldName: string): boolean {
     const field = this.createClass.get(fieldName);
@@ -114,22 +117,22 @@ export class CreateClassComponent implements OnInit {
       usuariosApuntados: []
     };
 
-    this.apiService.createClass(nuevaClase).subscribe(response => {
-      if (response) {
-        alert('Clase creada exitosamente');
-        this.router.navigate(['/classesPupils']);
-      } else {
-        console.error('Error: Respuesta vacía o no válida.');
-        alert('Error al crear la clase');
-      }
-      
-      this.loading = false;
-    }, error => {
-      console.error('Error al crear la clase:', error);
+    if (this.apiService.createClass(nuevaClase)) {
+      this.apiService.createClass(nuevaClase).subscribe((response) => {
+        if (response) {
+          alert('Clase creada exitosamente');
+          this.router.navigate(['/classesPupils']);
+        } else {
+          console.error('Error: Respuesta vacía o no válida.');
+          alert('Error al crear la clase');
+        }
+        this.loading = false;
+      });
+    } else {
+      console.error('Error al crear la clase');
       alert('Error al crear la clase');
       this.loading = false;
-    });
-    
+    }
   }
   public urlIdUser: string | undefined = undefined;
   public nameClass: string = "";
@@ -143,26 +146,34 @@ export class CreateClassComponent implements OnInit {
   }
 
   private obtenerNombreEntrenador(idEntrenador: string): void {
-    this.apiService.getUser(idEntrenador).subscribe(
-      (entrenador) => {
-        this.nombreEntrenador = `${entrenador.nombre} ${entrenador.apellido}`;
-        console.log('Nombre del entrenador:', this.nombreEntrenador);
-      },
-      (error) => {
-        console.error('Error al obtener el entrenador:', error);
-      }
-    );
+    if (this.apiService.getUser(idEntrenador)) {
+      this.apiService.getUser(idEntrenador).subscribe((entrenador) => {
+        if (entrenador) {
+          this.nombreEntrenador = `${entrenador.nombre} ${entrenador.apellido}`;
+          console.log('Nombre del entrenador:', this.nombreEntrenador);
+        } else {
+          console.log('No se encontró el entrenador');
+        }
+      });
+    } else {
+      console.error('Error al obtener el entrenador');
+    }
   }
 
   private cargarClasesDisponibles(): void {
-    this.apiService.getClases().subscribe(
-      (clases) => {
-        this.clasesDisponibles = clases;
-        console.log('Clases cargadas:', this.clasesDisponibles);
-      },
-      (error) => {
-        console.error('Error al cargar las clases:', error);
-      }
-    );
+    if (this.apiService.getClases()) {
+      this.apiService.getClases().subscribe((clases) => {
+        if (clases && clases.length > 0) {
+          this.clasesDisponibles = clases;
+          console.log('Clases cargadas:', this.clasesDisponibles);
+        } else {
+          console.log('No hay clases disponibles');
+          this.clasesDisponibles = [];
+        }
+      });
+    } else {
+      console.error('Error al cargar las clases');
+      this.clasesDisponibles = [];
+    }
   }
 }
