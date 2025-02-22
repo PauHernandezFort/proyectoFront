@@ -55,7 +55,6 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUserData(): void {
-    console.log(this.id);
     if (this.id) {
       this.apiService.getUser(`/api/usuarios/${this.id}`).subscribe(
         (response: Usuarios) => {
