@@ -1,5 +1,5 @@
 <div class="header">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -24,13 +24,20 @@
                     </li>
                 </ul>
                 <div class="dropdown">
-                    <button class="btn dropdown-toggle profile-button" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        
+                    <button class="btn dropdown-toggle profile-button" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        @if (userData?.fotoPerfil) {
+                        <img [src]="userData?.fotoPerfil" alt="Foto de perfil" class="profile-image">
+                        } @else {
+                        <img src="../../../../public/images/perfil.jpg" alt="Foto por defecto" class="profile-image">
+                        }
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" routerLink="/showProfile">Ver Perfil</a></li>
                         <li><a class="dropdown-item" routerLink="/editProfile">Editar Perfil</a></li>
-                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
                         <li><a class="dropdown-item" (click)="logout()">Cerrar sesión</a></li>
                     </ul>
                 </div>

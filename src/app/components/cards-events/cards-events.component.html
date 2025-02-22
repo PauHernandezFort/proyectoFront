@@ -1,33 +1,15 @@
-<div class="col">
-    <div class="card h-100 shadow-sm">
-        <div class="card-header">
-            <h5 class="card-title mb-0">{{ nombre }}</h5>
+<div class="card-event mb-3 text-center h-100">
+    <div class="card box-shadow shadow-lg border-1 h-100">
+        <div class="card-header bg-success text-white py-4">
+            <h4 class="my-0 text-light">{{ titulo }}</h4>
         </div>
-        <div class="card-body">
-            <p class="card-text">{{ descripcion }}</p>
-            <ul class="list-unstyled">
-                <li><i class="bi bi-calendar"></i> {{ fecha }}</li>
-                <li><i class="bi bi-people"></i> Capacidad: {{ capacidad }}</li>
-                <li><i class="bi bi-person"></i> Entrenador: {{ nombresEntrenadores[event.idEntrenador] || 'Cargando...' }}
-                </li>
-                <li><i class="bi bi-person"></i> Ubicacion: {{ event.ubicacion }}</li>
-            </ul>
-            <span class="badge" [class.bg-success]="event.estado === 'activa'"
-                [class.bg-danger]="event.estado !== 'activa'">
-                {{ event.estado }}
-            </span>
-            <br>
-            <br>
-
-            <button class="btn btn-sm btn-danger me-2" (click)="deleteEvent(event.id ?? 0)"
-                [disabled]="isLoading(event.id ?? 0)">
-                @if (isLoading(event.id ?? 0)) {
-                <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                Eliminando...
-                } @else {
-                <i class="bi bi-trash"></i> Eliminar
-                }
+        <div class="card-body mt-2">
+            <h4 class="card-title mb-4">{{descripcion}}</h4>
+            <button (click)="onClick()" type="button" class="btn btn-md btn-block btn-outline-primary mb-2">Ver Más
             </button>
+        </div>
+        <div class="card-footer text-muted">
+            <strong><i class="bi bi-calendar me-2"></i></strong>{{ fecha }}
         </div>
     </div>
 </div>

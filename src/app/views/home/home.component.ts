@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CarrouselComponent } from "../../components/carrousel/carrousel.component";
 import { JumbotronComponent } from "../../components/jumbotron/jumbotron.component";
-import { CardsComponent } from "../../components/cards/cards.component";
+import { CardsComponent } from "../../components/cards-activities/cards.component";
 
 @Component({
   selector: 'app-home',

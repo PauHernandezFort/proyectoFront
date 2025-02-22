@@ -1,62 +1,45 @@
 <div class="container mt-5 mb-5">
-    <h2 class="text-center mb-5">Lista de Entrenadores</h2>
-    <div class="table-responsive">
-        @if(trainers.length > 0){
-        <table class="table table-bordered table-striped align-middle">
-            <thead class="table-dark">
-                <tr class="text-center">
-                    <th scope="col">Foto</th>
-                    <th scope="col">Nombre y Apellidos</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Correo Electrónico</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody class="text-center">
-                @for (trainer of trainers; track trainer; let i = $index;) {
-                <tr>
-                    <td>
-                        <img src="https://randomuser.me/api/portraits/men/10.jpg" class="rounded-circle" width="50"
-                            height="50" alt="Juan Pérez">
-                    </td>
-                    <td>{{ trainer.nombre }} {{ trainer.apellido }}</td>
-                    <td>{{ trainer.telefono }}</td>
-                    <td>{{ trainer.email }}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer(trainer.id!.toString())"
-                            [disabled]="isLoading(trainer.id!.toString())">
-                            @if (isLoading(trainer.id!.toString())) {
-                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                            Eliminando...
-                            } @else {
-                            <i class="bi bi-trash"></i> Eliminar
-                            }
-                        </button>
-                        <button class="btn btn-sm btn-primary" [routerLink]="['/editTrainer', trainer.id]">
-                            <i class="bi bi-pencil"></i> Editar
-                        </button>
-                    </td>
-                </tr>
-                }
-            </tbody>
-        </table>
-        } @else {
+    <!-- Botón de crear en pantallas pequeñas -->
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/crearEntrenador">
+            <i class="bi bi-plus"></i> Crear Entrenador
+        </button>
+    </div>
+    
+    <div class="d-flex justify-content-center mb-4">
+        <h2 class="text-center w-100">Entrenadores Disponibles</h2>
+    </div>
+    
+
+    @if(trainers.length > 0) {
+        <!-- Grid responsive de cards -->
+        <div class="row g-4">
+            <!-- Una columna en móvil, dos en tablet, tres en desktop -->
+            @for (trainer of trainers; track trainer.id) {
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <app-card-trainer
+                        [user]="trainer"
+                        [isLoading]="isLoading(trainer.id!.toString())"
+                        (onDelete)="deleteTrainer($event.toString())">
+                    </app-card-trainer>
+                </div>
+            }
+        </div>
+    } @else {
+        <!-- Mensaje cuando no hay entrenadores -->
         <div class="alert alert-warning text-center p-4 shadow-sm">
             <i class="bi bi-exclamation-circle-fill fs-4"></i>
             <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
         </div>
-        }
-        <button class="btn btn-sm btn-primary" routerLink="/crearEntrenador">
-            <i class="bi bi-plus"></i> Crear Entrenador
-        </button>
-    </div>
+    }
 </div>
 
+<!-- Modal de confirmación -->
 <app-confirm-modal
-  [isOpen]="showModal"
-  title="Confirmar eliminación"
-  message="¿Estás seguro de que deseas eliminar este entrenador?"
-  (onConfirm)="confirmDelete()"
-  (onCancel)="CancelDelete()">
+    [isOpen]="showModal"
+    title="Confirmar eliminación"
+    message="¿Estás seguro de que deseas eliminar este entrenador?"
+    (onConfirm)="confirmDelete()"
+    (onCancel)="CancelDelete()">
 </app-confirm-modal>
 

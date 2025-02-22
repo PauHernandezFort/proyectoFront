@@ -12,7 +12,6 @@ export class ConfirmModalComponent {
   @Input() isOpen: boolean = false;
   @Input() title: string = '¿Estás seguro?';
   @Input() message: string = '¿Deseas continuar con esta acción?';
-  
   @Output() onConfirm = new EventEmitter<void>();
   @Output() onCancel = new EventEmitter<void>();
 

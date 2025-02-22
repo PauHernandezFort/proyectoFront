@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, tap, switchMap } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Clases, Usuarios as Pupils, Notificaciones, Progreso, Usuarios } from '../models/user.interface';
 import { ApiResponse } from '../models/user.interface';
@@ -14,6 +14,7 @@ export class ApiService {
   private apiProgress = 'http://52.2.202.15/api/progresos';
   private apiNotificaciones = 'http://52.2.202.15/api/notificaciones';
   private apiUrl = 'http://52.2.202.15/api/qr/';
+  private apiPupilPhoto = 'http://52.2.202.15/api/usuarios/fotoPerfil'
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +35,12 @@ export class ApiService {
     return this.http.get<Pupils>(`http://52.2.202.15${urlIdUser}`);
   }
 
+  updatePhotoUser(imageData: { id: number; fotoPerfil: string }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { imagen: imageData.fotoPerfil, id: imageData.id };
+  
+    return this.http.post<any>(this.apiPupilPhoto, body, { headers });
+  }
   // Crear usuario (pupil)
   createPupil(userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
@@ -44,7 +51,7 @@ export class ApiService {
   updatePupils(userId: number, userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/merge-patch+json'
-    }); 
+    });
     return this.http.patch<Usuarios>(`${this.apiPupils}/${userId}`, userData, { headers });
   }
 
@@ -171,13 +178,39 @@ export class ApiService {
     );
   }
 
-  // Método para iniciar sesión
-  loginPupil(credentials: { email: string; password: string }): Observable<Usuarios> {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Accept': 'application/ld+json'
-    });
-
-    return this.http.post<Usuarios>(`${this.apiPupils}/login`, credentials, { headers });
+// Método para iniciar sesión
+loginPupil(credentials: { email: string; password: string }): Observable<any> {
+  if (!credentials.email || !credentials.password) {
+    console.error("🚨 ERROR: El email o la contraseña están vacíos");
+    return throwError(() => new Error("El email y la contraseña son obligatorios."));
   }
+
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/ld+json',
+    'Accept': 'application/ld+json'
+  });
+
+  const formattedCredentials = {
+    correo: credentials.email, 
+    password: credentials.password
+  };
+
+  console.log('📤 Enviando credenciales a la API:', formattedCredentials);
+
+  return this.http.post<any>(`${this.apiPupils}/login`, formattedCredentials, { headers }).pipe(
+    tap(response => console.log("🔑 Respuesta de la API:", response)),
+    switchMap(response => {
+      if (response.success) {
+        // ✅ **Hacer segunda petición para obtener el usuario**
+        return this.http.get<any>(`${this.apiPupils}?email=${credentials.email}`, { headers });
+      } else {
+        return throwError(() => new Error("Error en la autenticación"));
+      }
+    }),
+    catchError((error) => {
+      console.error('🚨 Error en el inicio de sesión:', error);
+      return throwError(() => new Error(error.error?.error || 'Error en el servidor, intente nuevamente.'));
+    })
+  );
+}
 }

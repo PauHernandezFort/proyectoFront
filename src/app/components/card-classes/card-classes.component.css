@@ -1,0 +1,40 @@
+.card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background-color: #003141;
+  color: white;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.25rem;
+}
+
+.card-body {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.card-body ul li {
+  margin-bottom: 10px;
+}
+
+.card-body i {
+  margin-right: 10px;
+  color: #007bff;
+}
+
+.badge {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}

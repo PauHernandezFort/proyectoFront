@@ -1,29 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
-import { Usuarios as Member, Usuarios } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
+import { Usuarios as Member, Usuarios } from '../../models/user.interface';
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
+import { CardUserComponent } from '../../components/card-user/card-user.component';
 
 @Component({
   selector: 'app-pupils',
-  imports: [RouterLink, ConfirmModalComponent],
+  standalone: true,
+  imports: [CommonModule, RouterLink, ConfirmModalComponent, CardUserComponent],
   templateUrl: './pupils.component.html',
   styleUrl: './pupils.component.css'
 })
 export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {};
-  public members: Member[] = []; 
-  public id: number = 0;
-  public showModal: boolean = false;
-  public selectedPupilId: number | null = null;
+  members: Member[] = [];
+  id: number = 0;
+  pupil: { [key: string]: any } = {};
+  showModal: boolean = false;
+  selectedPupilId: number | null = null;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(private router: Router, public service: ApiService) { }
 
-  // Obtener la lista de alumnos desde el servicio
-  public getResponsePupils(): void {
+  getResponsePupils(): void {
     this.service.getResponsePupils().subscribe(
       (response) => {
-        response.forEach((member) => {
+        response.map((member) => {
           if (member.rol !== "entrenador") {
             this.members.push(member);
           }
@@ -36,11 +39,25 @@ export class PupilsComponent implements OnInit {
     );
   }
 
+  loadUserData(): void {
+    if (this.id) {
+      this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
+        (response: Usuarios) => {
+          
+
+        },
+        (error) => {
+          console.error('Error al cargar los datos del usuario:', error);
+          alert('No se pudo cargar el usuario');
+        }
+      );
+    }
+  }
+
   ngOnInit(): void {
     this.getResponsePupils();
   }
 
-  // Reemplazar el método deletePupil existente por estos dos métodos:
   public deletePupils(id: number): void {
     this.selectedPupilId = id;
     this.showModal = true;
@@ -48,27 +65,33 @@ export class PupilsComponent implements OnInit {
 
   public confirmDelete(): void {
     if (!this.selectedPupilId) return;
-  
+
     const id = this.selectedPupilId;
     this.loading[id] = true;
-  
-    this.service.deletePupils(id).subscribe((success) => {
-      if (this.service) {
-        this.members = this.members.filter(({ id: memberId }) => memberId !== id);
+
+    this.service.deletePupils(id).subscribe({
+      next: () => {
+        this.members = this.members.filter(member => member.id !== id);
         alert('Alumno eliminado correctamente');
-      } else {
+        this.showModal = false;
+        this.selectedPupilId = null;
+      },
+      error: (error) => {
+        console.error('Error al eliminar el alumno:', error);
         alert('Error al eliminar el alumno');
+      },
+      complete: () => {
+        this.loading[id] = false;
       }
-      this.loading[id] = false;
-      this.showModal = false;
-      this.selectedPupilId = null;
     });
   }
+
 
   public CancelDelete(): void {
     this.showModal = false;
     this.selectedPupilId = null;
   }
+
 
   isLoading(id: number): boolean {
     return this.loading[id] || false;

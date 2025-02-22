@@ -5,8 +5,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderUserComponent } from './components/header-user/header-user.component';
 import { HeaderMisterComponent } from './components/header-mister/header-mister.component';
 import { HeaderAdminComponent } from './components/header-admin/header-admin.component';
-//import { CarrouselComponent } from './components/carrousel/carrousel.component';
-//import { CalendarComponent } from './components/calendar/calendar.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,9 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     RouterOutlet,
     HeaderComponent,
-    //CarrouselComponent,
     FooterComponent,
-    //CalendarComponent,
     HeaderUserComponent,
     HeaderMisterComponent,
     HeaderAdminComponent,
@@ -25,21 +21,26 @@ import { CommonModule } from '@angular/common';
   ],
   templateUrl: './app.component.html',
 })
-
 export class AppComponent implements OnInit {
-  title = 'front';
-  public isUserRegistered: string = "invitado";
+  isUserRegistered: string | null = null;
 
   ngOnInit() {
-    // Verificar el estado de autenticación al iniciar
+    this.actualizarEstadoUsuario();
+    
+    window.addEventListener("storage", () => {
+      this.actualizarEstadoUsuario();
+    });
+  }
+
+  private actualizarEstadoUsuario() {
     const userType = localStorage.getItem('userType');
-    this.isUserRegistered = userType || "invitado";
+    this.isUserRegistered = userType || null;
   }
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('userType');
     localStorage.removeItem('userData');
     this.isUserRegistered = "invitado";
+    window.dispatchEvent(new Event("storage"));
   }
 }

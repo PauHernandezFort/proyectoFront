@@ -5,11 +5,13 @@ import { Clases } from '../../models/user.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Usuarios } from '../../models/user.interface';
+import { CardClassesComponent } from '../../components/card-classes/card-classes.component';
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink, CardClassesComponent, ConfirmModalComponent],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css'
 })
@@ -18,8 +20,10 @@ export class ClassesComponent {
   public id: number = 0;
   loading: { [key: number]: boolean } = {};
   public nombresEntrenadores: { [key: string]: string } = {};  // Mapa para guardar nombres de entrenadores
+  public showModal = false;
+  private claseIdToDelete: number | null = null;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(public service: ApiService) {}
 
   public getResponseClasses(): void {
     this.service.getClases().subscribe((response) => {
@@ -33,6 +37,35 @@ export class ClassesComponent {
         console.error("Error: No se pudieron obtener las clases.");
       }
     });
+  }
+
+  loadUserData(): void {
+    if (this.id) {
+      this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
+        (response: Usuarios) => {
+          
+        },
+        (error) => {
+          console.error('Error al cargar los datos del usuario:', error);
+          alert('No se pudo cargar el usuario');
+        }
+      );
+    }
+  }
+
+  public getResponsePupils(): void {
+    this.service.getResponsePupils().subscribe(
+      (response) => {
+        response.map((member) => {
+          if (member.rol !== "entrenador") {
+            //this.members.push(member);
+          }
+        });
+      },
+      (error) => {
+        console.error("Error al obtener los alumnos:", error);
+      }
+    );
   }
 
   private obtenerNombreEntrenador(idEntrenador: string): void {
@@ -52,20 +85,33 @@ export class ClassesComponent {
   }
 
   public deleteClases(id: number): void {
-    if (!id || !confirm('¿Estás seguro de que deseas eliminar esta clase?')) return;
+    this.claseIdToDelete = id;
+    this.showModal = true;
+  }
+
+  public confirmDelete(): void {
+    if (!this.claseIdToDelete) return;
+  
+    const id = this.claseIdToDelete;
     this.loading[id] = true;
-    this.service.deleteClases(id).subscribe({
-      next: () => {
-        this.clases = this.clases.filter(clase => clase.id && clase.id !== id);
-        alert('Clase eliminada correctamente');
-      },
-      error: (error) => {
-        console.error("Error al eliminar la clase:", error);
-      },
-      complete: () => {
-        this.loading[id] = false;
+  
+    this.service.deleteClases(id).subscribe((success) => {
+      if (this.service) {
+        this.clases = this.clases.filter(({ id: clases }) => clases !== id);
+        alert('Alumno eliminado correctamente');
+      } else {
+        alert('Error al eliminar el alumno');
       }
+      this.loading[id] = false;
+      this.showModal = false;
+      this.claseIdToDelete = null;
     });
+  }
+
+
+  public cancelDelete(): void {
+    this.showModal = false;
+    this.claseIdToDelete = null;
   }
 
   // Función para saber si un alumno está en proceso de eliminación

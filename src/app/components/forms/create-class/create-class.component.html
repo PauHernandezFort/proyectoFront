@@ -1,7 +1,10 @@
-<div class="create-class-container">
-
-  <div class="form-wrapper">
-    <h2>Crear Nueva Clase</h2>
+<div class="container mb-5 mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Crear Nueva Clase</h2>
+        </div>
     <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
       <div class="form-group">
         <label for="nombre">Tipo de Clase</label>
@@ -89,6 +92,8 @@
   </div>
 </div>
 
+</div>
+</div>
 
 <!-- Botón para mostrar/ocultar las clases disponibles -->
 <div class="d-flex justify-content-between align-items-center my-3">
