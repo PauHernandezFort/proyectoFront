@@ -23,7 +23,7 @@ export class ClassesComponent {
   public showModal = false;
   private claseIdToDelete: number | null = null;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(public service: ApiService) {}
 
   public getResponseClasses(): void {
     this.service.getClases().subscribe((response) => {
@@ -37,6 +37,35 @@ export class ClassesComponent {
         console.error("Error: No se pudieron obtener las clases.");
       }
     });
+  }
+
+  loadUserData(): void {
+    if (this.id) {
+      this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
+        (response: Usuarios) => {
+          
+        },
+        (error) => {
+          console.error('Error al cargar los datos del usuario:', error);
+          alert('No se pudo cargar el usuario');
+        }
+      );
+    }
+  }
+
+  public getResponsePupils(): void {
+    this.service.getResponsePupils().subscribe(
+      (response) => {
+        response.map((member) => {
+          if (member.rol !== "entrenador") {
+            //this.members.push(member);
+          }
+        });
+      },
+      (error) => {
+        console.error("Error al obtener los alumnos:", error);
+      }
+    );
   }
 
   private obtenerNombreEntrenador(idEntrenador: string): void {
@@ -59,7 +88,6 @@ export class ClassesComponent {
     this.claseIdToDelete = id;
     this.showModal = true;
   }
-
 
   public confirmDelete(): void {
     if (!this.claseIdToDelete) return;

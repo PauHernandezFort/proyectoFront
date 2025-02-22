@@ -14,13 +14,12 @@
     </span>
     <br>
     <br>
-    <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()"
-            [disabled]="isLoading">
+    <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()" [disabled]="isLoading">
       @if (isLoading) {
-        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-        Eliminando...
+      <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+      Eliminando...
       } @else {
-        <i class="bi bi-trash"></i> Eliminar
+      <i class="bi bi-trash"></i> Eliminar
       }
     </button>
   </div>

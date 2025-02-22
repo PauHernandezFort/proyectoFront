@@ -49,7 +49,7 @@ export class SignUpComponent {
     }
 
     const usuario = { ...this.signUpForm.value };
-    delete usuario.confirmPassword; // Eliminamos confirmPassword ya que la API no lo necesita
+    delete usuario.confirmPassword;
 
     console.log('Registrando usuario:', usuario);
 

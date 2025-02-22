@@ -9,24 +9,24 @@ import { CardUserComponent } from '../../components/card-user/card-user.componen
 @Component({
   selector: 'app-pupils',
   standalone: true,
-  imports: [CommonModule, RouterLink, ConfirmModalComponent,CardUserComponent],
+  imports: [CommonModule, RouterLink, ConfirmModalComponent, CardUserComponent],
   templateUrl: './pupils.component.html',
   styleUrl: './pupils.component.css'
 })
 export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {};
-  public members: Member[] = []; 
-  public id: number = 0;
-  public showModal: boolean = false;
-  public selectedPupilId: number | null = null;
+  members: Member[] = [];
+  id: number = 0;
+  pupil: { [key: string]: any } = {};
+  showModal: boolean = false;
+  selectedPupilId: number | null = null;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(private router: Router, public service: ApiService) { }
 
-  // Obtener la lista de alumnos desde el servicio
-  public getResponsePupils(): void {
+  getResponsePupils(): void {
     this.service.getResponsePupils().subscribe(
       (response) => {
-        response.forEach((member) => {
+        response.map((member) => {
           if (member.rol !== "entrenador") {
             this.members.push(member);
           }
@@ -39,22 +39,36 @@ export class PupilsComponent implements OnInit {
     );
   }
 
+  loadUserData(): void {
+    if (this.id) {
+      this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
+        (response: Usuarios) => {
+          
+
+        },
+        (error) => {
+          console.error('Error al cargar los datos del usuario:', error);
+          alert('No se pudo cargar el usuario');
+        }
+      );
+    }
+  }
+
   ngOnInit(): void {
     this.getResponsePupils();
   }
 
-  // Reemplazar el método deletePupil existente por estos dos métodos:
   public deletePupils(id: number): void {
     this.selectedPupilId = id;
     this.showModal = true;
   }
-  
+
   public confirmDelete(): void {
     if (!this.selectedPupilId) return;
-  
+
     const id = this.selectedPupilId;
     this.loading[id] = true;
-  
+
     this.service.deletePupils(id).subscribe({
       next: () => {
         this.members = this.members.filter(member => member.id !== id);
