@@ -5,16 +5,19 @@
     </button>
   </div>
   <div class="d-flex justify-content-center align-items-center mb-4">
-    <h2 class="mb-4">Eventos Disponibles</h2>
+    <h2 class="mb-5">Eventos Disponibles</h2>
   </div>
 
   @if (events.length > 0) {
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @for (event of events; track event.id) {
+  <div class="row mb-5">
+    @for (event of events; track event) {
     @if(event.ubicacion){
-    <app-cards-events [nombre]="event.nombre" [descripcion]="event.descripcion" [fecha]="event.descripcion"
-      [event]="events" [nombresEntrenadores]="nombresEntrenadores" (eventDeleted)="handleEventDeleted($event)">
-    </app-cards-events>
+    <div class="col-12 col-lg-4 col-xl-4 col-md-4 col-sm-12">
+      <app-cards-events [titulo]="event.nombre" [descripcion]="event.descripcion" [capacidad]="event.capacidad"
+        [fecha]="dateClass" [ubicacion]="event.ubicacion" [id]="event.id" [estado]="event.estado"
+        (data)="onClickEvent($event)">
+      </app-cards-events>
+    </div>
     }
     } @empty {
     <div class="col-12">
@@ -30,3 +33,7 @@
   </div>
   }
 </div>
+
+<app-modal-event (modal)="onClose($event)" [titulo]="titulo" [id]="idEvent" [descripcion]="descripcion"
+  [capacidad]="capacidad" [ubicacion]="ubicacion" [fecha]="dateClass" [modalClass]="modalClass"
+  (deleteEvent)="handleEventDeleted($event)"></app-modal-event>

@@ -1,113 +1,65 @@
-<div class="container mt-5">
-  <div class="row justify-content-center mt-5 mb-5">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">Editar Entrenador</h2>
+<div class="container mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+      <div class="card shadow-md rounded-lg">
+        <div class="card-header bg-dark text-white text-center py-4">
+          <h3 class="mb-0"><i class="bi bi-pencil-square me-2"></i>Edición Entrenador</h3>
         </div>
-        <div class="card-body">
-          @if (loading) {
-            <div class="text-center">
-              <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Cargando...</span>
+        <div class="card-body p-4">
+          <form (ngSubmit)="onSubmit()" [formGroup]="editFormTrainer">
+            <!-- Foto -->
+            <div class="text-center mb-4">
+              <div class="profile-image-container d-inline-block mb-3">
+                @if (photo) {
+                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm" width="100"
+                  height="100">
+                } @else {
+                <div class="default-image rounded-circle bg-light">
+                  <i class="bi bi-person-circle text-secondary"></i>
+                </div>
+                }
+              </div>
+              <div class="mb-3">
+                <label for="foto" class="btn btn-outline-primary">
+                  <i class="bi bi-camera"></i> Cambiar Foto
+                </label>
+                <input type="file" id="foto" class="d-none" accept="image/*" (change)="onFileSelected($event)">
               </div>
             </div>
-          } @else {
-            <form >
-              <!-- Foto -->
-              <div class="mb-4 text-center">
-                <div class="profile-image-container mb-3">
-                  @if (trainerData.fotoPerfil) {
-                    <img [src]="trainerData.fotoPerfil" alt="Foto de perfil" class="profile-image">
-                  } @else {
-                    <div class="default-image">
-                      <i class="bi bi-person-circle"></i>
-                    </div>
-                  }
-                </div>
-                <div class="mb-3">
-                  <label for="foto" class="btn btn-outline-primary">
-                    <i class="bi bi-camera"></i> Cambiar Foto
-                  </label>
-                  <input 
-                    type="file" 
-                    id="foto" 
-                    class="d-none"
-                    accept="image/*"
-                    (change)="onFileSelected($event)">
-                </div>
-              </div>
 
-              <!-- Nombre -->
-              <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  id="nombre"
-                  name="nombre"
-                  [(ngModel)]="trainerData.nombre"
-                  required
+            <div class="row mt-5">
+              <div class="col-6 mb-4">
+                <label for="nombre" class="form-label"><i class="bi bi-person"></i> Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="name" required
                   placeholder="Introduce el nombre">
               </div>
-
-              <!-- Apellidos -->
-              <div class="mb-3">
-                <label for="apellidos" class="form-label">Apellidos</label>
-                <input 
-                  type="text" 
-                  class="form-control" 
-                  id="apellidos"
-                  name="apellidos"
-                  [(ngModel)]="trainerData.apellido"
-                  required
+              <div class="col-6 mb-4">
+                <label for="apellidos" class="form-label"><i class="bi bi-people"></i> Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" formControlName="surname" required
                   placeholder="Introduce los apellidos">
               </div>
-
-              <!-- Teléfono -->
-              <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input 
-                  type="tel" 
-                  class="form-control" 
-                  id="telefono"
-                  name="telefono"
-                  [(ngModel)]="trainerData.telefono"
-                  required
-                  pattern="[0-9]{9}"
-                  placeholder="Introduce el teléfono">
+              <div class="col-6 mb-3">
+                <label for="telefono" class="form-label"><i class="bi bi-telephone"></i> Teléfono</label>
+                <input type="number" class="form-control" id="telefono" formControlName="phone" required
+                  pattern="[0-9]{9}" placeholder="Introduce el teléfono">
               </div>
-
-              <!-- Email -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Correo Electrónico</label>
-                <input 
-                  type="email" 
-                  class="form-control" 
-                  id="email"
-                  name="email"
-                  [(ngModel)]="trainerData.email"
-                  required
+              <div class="col-6 mb-4">
+                <label for="email" class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" formControlName="email" required
                   placeholder="Introduce el correo electrónico">
               </div>
-
               <div class="text-center mt-4">
-                <button type="submit" class="btn btn-primary me-2" [disabled]="loading">
-                  @if (loading) {
-                    <span class="spinner-border spinner-border-sm me-2"></span>
-                    Guardando...
-                  } @else {
-                    <i class="bi bi-save"></i> Guardar Cambios
-                  }
+                <button type="submit" class="btn btn-success me-3">
+                  <i class="bi bi-check-circle"></i> Guardar Cambios
                 </button>
-                <button type="button" class="btn btn-secondary" (click)="cancelar()">
-                  Cancelar
+                <button type="button" class="btn btn-danger" (click)="cancelar()">
+                  <i class="bi bi-x-circle"></i> Cancelar
                 </button>
               </div>
-            </form>
-          }
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</div> 
+</div>
