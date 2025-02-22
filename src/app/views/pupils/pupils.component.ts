@@ -53,6 +53,7 @@ export class PupilsComponent implements OnInit {
     this.loading[id] = true;
   
     this.service.deletePupils(id).subscribe((success) => {
+      console.log(this.service)
       if (this.service) {
         this.members = this.members.filter(({ id: members }) => members !== id);
         alert('Alumno eliminado correctamente');
