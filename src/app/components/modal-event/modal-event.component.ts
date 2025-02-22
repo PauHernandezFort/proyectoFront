@@ -13,11 +13,10 @@ export class ModalEventComponent {
   @Input() fecha: string = '';
   @Input() capacidad: number = 0;
   @Input() entrenador: string = '';
-  @Input() ubicacion: string = '';
+  @Input() ubicacion?: string = '';
   @Input() modalClass: string = "modal";
-  @Input() event: any = {};
   @Input() id?: number;
-  @Input() nombresEntrenadores: { [key: number]: string } = {};
+
   @Output() modal = new EventEmitter<string>();
   @Output() deleteEvent = new EventEmitter<number>();
 
@@ -25,6 +24,7 @@ export class ModalEventComponent {
     if (this.id !== undefined) {
       console.log(`Evento con ID ${this.id} eliminado`);
       this.deleteEvent.emit(this.id);
+      this.onClose();
     }
   }
 

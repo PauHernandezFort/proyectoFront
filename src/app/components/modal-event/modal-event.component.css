@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed; /* Añadido para asegurarse de que esté fijo en la pantalla */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -23,6 +23,12 @@
     transition: visibility 0s linear 0s, opacity 0.25s ease, transform 0.25s ease;
 }
 
+.modal-title {
+    font-size: 25px;
+    text-align: center;
+    margin: auto;
+}
+
 .modal-dialog {
     display: flex;
     justify-content: center;
@@ -33,12 +39,22 @@
 
 .modal-content {
     background-color: white;
-    padding: 1.5rem;
+    padding: 15px;
     max-width: 90%;
     width: 500px;
     border-radius: 0.5rem;
     overflow: auto;
     position: relative;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+li {
+    list-style-type: none;
 }
 
 .close-button {

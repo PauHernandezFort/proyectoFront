@@ -1,11 +1,12 @@
 <div class="card-event mb-3 text-center">
     <div class="card box-shadow shadow-lg border-1">
         <div class="card-header bg-success text-white py-4">
-            <h4 class="my-0 text-light">{{ nombre }}</h4>
+            <h4 class="my-0 text-light">{{ titulo }}</h4>
         </div>
         <div class="card-body mt-2">
             <h4 class="card-title mb-4">{{descripcion}}</h4>
-            <button (click)="onClick()" type="button" class="btn btn-md btn-block btn-outline-primary mb-2">Ver Más </button>
+            <button (click)="onClick()" type="button" class="btn btn-md btn-block btn-outline-primary mb-2">Ver Más
+            </button>
         </div>
         <div class="card-footer text-muted">
             <strong><i class="bi bi-calendar me-2"></i></strong>{{ fecha }}

@@ -15,38 +15,36 @@ import { ModalEventComponent } from '../../components/modal-event/modal-event.co
 })
 export class EventsComponent {
   userRole: string | null = null;
-  ubicacion?: string = "Calle Torero Antonio Carpio, Carrer Emili Ferrer Gómez, 16 Esquina, 46470 Catarroja, Valencia";
+  ubicacion?: string = "";
   events: Clases[] = [];
   nombresEntrenadores: { [key: string]: string } = {};
+  idEvent: number = 0;
+  titulo: string = "";
   descripcion: string = "";
   loading: { [key: number]: boolean } = {};
   dateClass: string = "";
   modalClass: string = "modal";
   capacidad: number = 0;
-  photoImage: string = "https://www.lavanguardia.com/files/og_thumbnail/uploads/2021/03/05/60421be64918d.jpeg"
 
   constructor(private apiService: ApiService) { }
 
   public abrirGoogleMaps(): void {
     const direccionElement = document.getElementById('direccion-evento');
-  
-    if (direccionElement && this.ubicacion) { 
+
+    if (direccionElement && this.ubicacion) {
       const url: string = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.ubicacion)}`;
       window.open(url, '_blank'); // Abre Google Maps en una nueva pestaña
     } else {
       console.error('Elemento con id "direccion-evento" no encontrado o "ubicacion" no definida');
     }
   }
-  
 
-  public getResponseEvents(): void {
+  getResponseEvents(): void {
     this.apiService.getEvent().subscribe((response) => {
       if (response) {
         this.events = response;
-        // Obtener el nombre de cada entrenador
         this.events.forEach(clase => {
           this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-          this.obtenerNombreEntrenador(clase.idEntrenador);
         });
       } else {
         console.error("Error: No se pudieron obtener las clases.");
@@ -54,17 +52,6 @@ export class EventsComponent {
     });
   }
 
-  obtenerNombreEntrenador(idEntrenador: string): void {
-    this.apiService.getUser(idEntrenador).subscribe(
-      (entrenador) => {
-        this.nombresEntrenadores[idEntrenador] = `${entrenador.nombre} ${entrenador.apellido}`;
-      },
-      (error) => {
-        console.error('Error al obtener el entrenador:', error);
-        this.nombresEntrenadores[idEntrenador] = 'No disponible';
-      }
-    );
-  }
   ngOnInit(): void {
     this.getResponseEvents();
   }
@@ -90,15 +77,19 @@ export class EventsComponent {
     return this.loading[id] || false;
   }
 
-  handleEventDeleted(eventId: number) {
-    this.deleteEvent(eventId);
+  handleEventDeleted(id: number) {
+    this.deleteEvent(id);
   }
 
-  onClickEvent(data: { id?: number, descripcion: string, capacidad: number, ubicacion?: string, fecha: string, entrenador: string }): void {
-    this.descripcion = data.descripcion;
-    this.capacidad = data.capacidad;
-    this.ubicacion = data.ubicacion;
-    this.modalClass = "modal show-modal";  // Aquí activas el modal
+  onClickEvent(data: { id?: number, titulo: string, descripcion: string, capacidad: number, ubicacion?: string, fecha: string }): void {
+    if (data.id !== undefined) {
+      this.idEvent = data.id;
+      this.titulo = data.titulo;
+      this.descripcion = data.descripcion;
+      this.capacidad = data.capacidad;
+      this.ubicacion = data.ubicacion;
+      this.modalClass = "modal show-modal";
+    }
   }
 
   onClose(modal: string): void {
