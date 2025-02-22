@@ -12,18 +12,18 @@ import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-mo
 })
 export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {};
-  public members: Member[] = []; 
+  public members: Member[] = [];
   public id: number = 0;
   public showModal: boolean = false;
   public selectedPupilId: number | null = null;
 
-  constructor(private router: Router, public service: ApiService) {}
+  constructor(private router: Router, public service: ApiService) { }
 
   // Obtener la lista de alumnos desde el servicio
   public getResponsePupils(): void {
     this.service.getResponsePupils().subscribe(
       (response) => {
-        response.forEach((member) => {
+        response.map((member) => {
           if (member.rol !== "entrenador") {
             this.members.push(member);
           }
@@ -40,18 +40,17 @@ export class PupilsComponent implements OnInit {
     this.getResponsePupils();
   }
 
-  // Reemplazar el método deletePupil existente por estos dos métodos:
   public deletePupils(id: number): void {
     this.selectedPupilId = id;
     this.showModal = true;
   }
-  
+
   public confirmDelete(): void {
     if (!this.selectedPupilId) return;
-  
+
     const id = this.selectedPupilId;
     this.loading[id] = true;
-  
+
     this.service.deletePupils(id).subscribe((success) => {
       console.log(this.service)
       if (this.service) {

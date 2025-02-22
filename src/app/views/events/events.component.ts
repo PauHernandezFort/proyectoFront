@@ -17,8 +17,8 @@ export class EventsComponent {
   userRole: string | null = null;
   ubicacion?: string = "";
   events: Clases[] = [];
-  nombresEntrenadores: { [key: string]: string } = {};
   idEvent: number = 0;
+  event: { [key: string]: any } = {};
   titulo: string = "";
   descripcion: string = "";
   loading: { [key: number]: boolean } = {};
