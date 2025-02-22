@@ -119,7 +119,7 @@ export class ClassesComponent {
     return this.loading[id] || false;
   }
 
-  isEntrenadororAdmin(): boolean {
+  isTraineroAdmin(): boolean {
     const userRole = localStorage.getItem('userType');
     if (userRole === "entrenador" || userRole === "admin") {
       return true;

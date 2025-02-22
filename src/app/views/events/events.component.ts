@@ -94,7 +94,7 @@ export class EventsComponent {
     this.modalClass = modal;
   }
 
-  isEntrenadororAdmin(): boolean {
+  isTraineroAdmin(): boolean {
     const userRole = localStorage.getItem('userType');
     if (userRole === "entrenador" || userRole === "admin") {
       return true;
