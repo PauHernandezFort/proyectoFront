@@ -9,10 +9,9 @@
           <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
             <!-- Foto -->
             <div class="text-center mb-4">
-              <div class="profile-image-container position-relative d-inline-block mb-3">
+              <div class="profile-image-container mb-3">
                 @if (photo) {
-                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm" width="100"
-                  height="100">
+                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm">
                 } @else {
                 <div class="default-image rounded-circle bg-light shadow-sm">
                   <i class="bi bi-person-circle text-secondary"></i>
@@ -27,7 +26,7 @@
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mt-5">
               <div class="col-6 mb-3">
                 <label for="nombre" class="form-label"><i class="bi bi-person"></i> Nombre</label>
                 <input type="text" class="form-control" id="nombre" formControlName="name" required
@@ -48,23 +47,23 @@
                 <input type="email" class="form-control" id="email" formControlName="email" required
                   placeholder="Introduce el correo electrónico">
               </div>
-              <div class="mb-4">
-                <label for="password" class="form-label"><i class="bi bi-key"></i> Nueva Contraseña</label>
-                <input type="password" class="form-control" id="newPassword" formControlName="newPassword"
-                  placeholder="Introduce la contraseña">
-                <span class="password-toggle position-absolute end-0 top-50 translate-middle-y me-3"
-                  (click)="togglePasswordVisibility()" style="cursor: pointer;">
-                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              <div class="mb-4 position-relative">
+                <label for="newPassword" class="form-label"><i class="bi bi-key"></i> Nueva Contraseña</label>
+                <input [type]="showNewPassword ? 'text' : 'password'" class="form-control" id="newPassword"
+                  formControlName="newPassword" placeholder="Introduce la contraseña">
+                <span class="password-toggle" (click)="togglePasswordVisibility('new')" style="cursor: pointer;">
+                  <i class="bi" [ngClass]="showNewPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                 </span>
               </div>
-              <div class="mb-3 me-4">
-                <label for="confirm-password" class="form-label"><i class="bi bi-key-fill"></i> Confirmar
+
+              <div class="mb-3 position-relative">
+                <label for="confirmPassword" class="form-label"><i class="bi bi-key-fill"></i> Confirmar
                   Contraseña</label>
-                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword"
-                  placeholder="Confirme la contraseña">
-                <span class="password-toggle position-absolute end-0 top-50 translate-middle-y me-3"
-                  (click)="togglePasswordVisibility()" style="cursor: pointer;">
-                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control" id="confirmPassword"
+                  formControlName="confirmPassword" placeholder="Confirme la contraseña">
+                <span class="password-toggle"
+                  (click)="togglePasswordVisibility('confirm')" style="cursor: pointer;">
+                  <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
                 </span>
               </div>
               <div class="text-center mt-4">
