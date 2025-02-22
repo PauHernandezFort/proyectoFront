@@ -1,5 +1,11 @@
 <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/crearEntrenador">
+            <i class="bi bi-plus"></i> Crear Entrenador
+        </button>
+    </div>
     <h2 class="text-center mb-5">Lista de Entrenadores</h2>
+   
     <div class="table-responsive">
         @if(trainers.length > 0){
         <table class="table table-bordered table-striped align-middle">
@@ -46,9 +52,7 @@
             <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
         </div>
         }
-        <button class="btn btn-sm btn-primary" routerLink="/crearEntrenador">
-            <i class="bi bi-plus"></i> Crear Entrenador
-        </button>
+    
     </div>
 </div>
 

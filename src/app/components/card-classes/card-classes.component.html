@@ -1,1 +1,27 @@
-<p>card-classes works!</p>
+<div class="card h-100 shadow-sm">
+  <div class="card-header">
+    <h5 class="card-title mb-0">{{ clase.nombre }}</h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text">{{ clase.descripcion }}</p>
+    <ul class="list-unstyled">
+      <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
+      <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
+      <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador }}</li>
+    </ul>
+    <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
+      {{ clase.estado }}
+    </span>
+    <br>
+    <br>
+    <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()"
+            [disabled]="isLoading">
+      @if (isLoading) {
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+        Eliminando...
+      } @else {
+        <i class="bi bi-trash"></i> Eliminar
+      }
+    </button>
+  </div>
+</div>

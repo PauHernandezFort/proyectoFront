@@ -45,7 +45,7 @@ export class PupilsComponent implements OnInit {
     this.selectedPupilId = id;
     this.showModal = true;
   }
-
+  
   public confirmDelete(): void {
     if (!this.selectedPupilId) return;
   
@@ -54,7 +54,7 @@ export class PupilsComponent implements OnInit {
   
     this.service.deletePupils(id).subscribe((success) => {
       if (this.service) {
-        this.members = this.members.filter(({ id: memberId }) => memberId !== id);
+        this.members = this.members.filter(({ id: members }) => members !== id);
         alert('Alumno eliminado correctamente');
       } else {
         alert('Error al eliminar el alumno');
@@ -65,10 +65,12 @@ export class PupilsComponent implements OnInit {
     });
   }
 
+
   public CancelDelete(): void {
     this.showModal = false;
     this.selectedPupilId = null;
   }
+
 
   isLoading(id: number): boolean {
     return this.loading[id] || false;
