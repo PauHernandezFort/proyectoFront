@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api-service.service';
 import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
+import { CardUserComponent } from '../../components/card-user/card-user.component';
 
 @Component({
   selector: 'app-pupils-manager',
   standalone: true,
-  imports: [RouterLink, CommonModule, ConfirmModalComponent],
+  imports: [RouterLink, CommonModule, ConfirmModalComponent,CardUserComponent],
   templateUrl: './pupils-manager.component.html',
   styleUrl: './pupils-manager.component.css'
 })

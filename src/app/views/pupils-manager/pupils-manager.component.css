@@ -1,8 +1,46 @@
+/* Estilos generales */
+.container {
+    max-width: 1400px;
+}
+
+/* Estilos del botón principal */
+.btn-primary {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+
+/* Animaciones para las cards */
+.col-12 {
+    transition: transform 0.3s ease;
+}
+
+.col-12:hover {
+    transform: translateY(-5px);
+}
+
+/* Estilos para el spinner */
 .spinner-border-sm {
     width: 1rem;
     height: 1rem;
 }
 
+/* Estilos para botones deshabilitados */
 .btn:disabled {
     cursor: not-allowed;
     opacity: 0.7;
