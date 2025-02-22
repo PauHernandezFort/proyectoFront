@@ -4,7 +4,6 @@ import { ApiService } from '../../services/api-service.service';
 import { Clases } from '../../models/user.interface';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Usuarios } from '../../models/user.interface';
 
 @Component({
   selector: 'app-classes',

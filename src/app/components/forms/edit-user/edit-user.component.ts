@@ -12,18 +12,19 @@ import { Usuarios } from '../../../models/user.interface';
 })
 export class EditUserComponent implements OnInit {
   id: string = "";
-  photo: string | null = null;
+  photo: string | null = "";
+  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
 
   editForm = new FormGroup({
-    nombre: new FormControl('', {
+    name: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(2)]
     }),
-    apellido: new FormControl('', {
+    surname: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(2)]
     }),
-    telefono: new FormControl('', {
+    phone: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.pattern('[0-9]{9}')]
     }),
@@ -32,6 +33,10 @@ export class EditUserComponent implements OnInit {
       validators: [Validators.required, Validators.email]
     }),
     newPassword: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required, Validators.minLength(5)]
+    }),
+    confirmPassword: new FormControl('', {
       nonNullable: true,
       validators: [Validators.required, Validators.minLength(5)]
     }),
@@ -50,16 +55,16 @@ export class EditUserComponent implements OnInit {
   }
 
   loadUserData(): void {
+    console.log(this.id);
     if (this.id) {
       this.apiService.getUser(`/api/usuarios/${this.id}`).subscribe(
         (response: Usuarios) => {
           this.editForm.patchValue({
-            nombre: response.nombre,
-            apellido: response.apellido,
-            telefono: response.telefono?.toString(),
+            name: response.nombre,
+            surname: response.apellido,
+            phone: response.telefono?.toString(),
             email: response.email,
             newPassword: '',
-            fotoPerfil: response.fotoPerfil || '',
           });
 
           this.photo = response.fotoPerfil || null;
@@ -81,28 +86,42 @@ export class EditUserComponent implements OnInit {
         this.editForm.patchValue({ fotoPerfil: this.photo });
 
         const imageData = {
+          id: Number(this.id),
           fotoPerfil: this.photo,
         };
 
-        const jsonString = JSON.stringify(imageData);
-        console.log(jsonString);
+        this.imageData = imageData;
+        this.updateUserPhoto(this.imageData);
       };
       reader.readAsDataURL(file);
     }
   }
 
-  onSubmit(): void {
-    const userData: Usuarios = {
-      nombre: this.editForm.getRawValue().nombre,
-      apellido: this.editForm.getRawValue().apellido,
-      telefono: Number(this.editForm.getRawValue().telefono),
-      email: this.editForm.getRawValue().email,
-      password: this.editForm.getRawValue().newPassword,
-      fotoPerfil: this.photo || '',
-    };
-    console.log("Pepe: ", userData);
+  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
+    this.apiService.updatePhotoUser(imageData).subscribe(
+      (response) => {
+        console.log(response.ruta);
+      },
+      (error) => {
+        console.error('Error al actualizar la foto de perfil:', error);
+        alert('Error al actualizar la foto de perfil');
+      }
+    );
+  }
 
-    this.updatePupils(userData);
+  onSubmit(): void {
+    if (this.editForm.getRawValue().newPassword === this.editForm.getRawValue().confirmPassword) {
+      const userData: Usuarios = {
+        nombre: this.editForm.getRawValue().name,
+        apellido: this.editForm.getRawValue().surname,
+        telefono: Number(this.editForm.getRawValue().phone),
+        email: this.editForm.getRawValue().email,
+        password: this.editForm.getRawValue().newPassword,
+      };
+      this.updatePupils(userData);
+    } else {
+      alert('Las contraseñas no coinciden');
+    }
   }
 
   public updatePupils(userData: Usuarios): void {

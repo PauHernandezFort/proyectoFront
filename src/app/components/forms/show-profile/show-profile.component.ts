@@ -26,15 +26,7 @@ export class ShowProfileComponent implements OnInit {
     }
 
     // Inicializa el objeto pupils con las propiedades correctas
-    this.userData = {
-      id: 0,
-      nombre: '',
-      apellido: '',
-      email: '',
-      rol: '',
-      fechaRegistro: new Date(),
-    };
-
+    
     // Ejemplo de cómo agregar un miembro
 
     /*

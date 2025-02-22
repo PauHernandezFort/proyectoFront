@@ -1,0 +1,24 @@
+<div [ngClass]="modalClass">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ titulo }}</h5>
+                <!-- Botón de cerrar -->
+                <button type="button" class="close-button" (click)="onClose()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><strong>👥 Capacidad: </strong> {{ capacidad }}</li>
+                    <li><i class="bi bi-person"></i> Entrenador: {{ entrenador || 'Cargando...' }}</li>
+                    <li><strong>📍 Ubicación: </strong> {{ ubicacion || 'No especificada' }}</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <!-- Botón para eliminar -->
+                <button class="btn btn-danger" (click)="onClickDelete()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>

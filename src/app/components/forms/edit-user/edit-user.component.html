@@ -1,22 +1,21 @@
 <div class="container mb-5 mt-5">
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">
-          <h2 class="text-center">Editar Alumno</h2>
+    <div class="col-lg-7 col-md-8 col-sm-10">
+      <div class="card shadow-md">
+        <div class="card-header bg-dark text-white text-center py-4">
+          <h3 class="mb-0"><i class="bi bi-pencil-square me-3"></i>Edición Alumno</h3>
         </div>
-        <div class="card-body">
-
-          <!-- Mostrar formulario si no está cargando -->
+        <div class="card-body p-4">
           <form (ngSubmit)="onSubmit()" [formGroup]="editForm">
             <!-- Foto -->
-            <div class="mb-4 text-center">
-              <div class="profile-image-container mb-3">
+            <div class="text-center mb-4">
+              <div class="profile-image-container position-relative d-inline-block mb-3">
                 @if (photo) {
-                <img [src]="photo" alt="Foto de perfil" class="profile-image">
+                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm" width="100"
+                  height="100">
                 } @else {
-                <div class="default-image">
-                  <i class="bi bi-person-circle"></i>
+                <div class="default-image rounded-circle bg-light shadow-sm">
+                  <i class="bi bi-person-circle text-secondary"></i>
                 </div>
                 }
               </div>
@@ -28,62 +27,46 @@
               </div>
             </div>
 
-            <!-- Nombre -->
-            <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" formControlName="nombre" required
-                placeholder="Introduce el nombre">
-            </div>
-
-            <!-- Apellidos -->
-            <div class="mb-3">
-              <label for="apellidos" class="form-label">Apellidos</label>
-              <input type="text" class="form-control" id="apellidos" formControlName="apellido" required
-                placeholder="Introduce los apellidos">
-            </div>
-
-            <!-- Teléfono -->
-            <div class="mb-3">
-              <label for="telefono" class="form-label">Teléfono</label>
-              <input type="number" class="form-control" id="telefono" formControlName="telefono"
-                placeholder="Introduce el teléfono">
-              @if (getControl('telefono')?.invalid && getControl('telefono')?.touched) {
-              <small class="text-danger">Debe tener 9 dígitos.</small>
-              }
-            </div>
-
-            <!-- Email -->
-            <div class="mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" formControlName="email" required
-                placeholder="Introduce el correo electrónico">
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label">Nueva Contraseña</label>
-              <input type="password" class="form-control" id="newPassword" formControlName="newPassword"
-                placeholder="Introduce la contraseña">
-              @if (getControl('newPassword')?.invalid && getControl('newPassword')?.touched) {
-              <small class="text-danger">Debe tener al menos 5 caracteres.</small>
-              }
-            </div>
-
-            <div class="mb-3">
-              <label for="confirm-password" class="form-label">Confirmar contraseña</label>
-              <input type="password" class="form-control" id="confirmPassword" formControlName="password"
-                placeholder="Confirme la contraseña">
-              @if (getControl('confirmPassword')?.invalid && getControl('confirmPassword')?.touched) {
-              <small class="text-danger">Debe tener al menos 5 caracteres.</small>
-              }
-            </div>
-
-            <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary me-2">
-                <i class="bi bi-save"></i> Guardar Cambios
-              </button>
-              <button type="button" class="btn btn-secondary" (click)="cancelar()">
-                Cancelar
-              </button>
+            <div class="row">
+              <div class="col-6 mb-3">
+                <label for="nombre" class="form-label"><i class="bi bi-person"></i> Nombre</label>
+                <input type="text" class="form-control" id="nombre" formControlName="name" required
+                  placeholder="Introduce el nombre">
+              </div>
+              <div class="col-6 mb-3">
+                <label for="apellidos" class="form-label"><i class="bi bi-people"></i> Apellidos</label>
+                <input type="text" class="form-control" id="apellidos" formControlName="surname" required
+                  placeholder="Introduce los apellidos">
+              </div>
+              <div class="col-6 mb-3">
+                <label for="telefono" class="form-label"><i class="bi bi-telephone"></i> Teléfono</label>
+                <input type="number" class="form-control" id="telefono" formControlName="phone" required
+                  pattern="[0-9]{9}" placeholder="Introduce el teléfono">
+              </div>
+              <div class="col-6 mb-4">
+                <label for="email" class="form-label"><i class="bi bi-envelope"></i> Correo Electrónico</label>
+                <input type="email" class="form-control" id="email" formControlName="email" required
+                  placeholder="Introduce el correo electrónico">
+              </div>
+              <div class="mb-4">
+                <label for="password" class="form-label"><i class="bi bi-key"></i> Nueva Contraseña</label>
+                <input type="password" class="form-control" id="newPassword" formControlName="newPassword"
+                  placeholder="Introduce la contraseña">
+              </div>
+              <div class="mb-3 me-4">
+                <label for="confirm-password" class="form-label"><i class="bi bi-key-fill"></i> Confirmar
+                  Contraseña</label>
+                <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword"
+                  placeholder="Confirme la contraseña">
+              </div>
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success me-3">
+                  <i class="bi bi-check-circle"></i> Guardar Cambios
+                </button>
+                <button type="button" class="btn btn-danger" (click)="cancelar()">
+                  <i class="bi bi-x-circle"></i> Cancelar
+                </button>
+              </div>
             </div>
           </form>
         </div>

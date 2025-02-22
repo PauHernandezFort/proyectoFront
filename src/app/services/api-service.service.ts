@@ -14,6 +14,7 @@ export class ApiService {
   private apiProgress = 'http://52.2.202.15/api/progresos';
   private apiNotificaciones = 'http://52.2.202.15/api/notificaciones';
   private apiUrl = 'http://52.2.202.15/api/qr/';
+  private apiPupilPhoto = 'http://52.2.202.15/api/usuarios/fotoPerfil'
 
   constructor(private http: HttpClient) { }
 
@@ -34,6 +35,12 @@ export class ApiService {
     return this.http.get<Pupils>(`http://52.2.202.15${urlIdUser}`);
   }
 
+  updatePhotoUser(imageData: { id: number; fotoPerfil: string }): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { imagen: imageData.fotoPerfil, id: imageData.id };
+  
+    return this.http.post<any>(this.apiPupilPhoto, body, { headers });
+  }
   // Crear usuario (pupil)
   createPupil(userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
@@ -44,7 +51,7 @@ export class ApiService {
   updatePupils(userId: number, userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/merge-patch+json'
-    }); 
+    });
     return this.http.patch<Usuarios>(`${this.apiPupils}/${userId}`, userData, { headers });
   }
 

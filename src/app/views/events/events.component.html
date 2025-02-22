@@ -5,15 +5,16 @@
     </button>
   </div>
   <div class="d-flex justify-content-center align-items-center mb-4">
-    <h2 class="mb-4">Eventos Disponibles</h2>
+    <h2 class="mb-5">Eventos Disponibles</h2>
   </div>
 
   @if (events.length > 0) {
-  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @for (event of events; track event.id) {
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+    @for (event of events; track event) {
     @if(event.ubicacion){
-    <app-cards-events [nombre]="event.nombre" [descripcion]="event.descripcion" [fecha]="event.descripcion"
-      [event]="events" [nombresEntrenadores]="nombresEntrenadores" (eventDeleted)="handleEventDeleted($event)">
+    <app-cards-events [nombre]="event.nombre" [descripcion]="event.descripcion" [capacidad]="event.capacidad"
+      [fecha]="dateClass" [ubicacion]="event.ubicacion" [id]="event.id" [estado]="event.estado"
+      (data)="onClickEvent($event)">
     </app-cards-events>
     }
     } @empty {
@@ -30,3 +31,6 @@
   </div>
   }
 </div>
+
+<app-modal-event (modal)="onClose($event)" [descripcion]="descripcion" [capacidad]="capacidad" 
+[fecha]="dateClass" [modalClass]="modalClass"></app-modal-event>
