@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
@@ -30,13 +30,17 @@ export class CrearAlumnoComponent {
     rol: new FormControl('alumno', { nonNullable: true }) // ✅ Se mantiene el campo 'rol'
   }, { validators: this.passwordsMatchValidator });
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private router: Router
+  ) { }
 
   public createPupils(alumno: Usuarios): void {
     this.apiService.createPupil(alumno).subscribe((response) => {
       if (response) {
         console.log("Alumno creado correctamente", response);
         alert('Alumno creado correctamente');
+        this.router.navigate(['/pupils']);
       } else {
         console.error("Error al crear el alumno.");
       }

@@ -1,5 +1,5 @@
 <div class="header">
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -8,7 +8,7 @@
                 <img class="rounded-pill" src="../../../../images/logo2.png" routerLink="/home" alt="Logo">
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item ms-3">
-                        <a class="nav-link" href="#" routerLink="classesMister" routerLinkActive="active">Crear Clase</a>
+                        <a class="nav-link" href="#" routerLink="classesPupils" routerLinkActive="active">Clases</a>
                     </li>
                     <li class="nav-item ms-3">
                         <a class="nav-link" href="#" routerLink="calendar" routerLinkActive="active">Calendario</a>
@@ -25,7 +25,7 @@
                         @if (userData?.fotoPerfil) {
                             <img [src]="userData?.fotoPerfil" alt="Foto de perfil" class="profile-image">
                         } @else {
-                            <img src="assets/images/default-profile.png" alt="Foto por defecto" class="profile-image">
+                            <img src="../../../../public/images/perfil.jpg" alt="Foto por defecto" class="profile-image">
                         }
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end">

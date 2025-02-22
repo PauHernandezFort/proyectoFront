@@ -35,6 +35,7 @@
 
 .navbar {
     padding: 10px 20px;
+    background-color: #0c0c0c ;
     /* Espaciado en la parte superior e inferior */
 }
 
@@ -92,7 +93,7 @@
         top: 100%;
         left: 0;
         width: 100vw; /* Ocupar el 100% del ancho de la pantalla */
-        background-color: #212529; /* Mismo color de fondo del navbar */
+        background-color: #0c0c0c ;        
         z-index: 1000; /* Para que quede por encima de otros elementos */
         align-items: center;
         padding: 10px 0;

@@ -1,5 +1,11 @@
 <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-end mb-3">
+        <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/crearEntrenador">
+            <i class="bi bi-plus"></i> Crear Entrenador
+        </button>
+    </div>
     <h2 class="text-center mb-5">Lista de Entrenadores</h2>
+   
     <div class="table-responsive">
         @if(trainers.length > 0){
         <table class="table table-bordered table-striped align-middle">
@@ -23,9 +29,9 @@
                     <td>{{ trainer.telefono }}</td>
                     <td>{{ trainer.email }}</td>
                     <td class="text-center">
-                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer('1')"
-                            [disabled]="isLoading('1')">
-                            @if (isLoading('1')) {
+                        <button class="btn btn-sm btn-danger me-2" (click)="deleteTrainer(trainer.id!.toString())"
+                            [disabled]="isLoading(trainer.id!.toString())">
+                            @if (isLoading(trainer.id!.toString())) {
                             <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
                             Eliminando...
                             } @else {
@@ -46,8 +52,15 @@
             <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
         </div>
         }
-        <button class="btn btn-sm btn-primary" routerLink="/crearEntrenador">
-            <i class="bi bi-plus"></i> Crear Entrenador
-        </button>
+    
     </div>
 </div>
+
+<app-confirm-modal
+  [isOpen]="showModal"
+  title="Confirmar eliminación"
+  message="¿Estás seguro de que deseas eliminar este entrenador?"
+  (onConfirm)="confirmDelete()"
+  (onCancel)="CancelDelete()">
+</app-confirm-modal>
+

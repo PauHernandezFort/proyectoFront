@@ -1,54 +1,40 @@
 <div class="container mt-5">
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/classesMister">
+      <i class="bi bi-check2-square"></i> Crear Clase
+    </button>
+  </div>
+  <div class="d-flex justify-content-center mb-4">
     <h2>Clases Disponibles</h2>
   </div>
 
   @if (clases.length > 0) {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       @for (clase of clases; track clase.id) {
-        @if(!clase.ubicacion){
-        <div class="col">
-          <div class="card h-100 shadow-sm">
-            <div class="card-header">
-              <h5 class="card-title mb-0">{{ clase.nombre }}</h5>
-            </div>
-            <div class="card-body">
-              <p class="card-text">{{ clase.descripcion }}</p>
-              <ul class="list-unstyled">
-                <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
-                <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
-                <li><i class="bi bi-person"></i> Entrenador: {{ nombresEntrenadores[clase.idEntrenador] || 'Cargando...' }}</li>
-              </ul>
-              <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
-                {{ clase.estado }}
-              </span>
-              <br>
-              <br>
-            
-              <button class="btn btn-sm btn-danger me-2" (click)="deleteClases(clase.id ?? 0)"
-                            [disabled]="isLoading(clase.id ?? 0)">
-                            @if (isLoading(clase.id ?? 0)) {
-                            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-                            Eliminando...
-                            } @else {
-                            <i class="bi bi-trash"></i> Eliminar
-                            }
-                        </button>
-            </div>
+        @if(!clase.ubicacion) {
+          <div class="col">
+            <app-card-classes
+              [clase]="clase"
+              [nombreEntrenador]="nombresEntrenadores[clase.idEntrenador]"
+              [isLoading]="isLoading(clase.id ?? 0)"
+              (onDelete)="deleteClases($event)">
+            </app-card-classes>
           </div>
-        </div>
-      }
-      } @empty {
-        <div class="col-12">
-          <div class="alert alert-info">
-            <i class="bi bi-info-circle"></i> No hay clases disponibles
-          </div>
-        </div>
+        }
       }
     </div>
   } @else {
-    <div class="alert alert-info">
-      <i class="bi bi-info-circle"></i> No hay clases disponibles en este momento
+    <div class="alert alert-warning text-center p-4 shadow-sm">
+      <i class="bi bi-exclamation-circle-fill fs-4"></i>
+      <p class="mt-2 mb-0">No hay clases disponibles en este momento</p>
     </div>
   }
 </div>
+
+<app-confirm-modal
+  [isOpen]="showModal"
+  title="Confirmar eliminación"
+  message="¿Estás seguro de que deseas eliminar esta clase?"
+  (onConfirm)="confirmDelete()"
+  (onCancel)="cancelDelete()">
+</app-confirm-modal>

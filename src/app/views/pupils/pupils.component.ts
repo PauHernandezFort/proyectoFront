@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
-import { Usuarios as Member } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
+import { Usuarios as Member, Usuarios } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-pupils',
-  imports: [RouterLink],
+  imports: [RouterLink, ConfirmModalComponent],
   templateUrl: './pupils.component.html',
   styleUrl: './pupils.component.css'
 })
@@ -13,6 +14,8 @@ export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {};
   public members: Member[] = []; 
   public id: number = 0;
+  public showModal: boolean = false;
+  public selectedPupilId: number | null = null;
 
   constructor(private router: Router, public service: ApiService) {}
 
@@ -37,32 +40,44 @@ export class PupilsComponent implements OnInit {
     this.getResponsePupils();
   }
 
-  // Método para eliminar un alumno
-  public deletePupil(id: number): void {
-    if (!confirm('¿Estás seguro de que deseas eliminar este alumno?')) return;
-    this.loading[id] = true; // Activar el estado de carga
-    this.service.deletePupils(id).subscribe(
-      () => {
-        // Filtramos la lista para eliminar el alumno localmente
-        this.members = this.members.filter(member => member.id !== id);
+  // Reemplazar el método deletePupil existente por estos dos métodos:
+  public deletePupils(id: number): void {
+    this.selectedPupilId = id;
+    this.showModal = true;
+  }
+  
+  public confirmDelete(): void {
+    if (!this.selectedPupilId) return;
+  
+    const id = this.selectedPupilId;
+    this.loading[id] = true;
+  
+    this.service.deletePupils(id).subscribe((success) => {
+      if (this.service) {
+        this.members = this.members.filter(({ id: members }) => members !== id);
         alert('Alumno eliminado correctamente');
-      },
-      (error) => {
-        console.error("Error al eliminar el alumno:", error);
-      },
-      () => {
-        this.loading[id] = false; 
+      } else {
+        alert('Error al eliminar el alumno');
       }
-    );
+      this.loading[id] = false;
+      this.showModal = false;
+      this.selectedPupilId = null;
+    });
   }
 
-  // Función para saber si un alumno está en proceso de eliminación
+
+  public CancelDelete(): void {
+    this.showModal = false;
+    this.selectedPupilId = null;
+  }
+
+
   isLoading(id: number): boolean {
     return this.loading[id] || false;
   }
 
   // Método para editar un alumno
-  editarAlumno(alumno: Member) {
+  editarAlumno(alumno: Usuarios) {
     localStorage.setItem('userData', JSON.stringify(alumno));
     this.router.navigate(['/editUser']);
   }
