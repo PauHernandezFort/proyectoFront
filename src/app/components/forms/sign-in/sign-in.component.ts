@@ -15,7 +15,6 @@ import { Usuarios } from '../../../models/user.interface';
 })
 export class SignInComponent {
   loginForm: FormGroup;
-  isLoading = false;
   showPassword = false;
   errorMessage: string = '';
 
@@ -36,7 +35,6 @@ export class SignInComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      this.isLoading = true;
       this.errorMessage = '';
 
       const credentials = {
@@ -85,10 +83,7 @@ export class SignInComponent {
         },
         error: (error) => {
           console.error('🚨 Error en el login:', error);
-          this.errorMessage = error.error?.error || 'Error en el servidor, intente nuevamente.';
-        },
-        complete: () => {
-          this.isLoading = false;
+          this.errorMessage = error.error?.error || 'Contraseña o correo incorrecto, por favor inténtelo de nuevo';
         }
       });
     } else {
