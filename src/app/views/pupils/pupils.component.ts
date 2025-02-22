@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterLink, Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
-import { Usuarios as Member, Usuarios } from '../../models/user.interface'; // Asegúrate de que la interfaz es correcta
+import { Usuarios as Member, Usuarios } from '../../models/user.interface';
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
+import { CardUserComponent } from '../../components/card-user/card-user.component';
 
 @Component({
   selector: 'app-pupils',
-  imports: [RouterLink, ConfirmModalComponent],
+  standalone: true,
+  imports: [CommonModule, RouterLink, ConfirmModalComponent,CardUserComponent],
   templateUrl: './pupils.component.html',
   styleUrl: './pupils.component.css'
 })
@@ -50,18 +53,21 @@ export class PupilsComponent implements OnInit {
 
     const id = this.selectedPupilId;
     this.loading[id] = true;
-
-    this.service.deletePupils(id).subscribe((success) => {
-      console.log(this.service)
-      if (this.service) {
-        this.members = this.members.filter(({ id: members }) => members !== id);
+  
+    this.service.deletePupils(id).subscribe({
+      next: () => {
+        this.members = this.members.filter(member => member.id !== id);
         alert('Alumno eliminado correctamente');
-      } else {
+        this.showModal = false;
+        this.selectedPupilId = null;
+      },
+      error: (error) => {
+        console.error('Error al eliminar el alumno:', error);
         alert('Error al eliminar el alumno');
+      },
+      complete: () => {
+        this.loading[id] = false;
       }
-      this.loading[id] = false;
-      this.showModal = false;
-      this.selectedPupilId = null;
     });
   }
 

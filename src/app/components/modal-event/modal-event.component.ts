@@ -1,9 +1,11 @@
-import { NgClass } from '@angular/common';
+import { NgClass, CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 @Component({
   selector: 'app-modal-event',
-  imports: [NgClass],
+  standalone: true,
+  imports: [NgClass, CommonModule, ConfirmModalComponent],
   templateUrl: './modal-event.component.html',
   styleUrl: './modal-event.component.css'
 })
@@ -20,12 +22,23 @@ export class ModalEventComponent {
   @Output() modal = new EventEmitter<string>();
   @Output() deleteEvent = new EventEmitter<number>();
 
+  showConfirmModal: boolean = false;
+
   onClickDelete(): void {
+    this.showConfirmModal = true;
+  }
+
+  onConfirmDelete(): void {
     if (this.id !== undefined) {
       console.log(`Evento con ID ${this.id} eliminado`);
       this.deleteEvent.emit(this.id);
       this.onClose();
     }
+    this.showConfirmModal = false;
+  }
+
+  onCancelDelete(): void {
+    this.showConfirmModal = false;
   }
 
   onClose(): void {
