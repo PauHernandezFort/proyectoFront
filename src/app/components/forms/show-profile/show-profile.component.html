@@ -3,26 +3,51 @@
         <div class="profile-card">
             <div class="profile-header">
                 <div class="profile-image">
-                    @if (userData) {
-                        <img [src]="userData" 
+                    @if (userData.fotoPerfil) {
+                        <img [src]="userData.fotoPerfil" 
                              alt="Foto de perfil" 
-                             (click)="openImageModal(userData, 'Foto de Perfil')" 
+                             (click)="openImageModal(userData.fotoPerfil, 'Foto de Perfil')" 
                              style="cursor: pointer;">
                     } @else {
-                        <i class="bi bi-person-circle" style="font-size: 80px; cursor: pointer;"></i>
-                             
+                        <i class="bi bi-person-circle"></i>
                     }
                 </div>
                 <h2>Mi Perfil</h2>
             </div>
-            
-            
 
-            <div class="profile-actions"> <button type="submit" class="btn btn-primary fw-bold px-4 py-2 shadow-sm animated-button"
-                aria-label="Enviar formulario de contacto"  (click)="editProfile()">
-                <i class="bi bi-pencil-square me-2"></i>Editar perfil
-            </button>
-               
+            <div class="profile-info">
+                <div class="info-group">
+                    <label>Nombre completo</label>
+                    <p>{{ userData.nombre }} {{ userData.apellido }}</p>
+                </div>
+
+                <div class="info-group">
+                    <label>Correo electrónico</label>
+                    <p>{{ userData.email }}</p>
+                </div>
+
+                <div class="info-group">
+                    <label>Teléfono</label>
+                    <p>{{ userData.telefono }}</p>
+                </div>
+
+                <div class="info-group">
+                    <label>Rol</label>
+                    <p>{{ userData.rol | titlecase }}</p>
+                </div>
+
+                @if (userData.fechaRegistro) {
+                    <div class="info-group">
+                        <label>Fecha de registro</label>
+                        <p>{{ userData.fechaRegistro | date:'dd/MM/yyyy' }}</p>
+                    </div>
+                }
+            </div>
+
+            <div class="profile-actions">
+                <button class="btn btn-primary animated-button" (click)="editProfile()">
+                    <i class="bi bi-pencil-square me-2"></i>Editar perfil
+                </button>
             </div>
         </div>
     } @else {
