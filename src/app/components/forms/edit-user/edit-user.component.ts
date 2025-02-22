@@ -3,10 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ReactiveFormsModule, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ApiService } from '../../../services/api-service.service';
 import { Usuarios } from '../../../models/user.interface';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-edit-user',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgClass],
   templateUrl: './edit-user.component.html',
   styleUrls: ['./edit-user.component.css']
 })
@@ -14,6 +15,7 @@ export class EditUserComponent implements OnInit {
   id: string = "";
   photo: string | null = "";
   imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  showPassword = false;
 
   editForm = new FormGroup({
     name: new FormControl('', {
@@ -52,6 +54,10 @@ export class EditUserComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.loadUserData();
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   loadUserData(): void {

@@ -58,6 +58,20 @@ input[type="number"]::-webkit-outer-spin-button {
   margin: 0;
 }
 
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 2;
+}
+
+.password-toggle:hover {
+  color: white;
+}
+
 @media (max-width: 768px) {
   .col-md-8 {
     padding: 0 15px;

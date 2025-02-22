@@ -52,12 +52,20 @@
                 <label for="password" class="form-label"><i class="bi bi-key"></i> Nueva Contraseña</label>
                 <input type="password" class="form-control" id="newPassword" formControlName="newPassword"
                   placeholder="Introduce la contraseña">
+                <span class="password-toggle position-absolute end-0 top-50 translate-middle-y me-3"
+                  (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </span>
               </div>
               <div class="mb-3 me-4">
                 <label for="confirm-password" class="form-label"><i class="bi bi-key-fill"></i> Confirmar
                   Contraseña</label>
                 <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword"
                   placeholder="Confirme la contraseña">
+                <span class="password-toggle position-absolute end-0 top-50 translate-middle-y me-3"
+                  (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </span>
               </div>
               <div class="text-center mt-4">
                 <button type="submit" class="btn btn-success me-3">

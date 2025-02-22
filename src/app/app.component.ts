@@ -22,8 +22,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
-  title = 'front';
-  public isUserRegistered: string = "invitado";
+  isUserRegistered: string | null = null;
 
   ngOnInit() {
     this.actualizarEstadoUsuario();
@@ -34,13 +33,12 @@ export class AppComponent implements OnInit {
   }
 
   private actualizarEstadoUsuario() {
-    const userType = localStorage.getItem('userRole');
-    this.isUserRegistered = userType || "invitado";
+    const userType = localStorage.getItem('userType');
+    this.isUserRegistered = userType || null;
   }
 
   // Método para cerrar sesión
   logout() {
-    localStorage.removeItem('userRole');
     localStorage.removeItem('userData');
     this.isUserRegistered = "invitado";
     window.dispatchEvent(new Event("storage"));

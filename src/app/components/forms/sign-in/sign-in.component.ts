@@ -38,47 +38,46 @@ export class SignInComponent {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
-  
+
       const credentials = {
         email: this.loginForm.value.email,
         password: this.loginForm.value.password
       };
-  
+
       console.log("📤 Enviando credenciales:", credentials);
-  
+
       this.apiService.loginPupil(credentials).subscribe({
         next: (response) => {
           console.log("✅ Datos del usuario obtenidos:", response);
-  
+
           // Verificar si la API devuelve usuarios en "member"
           if (response.member && response.member.length > 0) {
-            // Buscar el usuario autenticado basado en el correo electrónico
+            // Buscar el usuario autenticado basado en el correo electrónico
             const usuarioAutenticado = response.member.find((user: Usuarios) => user.email === credentials.email);
-  
+
             if (usuarioAutenticado) {
               console.log("✅ Usuario autenticado:", usuarioAutenticado);
-  
+
               // Guardar el rol y los datos del usuario en el localStorage
               localStorage.setItem('userType', usuarioAutenticado.rol);
               localStorage.setItem('userData', JSON.stringify(usuarioAutenticado));
-  
-              // Redirigir según el rol
+
+              window.dispatchEvent(new Event("storage"));
+
+              // Redirigir según el rol
               switch (usuarioAutenticado.rol) {
                 case 'alumno':
-                  this.router.navigate(['/header-user']);
+                  this.router.navigate(['/classesPupils']);
                   break;
                 case 'entrenador':
-                  this.router.navigate(['/header-mister']);
+                  this.router.navigate(['/classesPupils']);
                   break;
                 case 'admin':
-                  this.router.navigate(['/header-admin']);
-                  break;
-                default:
-                  this.router.navigate(['/']);
+                  this.router.navigate(['/classesPupils']);
                   break;
               }
             } else {
-              this.errorMessage = "🚨 Error: No se encontró un usuario con ese correo.";
+              this.errorMessage = "🚨 Error: No se encontró un usuario con ese correo.";
             }
           } else {
             this.errorMessage = "🚨 Error: No se pudo obtener el usuario correctamente.";
@@ -92,7 +91,6 @@ export class SignInComponent {
           this.isLoading = false;
         }
       });
-      
     } else {
       Object.keys(this.loginForm.controls).forEach(key => {
         const control = this.loginForm.get(key);
@@ -102,5 +100,5 @@ export class SignInComponent {
       });
     }
   }
-  
+
 }
