@@ -90,6 +90,29 @@
   background-color: #5a6268;
 }
 
+.password-toggle {
+  position: absolute;
+  right: 20px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: black;
+  z-index: 2;
+}
+
+.error-message {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 12px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Responsividad */
 @media (max-width: 768px) {
   .text-center button {

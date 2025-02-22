@@ -13,12 +13,22 @@ import { Usuarios } from '../../../models/user.interface';
   styleUrls: ['./crear-alumno.component.css']
 })
 export class CrearAlumnoComponent {
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
-   passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+  passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordsDoNotMatch: true };
   };
+
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
+  }
 
   createPupil = new FormGroup({
     nombre: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
@@ -27,7 +37,7 @@ export class CrearAlumnoComponent {
     email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
     password: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(5)] }),
     confirmPassword: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    rol: new FormControl('alumno', { nonNullable: true }) // ✅ Se mantiene el campo 'rol'
+    rol: new FormControl('alumno', { nonNullable: true })
   }, { validators: this.passwordsMatchValidator });
 
   constructor(
@@ -59,7 +69,7 @@ export class CrearAlumnoComponent {
       telefono: Number(this.createPupil.getRawValue().telefono),
       email: this.createPupil.getRawValue().email,
       password: this.createPupil.getRawValue().password,
-      rol: this.createPupil.getRawValue().rol 
+      rol: this.createPupil.getRawValue().rol
     };
 
     console.log("Enviando datos:", pupil);
