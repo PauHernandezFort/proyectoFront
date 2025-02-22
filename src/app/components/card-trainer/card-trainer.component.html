@@ -31,15 +31,9 @@
         }
       </button>
       <button class="btn btn-primary btn-sm" 
-              [routerLink]="['/editUser', user.id]">
+              [routerLink]="['/editTrainer', user.id]">
         <i class="bi bi-pencil"></i>
       </button>
-      @if (userType === 'alumno') {
-        <a routerLink="/createProgress" 
-           class="btn btn-success btn-sm">
-          <i class="bi bi-graph-up-arrow"></i>
-        </a>
-      }
     </div>
   </div>
-</div>
+</div> 

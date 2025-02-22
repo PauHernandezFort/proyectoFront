@@ -22,3 +22,11 @@
         </div>
     </div>
 </div>
+
+<app-confirm-modal
+    [isOpen]="showConfirmModal"
+    title="Eliminar Evento"
+    message="¿Estás seguro de que deseas eliminar este evento?"
+    (onConfirm)="onConfirmDelete()"
+    (onCancel)="onCancelDelete()">
+</app-confirm-modal>

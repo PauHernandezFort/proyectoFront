@@ -17,12 +17,11 @@
             <!-- Una columna en móvil, dos en tablet, tres en desktop -->
             @for (trainer of trainers; track trainer.id) {
                 <div class="col-12 col-sm-6 col-lg-4">
-                    <app-card-user
+                    <app-card-trainer
                         [user]="trainer"
                         [isLoading]="isLoading(trainer.id!.toString())"
-                        userType="entrenador"
                         (onDelete)="deleteTrainer($event.toString())">
-                    </app-card-user>
+                    </app-card-trainer>
                 </div>
             }
         </div>
