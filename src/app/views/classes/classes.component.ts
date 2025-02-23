@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
 import { Clases } from '../../models/user.interface';
@@ -15,13 +15,14 @@ import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-mo
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css'
 })
-export class ClassesComponent {
+export class ClassesComponent implements OnInit {
   public clases: Clases[] = [];
   public id: number = 0;
   loading: { [key: number]: boolean } = {};
   public nombresEntrenadores: { [key: string]: string } = {};
   public showModal = false;
   private claseIdToDelete: number | null = null;
+  userRole: string | null = null;
 
   constructor(public service: ApiService) { }
 
@@ -81,6 +82,7 @@ export class ClassesComponent {
   }
 
   ngOnInit(): void {
+    this.userRole = localStorage.getItem('userType');
     this.getResponseClasses();
   }
 
