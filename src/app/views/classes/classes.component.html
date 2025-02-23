@@ -15,7 +15,7 @@
     @for (clase of clases; track clase.id) {
     @if(!clase.ubicacion) {
     <div class="col">
-      <app-card-classes [clase]="clase" [nombreEntrenador]="nombresEntrenadores[clase.idEntrenador]"
+      <app-card-classes [clase]="clase" [nombreEntrenador]="nombresEntrenadores[clase.entrenador]"
         [isLoading]="isLoading(clase.id ?? 0)" (onDelete)="deleteClases($event)">
       </app-card-classes>
     </div>
