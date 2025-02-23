@@ -37,7 +37,6 @@
           [locale]="locale"
           (dayClicked)="dayClicked($event.day)"
           (eventClicked)="handleEvent('Clicked', $event.event)"
-          (eventTimesChanged)="eventTimesChanged($event)"
         ></mwl-calendar-month-view>
       }
       @case (CalendarView.Week) {
@@ -48,7 +47,6 @@
           [refresh]="refresh"
           [locale]="locale"
           (eventClicked)="handleEvent('Clicked', $event.event)"
-          (eventTimesChanged)="eventTimesChanged($event)"
         ></mwl-calendar-week-view>
       }
       @case (CalendarView.Day) {
@@ -59,7 +57,6 @@
           [refresh]="refresh"
           [locale]="locale"
           (eventClicked)="handleEvent('Clicked', $event.event)"
-          (eventTimesChanged)="eventTimesChanged($event)"
         ></mwl-calendar-day-view>
       }
       @default {
@@ -72,7 +69,6 @@
 
   <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
     <h3>Clases Inscritas</h3>
-    <button class="btn btn-primary" (click)="addEvent()">Añadir nuevo</button>
   </div>
 
   <br />
@@ -92,32 +88,18 @@
         @for (event of events; track trackByEventId) {
           <tr>
             <td>
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="event.title"
-                (blur)="refresh.next()"
-                [title]="event.meta?.descripcion ?? 'Sin descripción'"
-              />
+              <span class="text-truncate" [title]="event.title">
+                {{ event.title }}
+              </span>
             </td>
-            <td>{{ event.meta?.ubicacion ?? 'No especificada' }}</td>
-            <td>
-              <input
-                type="date"
-                class="form-control"
-                [(ngModel)]="event.start"
-                (ngModelChange)="refresh.next()"
-              />
-            </td>
+            <td>{{ event.meta?.ubicacion ?? 'Clase 1' }}</td>
+            <td>{{ event.start | date:'dd/MM/yyyy HH:mm' }}</td>
             <td>
               <span class="badge" [ngClass]="{
-                'bg-success': event.color?.primary === colors.azul.primary,
-                'bg-warning': event.color?.primary === colors.amarillo.primary,
+                'bg-success': event.color?.primary === colors.verde.primary,
                 'bg-danger': event.color?.primary === colors.rojo.primary
               }">
-                {{ event.color?.primary === colors.azul.primary ? 'Confirmada' : 
-                  event.color?.primary === colors.amarillo.primary ? 'Pendiente' : 
-                  'Cancelada' }}
+                {{ event.color?.primary === colors.verde.primary ? 'Activo' : 'Inactivo' }}
               </span>
             </td>
             <td>
