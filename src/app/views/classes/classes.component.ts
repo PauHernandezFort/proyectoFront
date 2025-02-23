@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService } from '../../services/api-service.service';
 import { Clases } from '../../models/user.interface';
 import { CommonModule } from '@angular/common';
@@ -16,23 +15,22 @@ import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-mo
   styleUrl: './classes.component.css'
 })
 export class ClassesComponent implements OnInit {
-  public clases: Clases[] = [];
-  public id: number = 0;
+  clases: Clases[] = [];
+  id: number = 0;
   loading: { [key: number]: boolean } = {};
-  public nombresEntrenadores: { [key: string]: string } = {};
-  public showModal = false;
-  private claseIdToDelete: number | null = null;
+  nombresEntrenadores: { [key: string]: string } = {};
+  showModal = false;
+  claseIdToDelete: number | null = null;
   userRole: string | null = null;
-
   constructor(public service: ApiService) { }
 
-  public getResponseClasses(): void {
+  getResponseClasses(): void {
     this.service.getClases().subscribe((response) => {
       if (response) {
         this.clases = response;
-        // Obtener el nombre de cada entrenador
-        this.clases.forEach(clase => {
-          this.obtenerNombreEntrenador(clase.idEntrenador);
+
+        this.clases.map(clase => {
+          this.obtenerNombreEntrenador(clase.entrenador);
         });
       } else {
         console.error("Error: No se pudieron obtener las clases.");
@@ -40,39 +38,12 @@ export class ClassesComponent implements OnInit {
     });
   }
 
-  loadUserData(): void {
-    if (this.id) {
-      this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
-        (response: Usuarios) => {
-
-        },
-        (error) => {
-          console.error('Error al cargar los datos del usuario:', error);
-          alert('No se pudo cargar el usuario');
-        }
-      );
-    }
-  }
-
-  public getResponsePupils(): void {
-    this.service.getResponsePupils().subscribe(
-      (response) => {
-        response.map((member) => {
-          if (member.rol !== "entrenador") {
-            //this.members.push(member);
-          }
-        });
-      },
-      (error) => {
-        console.error("Error al obtener los alumnos:", error);
-      }
-    );
-  }
-
-  private obtenerNombreEntrenador(idEntrenador: string): void {
+  obtenerNombreEntrenador(idEntrenador: string): void {
+    console.log(idEntrenador);
     this.service.getUser(idEntrenador).subscribe(
       (entrenador) => {
         this.nombresEntrenadores[idEntrenador] = `${entrenador.nombre} ${entrenador.apellido}`;
+        console.log(this.nombresEntrenadores[idEntrenador]);
       },
       (error) => {
         console.error('Error al obtener el entrenador:', error);

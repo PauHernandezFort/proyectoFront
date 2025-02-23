@@ -62,10 +62,10 @@ export class CreateClassComponent implements OnInit {
         if (response && response.length > 0) {
           this.listClass = response;
           response.forEach((clase) => {
-            this.urlIdUser = clase.idEntrenador;
+            this.urlIdUser = clase.entrenador;
             console.log('ID del entrenador:', this.urlIdUser);
             this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-            this.obtenerNombreEntrenador(clase.idEntrenador);
+            this.obtenerNombreEntrenador(clase.entrenador);
           });
           this.getResponsePupilsById();
         } else {
@@ -113,7 +113,7 @@ export class CreateClassComponent implements OnInit {
       fecha: new Date(formValues.fecha),
       capacidad: formValues.capacidad,
       estado: formValues.estado,
-      idEntrenador: '/api/usuarios/1',
+      entrenador: '/api/usuarios/1',
       usuariosApuntados: []
     };
 
