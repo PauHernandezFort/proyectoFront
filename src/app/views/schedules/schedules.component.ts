@@ -1,5 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AddMartialArtComponent } from "../../components/forms/add-martial-art/add-martial-art.component";
 
 @Component({
   selector: 'app-calendario-view',
