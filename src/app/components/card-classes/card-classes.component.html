@@ -6,23 +6,48 @@
     <p class="card-text">{{ clase.descripcion }}</p>
     <ul class="list-unstyled">
       <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
-      <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
-      <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador }}</li>
+      <li>
+        <i class="bi bi-people"></i> 
+        <span [class.text-danger]="plazasDisponibles === 0">
+          Alumnos Inscritos: {{ alumnosInscritos }}/{{ clase.capacidad }}
+        </span>
+      </li>
+      <li>
+        <i class="bi bi-check-circle"></i>
+        Plazas disponibles: {{ plazasDisponibles }}
+      </li>
     </ul>
     <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
       {{ clase.estado }}
     </span>
-    <br>
-    <br>
-    @if (userType === 'entrenador' || userType === 'admin') {
-      <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()" [disabled]="isLoading">
-        @if (isLoading) {
-          <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-          Eliminando...
+    <br><br>
+    
+    <div class="d-flex gap-2">
+      <!-- Botón de inscripción para alumnos -->
+      @if (userType === 'alumno') {
+        @if (isInscrito) {
+          <button class="btn btn-sm btn-secondary" disabled>
+            Ya estás inscrito
+          </button>
         } @else {
-          <i class="bi bi-trash"></i> Eliminar
+          <button class="btn btn-sm btn-primary" 
+                  (click)="inscribirse()" 
+                  [disabled]="plazasDisponibles === 0">
+            @if (plazasDisponibles > 0) {
+              Inscribirse
+            } @else {
+              Clase llena
+            }
+          </button>
         }
-      </button>
-    }
+      }
+
+      <!-- Botón de eliminar para entrenadores y admin -->
+      @if (canDeleteClass()) {
+        <button class="btn btn-sm btn-danger" (click)="deleteClase()">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+      }
+    </div>
   </div>
 </div>
