@@ -15,6 +15,8 @@ export class CardClassesComponent {
   @Input() nombreEntrenador: string = 'Cargando...';
   @Input() isLoading: boolean = false;
   @Output() onDelete = new EventEmitter<number>();
+  
+  userType: string = localStorage.getItem('userType') || 'invitado';
 
   deleteClase() {
     if (this.clase.id) {
