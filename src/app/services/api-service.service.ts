@@ -62,10 +62,11 @@ export class ApiService {
 
   // Obtener clases
   getClases(): Observable<Clases[]> {
-    return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
-      map(response => response.member)
+    return this.http.get<ApiResponse<Clases>>('http://52.2.202.15/api/clases').pipe(
+      map(response => response.member) 
     );
   }
+  
 
   getEvent(): Observable<Clases[]> {
     return this.http.get<ApiResponse<Clases>>(this.apiClass).pipe(
@@ -143,10 +144,51 @@ export class ApiService {
   }
 
   // Obtener el usuario autenticado actualmente
-  getCurrentUser(): Observable<Pupils> {
-    return this.http.get<Pupils>('http://52.2.202.15/api/usuarioActual');
+  getCurrentUser(): Observable<Pupils | null> {
+    const userId = localStorage.getItem('userId'); // Recupera el ID del usuario
+    if (!userId) {
+      console.warn("⚠ No hay ID de usuario en LocalStorage, redirigiendo a login.");
+      return throwError(() => new Error("No hay usuario autenticado."));
+    }
+  
+    return this.http.get<Pupils>(`http://52.2.202.15/api/usuarios/${userId}`).pipe(
+      tap(response => console.log("✅ Usuario autenticado recibido:", response)), // Debug
+      catchError(error => {
+        console.error("🚨 Error al obtener los datos del usuario:", error);
+        return throwError(() => new Error("No se pudo cargar el usuario."));
+      })
+    );
   }
 
+    // Inscribir usuario a una clase
+    inscribirClase(userId: string, claseId: number): Observable<any> {
+      const claseUrl = `http://52.2.202.15/api/clases/${claseId}`;
+      const usuarioUrl = `http://52.2.202.15/api/usuarios/${userId}`;
+      
+      const headers = new HttpHeaders({
+        'Content-Type': 'application/merge-patch+json'
+      });
+    
+      // 🔹 1️⃣ Agregar el usuario a la lista de `usuariosApuntados` en la clase
+      const actualizarClase = this.http.patch(claseUrl, { 
+        usuariosApuntados: [`/api/usuarios/${userId}`] 
+      }, { headers });
+    
+      // 🔹 2️⃣ Agregar la clase a la lista de `clasesApuntadas` en el usuario
+      const actualizarUsuario = this.http.patch(usuarioUrl, { 
+        clasesApuntadas: [`/api/clases/${claseId}`] 
+      }, { headers });
+    
+      return actualizarClase.pipe(
+        switchMap(() => actualizarUsuario), // 🔹 Primero actualiza la clase, luego el usuario
+        tap(() => console.log(`✅ Usuario ${userId} inscrito en la clase ${claseId}`)),
+        catchError(error => {
+          console.error("🚨 Error al inscribirse en la clase:", error);
+          return throwError(() => new Error("No se pudo inscribir en la clase."));
+        })
+      );
+    }
+     
   // Método para manejar dinero (por si se usa después)
   private apiUrlMoney: string = 'http://52.2.202.15/api/money';
   createMoney(data: any): Observable<any> {
@@ -202,8 +244,17 @@ loginPupil(credentials: { email: string; password: string }): Observable<any> {
     tap(response => console.log("🔑 Respuesta de la API:", response)),
     switchMap(response => {
       if (response.success) {
-        // ✅ **Hacer segunda petición para obtener el usuario**
-        return this.http.get<any>(`${this.apiPupils}?email=${credentials.email}`, { headers });
+        // ✅ **Segunda petición para obtener el usuario completo**
+        return this.http.get<Usuarios>(`${this.apiPupils}?email=${credentials.email}`, { headers }).pipe(
+          tap(userResponse => {
+            console.log("✅ Usuario autenticado:", userResponse);
+
+            if (userResponse.id) {
+              // Guardar el ID en localStorage para futuras consultas
+              localStorage.setItem('userId', userResponse.id.toString());
+            }
+          })
+        );
       } else {
         return throwError(() => new Error("Error en la autenticación"));
       }
@@ -214,4 +265,5 @@ loginPupil(credentials: { email: string; password: string }): Observable<any> {
     })
   );
 }
+
 }

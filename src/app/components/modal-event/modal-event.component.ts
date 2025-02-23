@@ -45,4 +45,12 @@ export class ModalEventComponent {
   onClose(): void {
     this.modal.emit("modal");
   }
+  
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
+  }
 }

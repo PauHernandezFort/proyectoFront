@@ -25,8 +25,11 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" (click)="onClickDelete()">
-                    <i class="bi bi-trash"></i></button>
+                @if (isTraineroAdmin()) {
+                    <button class="btn btn-danger" (click)="onClickDelete()">
+                        <i class="bi bi-trash"></i> 
+                    </button>
+                }
             </div>
         </div>
     </div>

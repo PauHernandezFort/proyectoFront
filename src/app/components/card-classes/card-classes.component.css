@@ -38,3 +38,20 @@
   border-radius: 20px;
   font-size: 0.9rem;
 }
+
+.btn-extra-small {
+  padding: 5px 5px;
+}
+
+.btn-extra-small i {
+  color: white ;
+}
+
+.btn-danger {
+  background-color: #dc3545 ;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
