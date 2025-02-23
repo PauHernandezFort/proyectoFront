@@ -7,11 +7,12 @@
     <ul class="list-unstyled">
       <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
       <li>
-        <i class="bi bi-people"></i> 
+        <i class="bi bi-people"></i>
         <span [class.text-danger]="plazasDisponibles === 0">
           Alumnos Inscritos: {{ alumnosInscritos }}/{{ clase.capacidad }}
         </span>
       </li>
+      <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador || 'No disponible' }}</li>
       <li>
         <i class="bi bi-check-circle"></i>
         Plazas disponibles: {{ plazasDisponibles }}
@@ -21,7 +22,7 @@
       {{ clase.estado }}
     </span>
     <br><br>
-    
+
     <div class="d-flex gap-2">
       <!-- Botón de inscripción para alumnos -->
       @if (userType === 'alumno') {
@@ -51,9 +52,9 @@
 
       <!-- Botón de eliminar para entrenadores y admin -->
       @if (canDeleteClass()) {
-        <button class="btn btn-sm btn-danger" (click)="deleteClase()">
-          <i class="bi bi-trash"></i> Eliminar
-        </button>
+      <button class="btn btn-sm btn-danger" (click)="deleteClase()">
+        <i class="bi bi-trash"></i> Eliminar
+      </button>
       }
     </div>
   </div>
