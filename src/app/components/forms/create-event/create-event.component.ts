@@ -71,10 +71,10 @@ export class CreateEventComponent {
       (response) => {
         this.listClass = response;
         response.forEach((clase) => {
-          this.urlIdUser = clase.idEntrenador;
+          this.urlIdUser = clase.entrenador;
           console.log('ID del entrenador:', this.urlIdUser);
           this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-          this.obtenerNombreEntrenador(clase.idEntrenador);
+          this.obtenerNombreEntrenador(clase.entrenador);
         });
         this.getResponsePupilsById();
       },
@@ -121,7 +121,7 @@ export class CreateEventComponent {
       capacidad: formValues.capacidad,
       estado: formValues.estado,
       ubicacion: formValues.ubicacion,
-      idEntrenador: '/api/usuarios/1',
+      entrenador: '/api/usuarios/1',
       usuariosApuntados: []
     };
 
