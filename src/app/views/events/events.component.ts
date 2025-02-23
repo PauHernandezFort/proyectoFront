@@ -54,6 +54,7 @@ export class EventsComponent {
 
   ngOnInit(): void {
     this.getResponseEvents();
+    this.userRole = localStorage.getItem('userType');
   }
 
   deleteEvent(id: number): void {
