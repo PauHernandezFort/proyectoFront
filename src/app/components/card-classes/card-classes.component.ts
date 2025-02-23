@@ -21,4 +21,11 @@ export class CardClassesComponent {
       this.onDelete.emit(this.clase.id);
     }
   }
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
+  }
 }

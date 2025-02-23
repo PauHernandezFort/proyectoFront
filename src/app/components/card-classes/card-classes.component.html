@@ -12,15 +12,18 @@
     <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
       {{ clase.estado }}
     </span>
-    <br>
-    <br>
-    <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()" [disabled]="isLoading">
-      @if (isLoading) {
-      <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-      Eliminando...
-      } @else {
-      <i class="bi bi-trash"></i> Eliminar
+    <div class="d-flex justify-content-end mt-3">
+      <!-- Solo mostrar el botón de eliminar si el usuario es "entrenador" o "admin" -->
+      @if (isTraineroAdmin()) {
+        <button class="btn btn-danger btn-extra-small text-white" (click)="deleteClase()" [disabled]="isLoading">
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            Eliminando...
+          } @else {
+            <i class="bi bi-trash"></i> 
+          }
+        </button>
       }
-    </button>
+    </div>
   </div>
 </div>

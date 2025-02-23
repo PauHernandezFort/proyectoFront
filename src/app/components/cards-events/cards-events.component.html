@@ -1,15 +1,13 @@
-<div class="card-event mb-3 text-center h-100">
-    <div class="card box-shadow shadow-lg border-1 h-100">
-        <div class="card-header bg-success text-white py-4">
-            <h4 class="my-0 text-light">{{ titulo }}</h4>
-        </div>
-        <div class="card-body mt-2">
-            <h4 class="card-title mb-4">{{descripcion}}</h4>
-            <button (click)="onClick()" type="button" class="btn btn-md btn-block btn-outline-primary mb-2">Ver Más
-            </button>
-        </div>
-        <div class="card-footer text-muted">
-            <strong><i class="bi bi-calendar me-2"></i></strong>{{ fecha }}
-        </div>
+<div class="card card-event h-100 shadow-sm">
+    <div class="card-header">
+        <h5 class="card-title mb-0">{{ titulo }}</h5>
+    </div>
+    <div class="card-body">
+        <h4 class="card-text">{{ descripcion }}</h4>
+        <ul class="list-unstyled">
+            <li><i class="bi bi-calendar"></i> {{ fecha }}</li>
+        </ul>
+        <br>
+        <button (click)="onClick()" class="btn btn-success btn-extra-small">Ver Más</button>
     </div>
 </div>
