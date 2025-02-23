@@ -69,14 +69,15 @@
 .dropdown-item:hover {
     background-color: rgb(192, 190, 190);
 }
-@media (max-width: 991px) { /* Se aplica cuando el navbar colapsa */
+
+@media (max-width: 991px) {
     .navbar-collapse {
-        position: absolute;
+        position: relative;
         top: 100%;
         left: 0;
-        width: 100vw; /* Ocupar el 100% del ancho de la pantalla */
+        width: 100vw;
         background-color: #0c0c0c ;        
-        z-index: 1000; /* Para que quede por encima de otros elementos */
+        z-index: 1000;
         padding: 10px 0;
     }
     
@@ -130,4 +131,9 @@
 
 .dropdown-divider {
     margin: 0.5rem 0;
+}
+
+.navbar-toggler {
+    background: transparent;
+    border: none;
 }

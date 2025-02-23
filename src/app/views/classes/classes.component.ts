@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api-service.service';
 import { Clases, Usuarios } from '../../models/user.interface';
 import { CommonModule } from '@angular/common';
 import { CardClassesComponent } from '../../components/card-classes/card-classes.component';
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component'; // Importa el componente de confirmación
 
 @Component({
   selector: 'app-classes',

@@ -87,6 +87,7 @@ export class ApiService {
       map(response => response.member)
     );
   }
+  
   deleteClases(userId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiClass}/${userId}`);
   }

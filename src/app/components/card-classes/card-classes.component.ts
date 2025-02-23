@@ -7,7 +7,7 @@ import { Clases } from '../../models/user.interface';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './card-classes.component.html',
-  styleUrl: './card-classes.component.css'
+  styleUrls: ['./card-classes.component.css']
 })
 export class CardClassesComponent {
   @Input() clase!: Clases;
