@@ -8,25 +8,31 @@
                 </button>
             </div>
             <div class="modal-body mt-2">
-                <ul>
-                    <li class="mb-2"><i class="bi bi-calendar me-2"></i> {{ fecha }}</li>
-                    <li class="mb-2"><strong><i class="bi bi-people me-2"></i> Capacidad: </strong> {{ capacidad }}</li>
-                    <li class="mb-2"><i class="bi bi-person me-2"></i> Entrenador: {{ entrenador }}</li>
-                    <li class="mb-2"><strong><i class="bi bi-geo-alt me-2"></i> Ubicación: </strong> {{ ubicacion }}</li>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="bi bi-calendar me-2"></i> {{ fecha }}
+                    </li>
+                    <li class="mb-3">
+                        <strong><i class="bi bi-people me-2"></i> Capacidad: </strong> {{ capacidad }}
+                    </li>
+                    <li class="mb-3">
+                        <strong><i class="bi bi-geo-alt me-2"></i> Ubicación: </strong> {{ ubicacion }}
+                    </li>
+                    <li class="mb-2 p-2 rounded"
+                        [ngClass]="estado === 'activa' ? 'text-success border-success' : 'text-danger border-danger'">
+                        <strong><i class="bi bi-check-circle me-2"></i> Estado: </strong> {{ estado }}
+                    </li>
                 </ul>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-danger" (click)="onClickDelete()">
-                    <i class="bi bi-trash me-2"></i>Eliminar</button>
+                    <i class="bi bi-trash"></i></button>
             </div>
         </div>
     </div>
 </div>
 
-<app-confirm-modal
-    [isOpen]="showConfirmModal"
-    title="Eliminar Evento"
-    message="¿Estás seguro de que deseas eliminar este evento?"
-    (onConfirm)="onConfirmDelete()"
+<app-confirm-modal [isOpen]="showConfirmModal" title="Eliminar Evento"
+    message="¿Estás seguro de que deseas eliminar este evento?" (onConfirm)="onConfirmDelete()"
     (onCancel)="onCancelDelete()">
 </app-confirm-modal>

@@ -20,6 +20,7 @@ export class EventsComponent {
   idEvent: number = 0;
   event: { [key: string]: any } = {};
   titulo: string = "";
+  estado: string = "";
   descripcion: string = "";
   loading: { [key: number]: boolean } = {};
   dateClass: string = "";
@@ -33,7 +34,7 @@ export class EventsComponent {
 
     if (direccionElement && this.ubicacion) {
       const url: string = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(this.ubicacion)}`;
-      window.open(url, '_blank'); // Abre Google Maps en una nueva pestaña
+      window.open(url, '_blank');
     } else {
       console.error('Elemento con id "direccion-evento" no encontrado o "ubicacion" no definida');
     }
@@ -73,19 +74,16 @@ export class EventsComponent {
     });
   }
 
-  isLoading(id: number): boolean {
-    return this.loading[id] || false;
-  }
-
   handleEventDeleted(id: number) {
     this.deleteEvent(id);
   }
 
-  onClickEvent(data: { id?: number, titulo: string, descripcion: string, capacidad: number, ubicacion?: string, fecha: string }): void {
+  onClickEvent(data: { id?: number, titulo: string, descripcion: string, capacidad: number, estado: string, ubicacion?: string, fecha: string }): void {
     if (data.id !== undefined) {
       this.idEvent = data.id;
       this.titulo = data.titulo;
       this.descripcion = data.descripcion;
+      this.estado = data.estado;
       this.capacidad = data.capacidad;
       this.ubicacion = data.ubicacion;
       this.modalClass = "modal show-modal";
@@ -94,6 +92,14 @@ export class EventsComponent {
 
   onClose(modal: string): void {
     this.modalClass = modal;
+  }
+
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
   }
 
 }

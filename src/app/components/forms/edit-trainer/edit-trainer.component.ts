@@ -17,10 +17,11 @@ import { Usuarios } from '../../../models/user.interface';
   styleUrls: ['./edit-trainer.component.css']
 })
 export class EditTrainerComponent implements OnInit {
-
   id: string = "";
   photo: string | null = "";
   imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   editFormTrainer = new FormGroup({
     name: new FormControl('', {
@@ -59,6 +60,14 @@ export class EditTrainerComponent implements OnInit {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.loadUserData();
+  }
+
+  togglePasswordVisibility(field: string): void {
+    if (field === 'new') {
+      this.showNewPassword = !this.showNewPassword;
+    } else if (field === 'confirm') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 
   loadUserData(): void {

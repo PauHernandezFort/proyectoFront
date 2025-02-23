@@ -15,7 +15,8 @@ export class EditUserComponent implements OnInit {
   id: string = "";
   photo: string | null = "";
   imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
-  showPassword = false;
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   editForm = new FormGroup({
     name: new FormControl('', {
@@ -55,9 +56,13 @@ export class EditUserComponent implements OnInit {
     this.id = this.route.snapshot.params['id'];
     this.loadUserData();
   }
-
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
+  
+  togglePasswordVisibility(field: string): void {
+    if (field === 'new') {
+      this.showNewPassword = !this.showNewPassword;
+    } else if (field === 'confirm') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
   }
 
   loadUserData(): void {
