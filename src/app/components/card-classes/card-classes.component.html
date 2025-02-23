@@ -7,7 +7,6 @@
     <ul class="list-unstyled">
       <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
       <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
-      <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador }}</li>
     </ul>
     <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
       {{ clase.estado }}
@@ -25,5 +24,9 @@
         </button>
       }
     </div>
+    <br><br>
+    
+    <button *ngIf="isInscrito" class="btn btn-sm btn-secondary" disabled>Ya estás inscrito</button>
+    <button *ngIf="!isInscrito" class="btn btn-sm btn-primary" (click)="inscribirse()">Inscribirse</button>
   </div>
 </div>
