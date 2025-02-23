@@ -28,15 +28,15 @@ export class ClassesComponent {
   public getResponseClasses(): void {
     this.service.getClases().subscribe(
       (response) => {
-        console.log("📌 Clases recibidas antes del filtro:", response); // Debug
+        console.log(" Clases recibidas antes del filtro:", response); // Debug
   
         //  Filtrar solo las clases que NO tengan `ubicacion`
         this.clases = response.filter(clase => !clase.ubicacion);
   
-        console.log("📌 Clases filtradas (sin eventos):", this.clases); // Debug
+        console.log(" Clases filtradas (sin eventos):", this.clases); // Debug
       },
       (error) => {
-        console.error("🚨 Error al obtener las clases:", error);
+        console.error(" Error al obtener las clases:", error);
       }
     );
   }
@@ -51,29 +51,49 @@ export class ClassesComponent {
         const userObject: Usuarios = JSON.parse(storedUserData);
         this.userId = userObject.id ?? 0;
   
-        console.log("📌 Usuario autenticado:", userObject);
-        console.log("📌 ID del usuario autenticado:", this.userId);
+        console.log(" Usuario autenticado:", userObject);
+        console.log(" ID del usuario autenticado:", this.userId);
   
         this.clasesInscritas = userObject.clasesApuntadas ?? [];
       } catch (error) {
-        console.error("🚨 Error al parsear `userData` desde localStorage:", error);
+        console.error(" Error al parsear `userData` desde localStorage:", error);
       }
     } else {
-      console.warn("⚠ No hay usuario autenticado.");
+      console.warn(" No hay usuario autenticado.");
     }
   }
   
   // Inscribir al usuario en una clase
-  public inscribirseEnClase(claseId: number): void {
+  public inscribirseEnClase(evento: {claseId: number, accion: 'inscribir' | 'anular'}) {
     if (!this.userId) return;
 
-    this.service.inscribirClase(this.userId.toString(), claseId).subscribe(
-      () => {
-        this.clasesInscritas.push(claseId); // Agregar la clase inscrita a la lista
-      },
-      (error) => {
-        console.error("🚨 Error al inscribirse en la clase:", error);
+    const clase = this.clases.find(clase => clase.id === evento.claseId);
+    if (!clase) return;
+
+    if (evento.accion === 'inscribir') {
+      this.service.inscribirClase(this.userId.toString(), evento.claseId).subscribe(
+        () => {
+          this.clasesInscritas.push(evento.claseId);
+          if (!clase.usuariosApuntados) clase.usuariosApuntados = [];
+          clase.usuariosApuntados.push(this.userId.toString());
+          
+          // Actualizar userData en localStorage
+          const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+          userData.clasesApuntadas = this.clasesInscritas;
+          localStorage.setItem('userData', JSON.stringify(userData));
+        },
+        error => console.error("Error al inscribirse:", error)
+      );
+    } else {
+      this.clasesInscritas = this.clasesInscritas.filter(id => id !== evento.claseId);
+      if (clase.usuariosApuntados) {
+        clase.usuariosApuntados = clase.usuariosApuntados.filter(id => id !== this.userId.toString());
       }
-    );
+      
+      // Actualizar userData en localStorage
+      const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+      userData.clasesApuntadas = this.clasesInscritas;
+      localStorage.setItem('userData', JSON.stringify(userData));
+    }
   }
 }
