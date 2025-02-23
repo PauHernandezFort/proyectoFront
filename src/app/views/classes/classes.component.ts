@@ -11,7 +11,7 @@ import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-mo
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CommonModule,RouterLink, CardClassesComponent, ConfirmModalComponent],
+  imports: [CommonModule, RouterLink, CardClassesComponent, ConfirmModalComponent],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css'
 })
@@ -19,12 +19,12 @@ export class ClassesComponent implements OnInit {
   public clases: Clases[] = [];
   public id: number = 0;
   loading: { [key: number]: boolean } = {};
-  public nombresEntrenadores: { [key: string]: string } = {};  // Mapa para guardar nombres de entrenadores
+  public nombresEntrenadores: { [key: string]: string } = {};
   public showModal = false;
   private claseIdToDelete: number | null = null;
   userRole: string | null = null;
 
-  constructor(public service: ApiService) {}
+  constructor(public service: ApiService) { }
 
   public getResponseClasses(): void {
     this.service.getClases().subscribe((response) => {
@@ -44,7 +44,7 @@ export class ClassesComponent implements OnInit {
     if (this.id) {
       this.service.getUser(`/api/usuarios/${this.id}`).subscribe(
         (response: Usuarios) => {
-          
+
         },
         (error) => {
           console.error('Error al cargar los datos del usuario:', error);
@@ -93,10 +93,10 @@ export class ClassesComponent implements OnInit {
 
   public confirmDelete(): void {
     if (!this.claseIdToDelete) return;
-  
+
     const id = this.claseIdToDelete;
     this.loading[id] = true;
-  
+
     this.service.deleteClases(id).subscribe((success) => {
       if (this.service) {
         this.clases = this.clases.filter(({ id: clases }) => clases !== id);
@@ -119,5 +119,13 @@ export class ClassesComponent implements OnInit {
   // Función para saber si un alumno está en proceso de eliminación
   isLoading(id: number): boolean {
     return this.loading[id] || false;
+  }
+
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
   }
 }

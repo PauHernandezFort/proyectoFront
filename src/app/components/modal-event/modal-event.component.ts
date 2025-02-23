@@ -16,6 +16,7 @@ export class ModalEventComponent {
   @Input() capacidad: number = 0;
   @Input() entrenador: string = '';
   @Input() ubicacion?: string = '';
+  @Input() estado: string = '';
   @Input() modalClass: string = "modal";
   @Input() id?: number;
 
