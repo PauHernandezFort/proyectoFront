@@ -11,20 +11,8 @@ import { Clases } from '../../models/user.interface';
 })
 export class CardClassesComponent {
   @Input() clase!: Clases;
-<<<<<<< HEAD
-  @Input() nombreEntrenador: string = 'Cargando...';
-  @Input() isLoading: boolean = false;
-  @Output() onDelete = new EventEmitter<number>(); // Emitir el id de la clase
-  
-  userType: string = localStorage.getItem('userType') || 'invitado';
   @Input() isInscrito: boolean = false;
-  @Output() onInscribirse = new EventEmitter<number>();
-
-  // Emitir el evento de eliminación
-  deleteClase() {
-    this.onDelete.emit(this.clase.id); // Emitir el id de la clase
-=======
-  @Input() isInscrito: boolean = false;
+  @Input() nombreEntrenador?: string = 'Cargando...';
   @Output() onInscribirse = new EventEmitter<number>();
   @Output() onDelete = new EventEmitter<number>();
 
@@ -40,7 +28,6 @@ export class CardClassesComponent {
 
   canDeleteClass(): boolean {
     return ['entrenador', 'admin'].includes(this.userType);
->>>>>>> marcos
   }
 
   inscribirse() {
@@ -49,18 +36,17 @@ export class CardClassesComponent {
     }
   }
 
-<<<<<<< HEAD
+  deleteClase() {
+    if (this.canDeleteClass() && this.clase.id) {
+      this.onDelete.emit(this.clase.id);
+    }
+  }
+
   isTraineroAdmin(): boolean {
     const userRole = localStorage.getItem('userType');
     if (userRole === "entrenador" || userRole === "admin") {
       return true;
     }
     return false;
-=======
-  deleteClase() {
-    if (this.canDeleteClass() && this.clase.id) {
-      this.onDelete.emit(this.clase.id);
-    }
->>>>>>> marcos
   }
 }

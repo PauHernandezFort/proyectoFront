@@ -1,5 +1,4 @@
 <div class="container mt-5">
-<<<<<<< HEAD
   <div class="d-flex justify-content-end mb-3">
     @if(isTraineroAdmin()){
     <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/classesMister">
@@ -7,34 +6,20 @@
     </button>
     }
   </div>
-=======
->>>>>>> marcos
   <div class="d-flex justify-content-center mb-5">
     <h2>Clases Disponibles</h2>
   </div>
 
   @if (clases.length > 0) {
-<<<<<<< HEAD
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
     @for (clase of clases; track clase.id) {
-    @if(!clase.ubicacion) {
     <div class="col">
       <app-card-classes [clase]="clase" [nombreEntrenador]="nombresEntrenadores[clase.entrenador]"
-        [isLoading]="isLoading(clase.id ?? 0)" (onDelete)="deleteClases($event)">
+        [isInscrito]="clasesInscritas.includes(clase.id ?? 0)" (onInscribirse)="inscribirseEnClase($event)">
       </app-card-classes>
-=======
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-      @for (clase of clases; track clase.id) {
-        <div class="col">
-          <app-card-classes
-            [clase]="clase"
-            [isInscrito]="clasesInscritas.includes(clase.id ?? 0)"
-            (onInscribirse)="inscribirseEnClase($event)">
-          </app-card-classes>
-        </div>
-      }
->>>>>>> marcos
     </div>
+    }
+  </div>
   } @else {
   <div class="alert alert-warning text-center p-4 shadow-sm">
     <i class="bi bi-exclamation-circle-fill fs-4"></i>
@@ -42,10 +27,3 @@
   </div>
   }
 </div>
-<<<<<<< HEAD
-
-<app-confirm-modal [isOpen]="showModal" title="Confirmar eliminación"
-  message="¿Estás seguro de que deseas eliminar esta clase?" (onConfirm)="confirmDelete()" (onCancel)="cancelDelete()">
-</app-confirm-modal>
-=======
->>>>>>> marcos
