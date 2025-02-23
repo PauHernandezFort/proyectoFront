@@ -12,6 +12,7 @@ import { Clases } from '../../models/user.interface';
 export class CardClassesComponent {
   @Input() clase!: Clases;
   @Input() isInscrito: boolean = false;
+  @Input() nombreEntrenador?: string = 'Cargando...';
   @Output() onInscribirse = new EventEmitter<number>();
   @Output() onDelete = new EventEmitter<number>();
 
@@ -39,5 +40,13 @@ export class CardClassesComponent {
     if (this.canDeleteClass() && this.clase.id) {
       this.onDelete.emit(this.clase.id);
     }
+  }
+
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
   }
 }
