@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { Clases } from '../../models/user.interface';
 
 @Component({
@@ -12,13 +11,12 @@ import { Clases } from '../../models/user.interface';
 })
 export class CardClassesComponent {
   @Input() clase!: Clases;
-  @Input() nombreEntrenador: string = 'Cargando...';
-  @Input() isLoading: boolean = false;
-  @Output() onDelete = new EventEmitter<number>();
+  @Input() isInscrito: boolean = false;
+  @Output() onInscribirse = new EventEmitter<number>();
 
-  deleteClase() {
-    if (this.clase.id) {
-      this.onDelete.emit(this.clase.id);
+  inscribirse() {
+    if (!this.isInscrito) {
+      this.onInscribirse.emit(this.clase.id);
     }
   }
 }

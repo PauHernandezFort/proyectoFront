@@ -7,20 +7,13 @@
     <ul class="list-unstyled">
       <li><i class="bi bi-calendar"></i> {{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</li>
       <li><i class="bi bi-people"></i> Capacidad: {{ clase.capacidad }}</li>
-      <li><i class="bi bi-person"></i> Entrenador: {{ nombreEntrenador }}</li>
     </ul>
     <span class="badge" [class.bg-success]="clase.estado === 'activa'" [class.bg-danger]="clase.estado !== 'activa'">
       {{ clase.estado }}
     </span>
-    <br>
-    <br>
-    <button class="btn btn-sm btn-danger me-2" (click)="deleteClase()" [disabled]="isLoading">
-      @if (isLoading) {
-      <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
-      Eliminando...
-      } @else {
-      <i class="bi bi-trash"></i> Eliminar
-      }
-    </button>
+    <br><br>
+    
+    <button *ngIf="isInscrito" class="btn btn-sm btn-secondary" disabled>Ya estás inscrito</button>
+    <button *ngIf="!isInscrito" class="btn btn-sm btn-primary" (click)="inscribirse()">Inscribirse</button>
   </div>
 </div>
