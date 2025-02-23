@@ -5,94 +5,94 @@
         <div class="card-header">
           <h2 class="text-center">Crear Nueva Clase</h2>
         </div>
-    <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="nombre">Tipo de Clase</label>
-        <select class="form-control" id="nombre" formControlName="nombre"
-                [class.is-invalid]="isFieldInvalid('nombre')">
-          <option value="">Selecciona una actividad</option>
-          @for (actividad of actividades; track actividad) {
-            <option [value]="actividad">{{ actividad }}</option>
-          }
-        </select>
-        @if (isFieldInvalid('nombre')) {
-          <div class="invalid-feedback">
-            {{ getErrorMessage('nombre') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-group">
-        <label>Entrenador</label>
-        <input type="text" class="form-control" [value]="nombreEntrenador" disabled>
-      </div>
-
-      <div class="form-group">
-        <label for="fecha">Fecha y Hora</label>
-        <input type="datetime-local" class="form-control" id="fecha" formControlName="fecha"
-               [class.is-invalid]="isFieldInvalid('fecha')">
-        @if (isFieldInvalid('fecha')) {
-          <div class="invalid-feedback">
-            {{ getErrorMessage('fecha') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="capacidad">Capacidad</label>
-        <input type="number" class="form-control" id="capacidad" formControlName="capacidad" min="1" max="35"
-               [class.is-invalid]="isFieldInvalid('capacidad')">
-        @if (isFieldInvalid('capacidad')) {
-          <div class="invalid-feedback">
-            {{ getErrorMessage('capacidad') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="estado">Estado de la clase</label>
-        <select class="form-control" id="estado" formControlName="estado"
-                [class.is-invalid]="isFieldInvalid('estado')">
-          <option value="">Selecciona un estado</option>
-          @for (estado of estadosClase; track estado) {
-            <option [value]="estado">{{ estado }}</option>
-          }
-        </select>
-        @if (isFieldInvalid('estado')) {
-          <div class="invalid-feedback">
-            {{ getErrorMessage('estado') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="descripcion">Descripción</label>
-        <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="3"
-                  [class.is-invalid]="isFieldInvalid('descripcion')"></textarea>
-        @if (isFieldInvalid('descripcion')) {
-          <div class="invalid-feedback">
-            {{ getErrorMessage('descripcion') }}
-          </div>
-        }
-      </div>
-
-      <div class="form-buttons">
-        <button type="submit" class="btn btn-primary">
-            @if (loading) {
-                <span class="spinner-border spinner-border-sm me-2"></span>
-                Creando...
-            } @else {
-                Crear Clase
+        <form [formGroup]="createClass" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="nombre">Tipo de Clase</label>
+            <select class="form-control" id="nombre" formControlName="nombre"
+              [class.is-invalid]="isFieldInvalid('nombre')">
+              <option value="">Selecciona una actividad</option>
+              @for (actividad of actividades; track actividad) {
+              <option [value]="actividad">{{ actividad }}</option>
+              }
+            </select>
+            @if (isFieldInvalid('nombre')) {
+            <div class="invalid-feedback">
+              {{ getErrorMessage('nombre') }}
+            </div>
             }
-        </button>
-        <button type="button" class="btn btn-secondary" routerLink="/classesPupils">Cancelar</button>
-    </div>
-    
-    </form>
-  </div>
-</div>
+          </div>
 
-</div>
+          <div class="form-group">
+            <label>Entrenador</label>
+            <input type="text" class="form-control" [value]="nombreEntrenador" disabled>
+          </div>
+
+          <div class="form-group">
+            <label for="fecha">Fecha y Hora</label>
+            <input type="datetime-local" class="form-control" id="fecha" formControlName="fecha"
+              [class.is-invalid]="isFieldInvalid('fecha')">
+            @if (isFieldInvalid('fecha')) {
+            <div class="invalid-feedback">
+              {{ getErrorMessage('fecha') }}
+            </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="capacidad">Capacidad</label>
+            <input type="number" class="form-control" id="capacidad" formControlName="capacidad" min="1" max="35"
+              [class.is-invalid]="isFieldInvalid('capacidad')">
+            @if (isFieldInvalid('capacidad')) {
+            <div class="invalid-feedback">
+              {{ getErrorMessage('capacidad') }}
+            </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="estado">Estado de la clase</label>
+            <select class="form-control" id="estado" formControlName="estado"
+              [class.is-invalid]="isFieldInvalid('estado')">
+              <option value="">Selecciona un estado</option>
+              @for (estado of estadosClase; track estado) {
+              <option [value]="estado">{{ estado }}</option>
+              }
+            </select>
+            @if (isFieldInvalid('estado')) {
+            <div class="invalid-feedback">
+              {{ getErrorMessage('estado') }}
+            </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea class="form-control" id="descripcion" formControlName="descripcion" rows="3"
+              [class.is-invalid]="isFieldInvalid('descripcion')"></textarea>
+            @if (isFieldInvalid('descripcion')) {
+            <div class="invalid-feedback">
+              {{ getErrorMessage('descripcion') }}
+            </div>
+            }
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" class="btn btn-primary">
+              @if (loading) {
+              <span class="spinner-border spinner-border-sm me-2"></span>
+              Creando...
+              } @else {
+              Crear Clase
+              }
+            </button>
+            <button type="button" class="btn btn-secondary" routerLink="/classesPupils">Cancelar</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <!-- Botón para mostrar/ocultar las clases disponibles -->
@@ -107,31 +107,31 @@
 
 <!-- Sección para mostrar las clases disponibles -->
 @if (mostrarClasesDisponibles) {
-    <section class="mt-5">
-        <h3>Clases Disponibles</h3>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Fecha</th>
-                        <th>Capacidad</th>
-                        <th>Estado</th>
-                        <th>Descripción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (clase of clasesDisponibles; track clase.id) {
-                        <tr>
-                            <td>{{ clase.nombre }}</td>
-                            <td>{{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
-                            <td>{{ clase.capacidad }}</td>
-                            <td>{{ clase.estado }}</td>
-                            <td>{{ clase.descripcion }}</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </section>
+<section class="mt-5">
+  <h3>Clases Disponibles</h3>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Capacidad</th>
+          <th>Estado</th>
+          <th>Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (clase of clasesDisponibles; track clase.id) {
+        <tr>
+          <td>{{ clase.nombre }}</td>
+          <td>{{ clase.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ clase.capacidad }}</td>
+          <td>{{ clase.estado }}</td>
+          <td>{{ clase.descripcion }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
 }
