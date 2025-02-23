@@ -141,7 +141,7 @@ confirmarEliminacion() {
     this.service.deleteClases(this.claseToDelete.id).subscribe(
       () => {
         this.clases = this.clases.filter(clase => clase.id !== this.claseToDelete?.id);
-        alert('Alumno eliminado correctamente');
+        alert('Clase eliminada correctamente');
         this.showConfirmModal = false;
         this.claseToDelete = null;
       },
