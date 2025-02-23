@@ -3,10 +3,13 @@ import { ApiService } from '../../services/api-service.service';
 import { Progreso, Usuarios } from '../../models/user.interface';
 import { RouterLink } from '@angular/router';
 import { CardsProgressComponent } from '../../components/cards-progress/cards-progress.component';
+import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-progress',
-  imports: [RouterLink, CardsProgressComponent],
+  standalone: true,
+  imports: [RouterLink, CardsProgressComponent, ConfirmModalComponent, CommonModule],
   templateUrl: './list-progress.component.html',
   styleUrl: './list-progress.component.css'
 })
@@ -15,6 +18,10 @@ export class ListProgressComponent {
   public dateProgress: string = "";
   public namePupil: string = "";
   public urlIdUser: string | undefined = undefined;
+  
+  // Variables para el modal
+  showDeleteModal = false;
+  progressToDelete: number | null = null;
 
   constructor(public service: ApiService) { }
 
@@ -43,6 +50,36 @@ export class ListProgressComponent {
     if (this.urlIdUser !== undefined) {
       this.service.getUser(this.urlIdUser).subscribe((usuario: Usuarios) => {
         this.namePupil = usuario.nombre;
+      });
+    }
+  }
+
+  openDeleteModal(progressId: number | undefined) {
+    if (progressId) {
+      this.progressToDelete = progressId;
+      this.showDeleteModal = true;
+    }
+  }
+
+  cancelDelete() {
+    this.showDeleteModal = false;
+    this.progressToDelete = null;
+  }
+
+  confirmDelete() {
+    if (this.progressToDelete) {
+      this.service.deleteProgress(this.progressToDelete).subscribe({
+        next: () => {
+          alert('Progreso eliminado correctamente');
+          console.log('Progreso eliminado correctamente');
+          this.getResponseProgress(); // Actualizar la lista
+          this.showDeleteModal = false;
+          this.progressToDelete = null;
+        },
+        error: (error) => {
+          alert('Error al eliminar el progreso');
+          console.error('Error al eliminar el progreso:', error);
+        }
       });
     }
   }
