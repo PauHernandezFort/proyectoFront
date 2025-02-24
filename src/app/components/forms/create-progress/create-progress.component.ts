@@ -17,7 +17,7 @@ export class CreateProgressComponent implements OnInit {
   members: Member[] = [];
   photo: string = "";
   selectedFile: File | null = null;
-  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  imageData: { id: number, imagen: string } = { id: 0, imagen: "" };
   id: string = "";
 
   constructor(public service: ApiService, private router: Router) { }
@@ -77,7 +77,7 @@ export class CreateProgressComponent implements OnInit {
 
         const imageData = {
           id: Number(this.id),
-          fotoPerfil: this.photo,
+          imagen: this.photo,
         };
 
         this.imageData = imageData;
@@ -87,7 +87,7 @@ export class CreateProgressComponent implements OnInit {
     }
   }
 
-  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
+  updateUserPhoto(imageData: { id: number; imagen: string }): void {
     this.service.updatePhotoUser(imageData).subscribe(
       (response) => {
         console.log(response.ruta);

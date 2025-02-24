@@ -19,7 +19,7 @@ import { Usuarios } from '../../../models/user.interface';
 export class EditTrainerComponent implements OnInit {
   id: string = "";
   photo: string | null = "";
-  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  imageData: { id: number, imagen: string } = { id: 0, imagen: "" };
   showNewPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
@@ -102,7 +102,7 @@ export class EditTrainerComponent implements OnInit {
 
         const imageData = {
           id: Number(this.id),
-          fotoPerfil: this.photo,
+          imagen: this.photo,
         };
 
         this.imageData = imageData;
@@ -112,7 +112,7 @@ export class EditTrainerComponent implements OnInit {
     }
   }
 
-  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
+  updateUserPhoto(imageData: { id: number; imagen: string }): void {
     this.apiService.updatePhotoUser(imageData).subscribe(
       (response) => {
         console.log(response.ruta);
