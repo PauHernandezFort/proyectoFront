@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-classes',
   standalone: true,
-  imports: [CommonModule, CardClassesComponent,RouterLink, ConfirmModalComponent],
+  imports: [CommonModule, CardClassesComponent, RouterLink, ConfirmModalComponent],
   templateUrl: './classes.component.html',
   styleUrl: './classes.component.css'
 })
@@ -24,6 +24,7 @@ export class ClassesComponent {
   loading: { [key: number]: boolean } = {};
   public showConfirmModal = false;
   public claseToDelete: Clases | null = null;
+  dateClass: string = "";
 
   constructor(public service: ApiService) { }
 
@@ -37,21 +38,26 @@ export class ClassesComponent {
     this.service.getClases().subscribe(
       (response) => {
         console.log(" Clases recibidas antes del filtro:", response); // Debug
-  
-        //  Filtrar solo las clases que NO tengan `ubicacion`
-        this.clases = response.filter(clase => !clase.ubicacion);
 
-        console.log("Clases filtradas (sin eventos):", this.clases); // Debug
+        const ahora = new Date();
+        this.dateClass = ahora.toLocaleDateString('es-ES');
 
         if (response) {
           this.clases = response;
-
           this.clases.map(clase => {
             this.obtenerNombreEntrenador(clase.entrenador);
           });
         } else {
           console.error("Error: No se pudieron obtener las clases.");
         }
+
+        this.clases = response.filter(clase => {
+          const fechaClase = new Date(clase.fecha);
+          const fechaHoy = new Date();
+          return fechaClase.setHours(0, 0, 0, 0) > fechaHoy.setHours(0, 0, 0, 0);
+        });
+
+        console.log("Clases filtradas correctamente:", this.clases);
       },
       (error) => {
         console.error("Error al obtener las clases:", error);
@@ -80,10 +86,10 @@ export class ClassesComponent {
       try {
         const userObject: Usuarios = JSON.parse(storedUserData);
         this.userId = userObject.id ?? 0;
-  
+
         console.log(" Usuario autenticado:", userObject);
         console.log(" ID del usuario autenticado:", this.userId);
-  
+
         this.clasesInscritas = userObject.clasesApuntadas ?? [];
       } catch (error) {
         console.error(" Error al parsear `userData` desde localStorage:", error);
@@ -94,7 +100,7 @@ export class ClassesComponent {
   }
 
   // Inscribir al usuario en una clase
-  public inscribirseEnClase(evento: {claseId: number, accion: 'inscribir' | 'anular'}) {
+  public inscribirseEnClase(evento: { claseId: number, accion: 'inscribir' | 'anular' }) {
     if (!this.userId) return;
 
     const clase = this.clases.find(clase => clase.id === evento.claseId);
@@ -106,7 +112,7 @@ export class ClassesComponent {
           this.clasesInscritas.push(evento.claseId);
           if (!clase.usuariosApuntados) clase.usuariosApuntados = [];
           clase.usuariosApuntados.push(this.userId.toString());
-          
+
           // Actualizar userData en localStorage
           const userData = JSON.parse(localStorage.getItem('userData') || '{}');
           userData.clasesApuntadas = this.clasesInscritas;
@@ -119,40 +125,40 @@ export class ClassesComponent {
       if (clase.usuariosApuntados) {
         clase.usuariosApuntados = clase.usuariosApuntados.filter(id => id !== this.userId.toString());
       };
+    }
   }
-}
-isTraineroAdmin(): boolean {
-  const userRole = localStorage.getItem('userType');
-  if (userRole === "entrenador" || userRole === "admin") {
-    return true;
+  isTraineroAdmin(): boolean {
+    const userRole = localStorage.getItem('userType');
+    if (userRole === "entrenador" || userRole === "admin") {
+      return true;
+    }
+    return false;
   }
-  return false;
-}
 
-// Añadir este método para manejar el evento de eliminar desde card-classes
-onDeleteClase(claseId: number) {
-  this.claseToDelete = this.clases.find(clase => clase.id === claseId) || null;
-  this.showConfirmModal = true;
-}
-
-// Método para confirmar eliminación
-confirmarEliminacion() {
-  if (this.claseToDelete?.id) {
-    this.service.deleteClases(this.claseToDelete.id).subscribe(
-      () => {
-        this.clases = this.clases.filter(clase => clase.id !== this.claseToDelete?.id);
-        alert('Clase eliminada correctamente');
-        this.showConfirmModal = false;
-        this.claseToDelete = null;
-      },
-      error => console.error("Error al eliminar la clase:", error)
-    );
+  // Añadir este método para manejar el evento de eliminar desde card-classes
+  onDeleteClase(claseId: number) {
+    this.claseToDelete = this.clases.find(clase => clase.id === claseId) || null;
+    this.showConfirmModal = true;
   }
-}
 
-// Método para cancelar eliminación
-cancelarEliminacion() {
-  this.showConfirmModal = false;
-  this.claseToDelete = null;
-}
+  // Método para confirmar eliminación
+  confirmarEliminacion() {
+    if (this.claseToDelete?.id) {
+      this.service.deleteClases(this.claseToDelete.id).subscribe(
+        () => {
+          this.clases = this.clases.filter(clase => clase.id !== this.claseToDelete?.id);
+          alert('Clase eliminada correctamente');
+          this.showConfirmModal = false;
+          this.claseToDelete = null;
+        },
+        error => console.error("Error al eliminar la clase:", error)
+      );
+    }
+  }
+
+  // Método para cancelar eliminación
+  cancelarEliminacion() {
+    this.showConfirmModal = false;
+    this.claseToDelete = null;
+  }
 }
