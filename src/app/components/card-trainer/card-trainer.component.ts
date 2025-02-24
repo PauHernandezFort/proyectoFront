@@ -13,6 +13,7 @@ import { Usuarios } from '../../models/user.interface';
 export class CardTrainerComponent {
   @Input() user!: Usuarios;
   @Input() isLoading: boolean = false;
+  @Input() photo: string = "";
   @Output() onDelete = new EventEmitter<number>();
 
   deleteUser() {

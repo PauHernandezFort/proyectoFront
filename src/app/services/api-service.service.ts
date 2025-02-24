@@ -41,6 +41,7 @@ export class ApiService {
 
     return this.http.post<any>(this.apiPupilPhoto, body, { headers });
   }
+  
   // Crear usuario (pupil)
   createPupil(userData: Usuarios): Observable<Usuarios> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/ld+json' });
@@ -147,14 +148,14 @@ export class ApiService {
   getCurrentUser(): Observable<Pupils | null> {
     const userId = localStorage.getItem('userId'); // Recupera el ID del usuario
     if (!userId) {
-      console.warn("⚠ No hay ID de usuario en LocalStorage, redirigiendo a login.");
+      console.warn("No hay ID de usuario en LocalStorage, redirigiendo a login.");
       return throwError(() => new Error("No hay usuario autenticado."));
     }
 
     return this.http.get<Pupils>(`http://52.2.202.15/api/usuarios/${userId}`).pipe(
-      tap(response => console.log(" Usuario autenticado recibido:", response)), // Debug
+      tap(response => console.log("✅ Usuario autenticado recibido:", response)), // Debug
       catchError(error => {
-        console.error(" Error al obtener los datos del usuario:", error);
+        console.error("🚨 Error al obtener los datos del usuario:", error);
         return throwError(() => new Error("No se pudo cargar el usuario."));
       })
     );
@@ -169,21 +170,21 @@ export class ApiService {
       'Content-Type': 'application/merge-patch+json'
     });
 
-    //  Agregar el usuario a la lista de `usuariosApuntados` en la clase
+    // 🔹 1️⃣ Agregar el usuario a la lista de `usuariosApuntados` en la clase
     const actualizarClase = this.http.patch(claseUrl, {
       usuariosApuntados: [`/api/usuarios/${userId}`]
     }, { headers });
 
-    //  Agregar la clase a la lista de `clasesApuntadas` en el usuario
+    // 🔹 2️⃣ Agregar la clase a la lista de `clasesApuntadas` en el usuario
     const actualizarUsuario = this.http.patch(usuarioUrl, {
       clasesApuntadas: [`/api/clases/${claseId}`]
     }, { headers });
 
     return actualizarClase.pipe(
       switchMap(() => actualizarUsuario), // 🔹 Primero actualiza la clase, luego el usuario
-      tap(() => console.log(` Usuario ${userId} inscrito en la clase ${claseId}`)),
+      tap(() => console.log(`✅ Usuario ${userId} inscrito en la clase ${claseId}`)),
       catchError(error => {
-        console.error(" Error al inscribirse en la clase:", error);
+        console.error("🚨 Error al inscribirse en la clase:", error);
         return throwError(() => new Error("No se pudo inscribir en la clase."));
       })
     );

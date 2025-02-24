@@ -1,10 +1,7 @@
 <div class="card h-100 shadow-sm">
   <div class="card-header bg-transparent text-center border-0 pt-3">
-    <img [src]="user.fotoPerfil || '../../../../public/images/perfil.jpg'" 
-         class="rounded-circle" 
-         width="100" 
-         height="100"
-         alt="Foto de perfil">
+    <img [src]="photo || '../../../../public/images/perfil.jpg'" class="rounded-circle" width="100" height="100"
+      alt="Foto de perfil">
   </div>
   <div class="card-body text-center">
     <h5 class="card-title">{{ user.nombre }} {{ user.apellido }}</h5>
@@ -21,19 +18,16 @@
   </div>
   <div class="card-footer bg-transparent border-0 text-center pb-3">
     <div class="btn-group" role="group">
-      <button class="btn btn-danger btn-sm" 
-              (click)="deleteUser()"
-              [disabled]="isLoading"> 
+      <button class="btn btn-danger btn-sm" (click)="deleteUser()" [disabled]="isLoading">
         @if (isLoading) {
-          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
         } @else {
-          <i class="bi bi-trash"></i>
+        <i class="bi bi-trash"></i>
         }
       </button>
-      <button class="btn btn-primary btn-sm" 
-              [routerLink]="['/editTrainer', user.id]">
+      <button class="btn btn-primary btn-sm" [routerLink]="['/editTrainer', user.id]">
         <i class="bi bi-pencil"></i>
       </button>
     </div>
   </div>
-</div> 
+</div>

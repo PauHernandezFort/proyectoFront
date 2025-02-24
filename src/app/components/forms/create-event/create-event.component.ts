@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api-service.service';
-import { HttpHeaders } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { Clases, Usuarios } from '../../../models/user.interface';
 
@@ -13,6 +12,15 @@ import { Clases, Usuarios } from '../../../models/user.interface';
   styleUrl: './create-event.component.css'
 })
 export class CreateEventComponent {
+  public nombreEntrenador: string = '';
+  public ubicaciones: string[] = [];
+  public mostrarClasesDisponibles: boolean = false;
+  public eventosDisponibles: Clases[] = [];
+  public actividades: string = "";
+  public estadosClase: string[] = ['activa', 'inactiva'];
+  loading = false;
+  public urlIdUser: string | undefined = undefined;
+  public nameClass: string = "";
   constructor(public apiService: ApiService, private router: Router) { }
 
   createEvent = new FormGroup({
@@ -53,13 +61,6 @@ export class CreateEventComponent {
     }
   }
 
-  public nombreEntrenador: string = '';
-  public ubicaciones: string[] = [];
-  public mostrarClasesDisponibles: boolean = false;
-  public eventosDisponibles: Clases[] = [];
-  public actividades: string = "";
-  public estadosClase: string[] = ['activa', 'inactiva'];
-  loading = false;
   ngOnInit(): void {
     this.getResponseClass();
   }
@@ -142,8 +143,6 @@ export class CreateEventComponent {
     });
 
   }
-  public urlIdUser: string | undefined = undefined;
-  public nameClass: string = "";
 
   public getResponsePupilsById(): void {
     if (this.urlIdUser !== undefined) {

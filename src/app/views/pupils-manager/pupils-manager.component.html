@@ -19,6 +19,7 @@
                 <div class="col-12 col-sm-6 col-lg-4">
                     <app-card-trainer
                         [user]="trainer"
+                        [photo]="photo"
                         [isLoading]="isLoading(trainer.id!.toString())"
                         (onDelete)="deleteTrainer($event.toString())">
                     </app-card-trainer>

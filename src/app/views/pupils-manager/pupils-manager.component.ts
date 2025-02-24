@@ -20,6 +20,7 @@ export class PupilsManagerComponent {
   public id: number = 0;
   public showModal: boolean = false;
   public selectedTrainerId: string | null = null;
+  photo: string = "";
 
   constructor(public service: ApiService) { }
 
@@ -33,6 +34,7 @@ export class PupilsManagerComponent {
         response.forEach((member) => {
           if (member.rol === "entrenador") {
             this.trainers.push(member);
+            this.photo = `http://52.2.202.15${member.fotoPerfil}`
           }
         });
         console.log(this.trainers);
