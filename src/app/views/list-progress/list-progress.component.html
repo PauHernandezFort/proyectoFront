@@ -9,13 +9,10 @@
                     [description]="progress.descripcion" 
                     [dateProgress]="dateProgress"
                     [namePupil]="namePupil" 
-                    [photo]="progress.archivo">
+                    [photo]="progress.archivo"
+                    [progressId]="progress.id"
+                    (onDelete)="openDeleteModal($event)">
                 </app-cards-progress>
-                <div class="card-footer text-center">
-                    <button class="btn btn-danger" (click)="openDeleteModal(progress.id!)" >
-                        <i class="bi bi-trash"></i> Eliminar
-                    </button>
-                </div>
             </div>
         </div>
         }

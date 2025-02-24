@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-list-progress',
   standalone: true,
-  imports: [RouterLink, CardsProgressComponent, ConfirmModalComponent, CommonModule],
+  imports: [ CardsProgressComponent, ConfirmModalComponent, CommonModule],
   templateUrl: './list-progress.component.html',
   styleUrl: './list-progress.component.css'
 })

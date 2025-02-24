@@ -28,7 +28,7 @@
   margin-bottom: 10px;
 }
 
-.card-body i {
+.card-body .bi-people,.bi-person, .bi-calendar,.bi-check-circle {
   margin-right: 10px;
   color: #007bff;
 }
@@ -46,10 +46,19 @@
 .btn-extra-small i {
   color: white ;
 }
+.btn-group .btn {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
 
 .btn-danger {
-  background-color: #dc3545 ;
-  border-color: #dc3545;
+  background-color: #dc3545;
+  border: none;
 }
 
 .btn-danger:hover {
