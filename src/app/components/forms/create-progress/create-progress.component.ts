@@ -14,16 +14,18 @@ export class CreateProgressComponent implements OnInit {
   photosUploaded: number = 0;
   targetPhotos: number = 10; // Objetivo de fotos a subir
   progressPercentage: number = 0;
-  public members: Member[] = [];
-  public photo: string = "";
+  members: Member[] = [];
+  photo: string = "";
   selectedFile: File | null = null;
+  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  id: string = "";
 
   constructor(public service: ApiService, private router: Router) { }
 
   createProgress = new FormGroup({
     date: new FormControl(new Date(), { nonNullable: true }),
     comentarios: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    photo: new FormControl('', { nonNullable: true }),
+    photoProgress: new FormControl('', { nonNullable: true }),
     idMember: new FormControl('', { nonNullable: true })
   });
 
@@ -46,7 +48,7 @@ export class CreateProgressComponent implements OnInit {
         fecha: this.createProgress.getRawValue().date,
         descripcion: this.createProgress.getRawValue().comentarios,
         idMiembro: `/api/usuarios/${this.createProgress.getRawValue().idMember}`,
-        archivo: this.createProgress.getRawValue().photo,
+        archivo: this.createProgress.getRawValue().photoProgress,
       };
       console.log(dataProgress.archivo);
       this.postResponseProgress(dataProgress);
@@ -65,11 +67,36 @@ export class CreateProgressComponent implements OnInit {
     );
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file) {
-      this.selectedFile = file;
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.photo = reader.result as string;
+        this.createProgress.patchValue({ photoProgress: this.photo });
+
+        const imageData = {
+          id: Number(this.id),
+          fotoPerfil: this.photo,
+        };
+
+        this.imageData = imageData;
+        this.updateUserPhoto(this.imageData);
+      };
+      reader.readAsDataURL(file);
     }
+  }
+
+  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
+    this.service.updatePhotoUser(imageData).subscribe(
+      (response) => {
+        console.log(response.ruta);
+      },
+      (error) => {
+        console.error('Error al actualizar la foto de perfil:', error);
+        alert('Error al actualizar la foto de perfil');
+      }
+    );
   }
 
   updateProgress(): void {
