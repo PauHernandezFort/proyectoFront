@@ -14,49 +14,27 @@ import { NgClass } from '@angular/common';
 export class EditUserComponent implements OnInit {
   id: string = "";
   photo: string | null = "";
-  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
+  imageData: { id: number, imagen: string } = { id: 0, imagen: "" };
   showNewPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
   editForm = new FormGroup({
-    name: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)]
-    }),
-    surname: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(2)]
-    }),
-    phone: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.pattern('[0-9]{9}')]
-    }),
-    email: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email]
-    }),
-    newPassword: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(5)]
-    }),
-    confirmPassword: new FormControl('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.minLength(5)]
-    }),
+    name: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
+    surname: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),
+    phone: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.pattern('[0-9]{9}')] }),
+    email: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.email] }),
+    newPassword: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(5)] }),
+    confirmPassword: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(5)] }),
     fotoPerfil: new FormControl('', { nonNullable: true })
   });
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private apiService: ApiService
-  ) { }
+  constructor(private router: Router, private route: ActivatedRoute, private apiService: ApiService) { }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
     this.loadUserData();
   }
-  
+
   togglePasswordVisibility(field: string): void {
     if (field === 'new') {
       this.showNewPassword = !this.showNewPassword;
@@ -72,7 +50,7 @@ export class EditUserComponent implements OnInit {
           this.editForm.patchValue({
             name: response.nombre,
             surname: response.apellido,
-            phone: response.telefono?.toString(),
+            phone: response.telefono?.toString() || '',
             email: response.email,
             newPassword: '',
           });
@@ -95,22 +73,21 @@ export class EditUserComponent implements OnInit {
         this.photo = reader.result as string;
         this.editForm.patchValue({ fotoPerfil: this.photo });
 
-        const imageData = {
+        this.imageData = {
           id: Number(this.id),
-          fotoPerfil: this.photo,
+          imagen: this.photo
         };
 
-        this.imageData = imageData;
         this.updateUserPhoto(this.imageData);
       };
       reader.readAsDataURL(file);
     }
   }
 
-  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
+  updateUserPhoto(imageData: { id: number; imagen: string }): void {
     this.apiService.updatePhotoUser(imageData).subscribe(
       (response) => {
-        console.log(response.ruta);
+        console.log('Imagen actualizada correctamente:', response.ruta);
       },
       (error) => {
         console.error('Error al actualizar la foto de perfil:', error);
@@ -120,21 +97,24 @@ export class EditUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.editForm.getRawValue().newPassword === this.editForm.getRawValue().confirmPassword) {
+    const formValues = this.editForm.getRawValue();
+
+    if (formValues.newPassword === formValues.confirmPassword) {
       const userData: Usuarios = {
-        nombre: this.editForm.getRawValue().name,
-        apellido: this.editForm.getRawValue().surname,
-        telefono: Number(this.editForm.getRawValue().phone),
-        email: this.editForm.getRawValue().email,
-        password: this.editForm.getRawValue().newPassword,
+        nombre: formValues.name,
+        apellido: formValues.surname,
+        telefono: Number(formValues.phone),
+        email: formValues.email,
+        password: formValues.newPassword,
       };
+
       this.updatePupils(userData);
     } else {
       alert('Las contraseñas no coinciden');
     }
   }
 
-  public updatePupils(userData: Usuarios): void {
+  updatePupils(userData: Usuarios): void {
     this.apiService.updatePupils(Number(this.id), userData).subscribe(
       () => {
         alert('Usuario actualizado correctamente');
