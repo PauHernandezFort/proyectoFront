@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../services/api-service.service';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router, RouterLink } from '@angular/router';
 import { Clases, Usuarios } from '../../../models/user.interface';
 
@@ -19,12 +19,12 @@ export class CreateClassComponent implements OnInit {
       nonNullable: true,
       validators: [Validators.required]
     }),
-    idEntrenador: new FormControl('/api/entrenadors/1', { nonNullable: true }),
+    idEntrenador: new FormControl('', { nonNullable: true }),
     capacidad: new FormControl<number>(1, {
       nonNullable: true,
       validators: [Validators.required, Validators.min(1), Validators.max(35)]
     }),
-    estado: new FormControl('', {
+    estado: new FormControl('activa', {
       nonNullable: true,
       validators: [Validators.required]
     }),
@@ -52,6 +52,7 @@ export class CreateClassComponent implements OnInit {
   ngOnInit(): void {
     this.getResponseClass();
     this.cargarClasesDisponibles();
+    this.cargarDatosEntrenador();
   } 
 
   public listClass: Clases[] = [];
@@ -65,7 +66,6 @@ export class CreateClassComponent implements OnInit {
             this.urlIdUser = clase.entrenador;
             console.log('ID del entrenador:', this.urlIdUser);
             this.dateClass = new Date(clase.fecha).toLocaleDateString('es-ES');
-            this.obtenerNombreEntrenador(clase.entrenador);
           });
           this.getResponsePupilsById();
         } else {
@@ -107,32 +107,39 @@ export class CreateClassComponent implements OnInit {
 
     this.loading = true;
     const formValues = this.createClass.getRawValue();
+    
+    const fecha = new Date(formValues.fecha);
+    fecha.setMinutes(fecha.getMinutes() - fecha.getTimezoneOffset());
+
+    console.log('Form values:', formValues);
+
     const nuevaClase: Clases = {
       nombre: formValues.nombre,
       descripcion: formValues.descripcion,
-      fecha: new Date(formValues.fecha),
+      fecha: fecha,
       capacidad: formValues.capacidad,
       estado: formValues.estado,
-      entrenador: '/api/usuarios/1',
+      entrenador: formValues.idEntrenador,
       usuariosApuntados: []
     };
 
-    if (this.apiService.createClass(nuevaClase)) {
-      this.apiService.createClass(nuevaClase).subscribe((response) => {
-        if (response) {
-          alert('Clase creada exitosamente');
-          this.router.navigate(['/classesPupils']);
-        } else {
-          console.error('Error: Respuesta vacía o no válida.');
-          alert('Error al crear la clase');
-        }
-        this.loading = false;
-      });
-    } else {
-      console.error('Error al crear la clase');
-      alert('Error al crear la clase');
-      this.loading = false;
-    }
+    console.log('Nueva clase a crear:', nuevaClase);
+
+   this.loading = true;
+
+this.apiService.createClass(nuevaClase).subscribe((response: any) => {
+  if (response) {
+    console.log('Respuesta exitosa:', response);
+    alert('Clase creada exitosamente');
+    this.router.navigate(['/classesPupils']);
+  } else {
+    console.error('Error: Respuesta vacía o nula');
+    alert('Error: No se pudo crear la clase');
+  }
+
+  this.loading = false;
+});
+
   }
   public urlIdUser: string | undefined = undefined;
   public nameClass: string = "";
@@ -142,21 +149,6 @@ export class CreateClassComponent implements OnInit {
       this.apiService.getUser(this.urlIdUser).subscribe((usuario: Usuarios) => {
         this.nameClass = usuario.nombre;
       });
-    }
-  }
-
-  private obtenerNombreEntrenador(idEntrenador: string): void {
-    if (this.apiService.getUser(idEntrenador)) {
-      this.apiService.getUser(idEntrenador).subscribe((entrenador) => {
-        if (entrenador) {
-          this.nombreEntrenador = `${entrenador.nombre} ${entrenador.apellido}`;
-          console.log('Nombre del entrenador:', this.nombreEntrenador);
-        } else {
-          console.log('No se encontró el entrenador');
-        }
-      });
-    } else {
-      console.error('Error al obtener el entrenador');
     }
   }
 
@@ -174,6 +166,20 @@ export class CreateClassComponent implements OnInit {
     } else {
       console.error('Error al cargar las clases');
       this.clasesDisponibles = [];
+    }
+  }
+
+  private cargarDatosEntrenador() {
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      const user = JSON.parse(userData);
+      this.nombreEntrenador = `${user.nombre} ${user.apellido}`;
+      
+      if (user.id) {
+        this.createClass.patchValue({
+          idEntrenador: `/api/usuarios/${user.id}`
+        });
+      }
     }
   }
 }

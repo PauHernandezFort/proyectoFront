@@ -64,26 +64,28 @@ export class PupilsComponent implements OnInit {
   }
 
   public confirmDelete(): void {
-    if (!this.selectedPupilId) return;
+    if (this.selectedPupilId) {
+      const id = this.selectedPupilId;
+      this.loading[id] = true;
 
-    const id = this.selectedPupilId;
-    this.loading[id] = true;
-
-    this.service.deletePupils(id).subscribe({
-      next: () => {
-        this.members = this.members.filter(member => member.id !== id);
-        alert('Alumno eliminado correctamente');
-        this.showModal = false;
-        this.selectedPupilId = null;
-      },
-      error: (error) => {
-        console.error('Error al eliminar el alumno:', error);
-        alert('Error al eliminar el alumno');
-      },
-      complete: () => {
-        this.loading[id] = false;
-      }
-    });
+      this.service.deletePupils(id).subscribe(
+        () => {
+          this.members = this.members.filter(member => member.id !== id);
+          alert('Alumno eliminado correctamente');
+          this.showModal = false;
+          this.selectedPupilId = null;
+          this.loading[id] = false;
+        },
+        error => {
+          console.error('Error al eliminar el alumno:', error);
+          alert('Error al eliminar el alumno');
+          this.loading[id] = false;
+        }
+      );
+    } else {
+      console.error('No se encontró el ID del alumno a eliminar');
+      alert('Error: No se pudo eliminar el alumno');
+    }
   }
 
 
