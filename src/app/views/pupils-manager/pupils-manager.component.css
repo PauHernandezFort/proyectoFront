@@ -1,6 +1,8 @@
 /* Estilos generales */
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
 }
 
 /* Estilos del botón principal */
