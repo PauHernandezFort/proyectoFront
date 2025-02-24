@@ -17,7 +17,7 @@ export class PupilsComponent implements OnInit {
   loading: { [key: number]: boolean } = {};
   members: Member[] = [];
   id: number = 0;
-  photo: string = "";
+  public photo: string = "https://static.vecteezy.com/system/resources/previews/007/409/979/non_2x/people-icon-design-avatar-icon-person-icons-people-icons-are-set-in-trendy-flat-style-user-icon-set-vector.jpg";
   pupil: { [key: string]: any } = {};
   showModal: boolean = false;
   selectedPupilId: number | null = null;
@@ -30,8 +30,6 @@ export class PupilsComponent implements OnInit {
         response.map((member) => {
           if (member.rol !== "entrenador") {
             this.members.push(member);
-            this.photo = `http://52.2.202.15${member.fotoPerfil}`
-            console.log(this.photo);
           }
         });
         console.log(this.members);

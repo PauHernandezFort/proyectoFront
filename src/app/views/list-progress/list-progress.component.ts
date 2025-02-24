@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiService } from '../../services/api-service.service';
 import { Progreso, Usuarios } from '../../models/user.interface';
-import { RouterLink } from '@angular/router';
 import { CardsProgressComponent } from '../../components/cards-progress/cards-progress.component';
 import { ConfirmModalComponent } from '../../components/confirm-modal/confirm-modal.component';
 import { CommonModule } from '@angular/common';
@@ -18,6 +17,7 @@ export class ListProgressComponent {
   public dateProgress: string = "";
   public namePupil: string = "";
   public urlIdUser: string | undefined = undefined;
+  public photo = "https://cdn.pixabay.com/photo/2017/01/09/14/43/dumbbell-1966704_1280.jpg"
   
   // Variables para el modal
   showDeleteModal = false;

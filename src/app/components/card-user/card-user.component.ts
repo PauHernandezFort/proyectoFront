@@ -12,7 +12,7 @@ import { Usuarios } from '../../models/user.interface';
 })
 export class CardUserComponent {
   @Input() user!: Usuarios;
-  @Input() photo: string = "";
+  @Input() photo: string = "url('https://frutasolivar.com/wp-content/uploads/2019/02/rawpixel-603025-unsplash-e1579691765526.jpg')";
   @Input() isLoading: boolean = false;
   @Input() userType: 'alumno' | 'entrenador' = 'alumno';
   @Output() onDelete = new EventEmitter<number>();
