@@ -5,22 +5,6 @@
         </div>
 
         <!-- Barra de Progreso -->
-        <div class="progress-stats">
-            <h3>Historial de Progreso</h3>
-            <div class="progress-bar-container">
-                <div class="progress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-                        [style.width]="progressPercentage + '%'" [attr.aria-valuenow]="progressPercentage"
-                        aria-valuemin="0" aria-valuemax="100">
-                        {{progressPercentage}}%
-                    </div>
-                </div>
-                <div class="progress-info">
-                    <span>Fotos subidas: {{photosUploaded}}</span>
-                    <span>Objetivo: {{targetPhotos}} fotos</span>
-                </div>
-            </div>
-        </div>
 
         <form [formGroup]="createProgress" (ngSubmit)="onSubmit()" class="progress-form">
             <div class="metrics-grid">
@@ -41,15 +25,7 @@
                     </p>
                 </div>
 
-                <div class="metric-card">
-                    <div class="metric-header">
-                        <i class="bi bi-camera metric-icon"></i>
-                        <label for="fotoProgreso" class="form-label">Foto del Progreso</label>
-                    </div>
-                    <input type="file" (change)="onFileSelected($event)" class="form-control" id="fotoProgreso"
-                        name="fotoProgreso" required aria-required="true" aria-describedby="fotoProgreso-ayuda">
-                    <p id="fotoProgreso-ayuda" class="visually-hidden">Por favor, sube una foto del progreso.</p>
-                </div>
+               
             </div>
 
             <div class="metric-card">
