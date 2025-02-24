@@ -1,22 +1,18 @@
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-end mb-3">
         <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/crearAlumno">
-          <i class="bi bi-calendar-plus"></i> <span>Crear Alumno</span>
+            <i class="bi bi-calendar-plus"></i> <span>Crear Alumno</span>
         </button>
-      </div>
-      <div class="d-flex justify-content-center align-items-center mb-4">
+    </div>
+    <div class="d-flex justify-content-center align-items-center mb-4">
         <h2 class="mb-4">Alumnos Disponibles</h2>
-      </div>
+    </div>
 
     @if(members.length > 0) {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         @for (member of members; track member) {
-        <div class="col">
-            <app-card-user
-                [user]="member"
-                [isLoading]="isLoading(member.id!)"
-                userType="alumno"
-                [photo]="photo"
+        <div class="col-12 col-sm-6 col-lg-4">
+            <app-card-user [user]="member" [isLoading]="isLoading(member.id!)" userType="alumno" [photo]="photo"
                 (onDelete)="deletePupils($event)">
             </app-card-user>
         </div>
@@ -30,10 +26,7 @@
     }
 </div>
 
-<app-confirm-modal
-    [isOpen]="showModal"
-    title="Confirmar eliminación"
-    message="¿Estás seguro de que deseas eliminar este alumno?"
-    (onConfirm)="confirmDelete()"
+<app-confirm-modal [isOpen]="showModal" title="Confirmar eliminación"
+    message="¿Estás seguro de que deseas eliminar este alumno?" (onConfirm)="confirmDelete()"
     (onCancel)="CancelDelete()">
 </app-confirm-modal>

@@ -5,42 +5,35 @@
             <i class="bi bi-plus"></i> Crear Entrenador
         </button>
     </div>
-    
+
     <div class="d-flex justify-content-center align-items-center mb-4">
         <h2 class="mb-4">Entrenadores Disponibles</h2>
-      </div>
-    
+    </div>
+
 
     @if(trainers.length > 0) {
-        <!-- Grid responsive de cards -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <!-- Una columna en móvil, dos en tablet, tres en desktop -->
-            @for (trainer of trainers; track trainer.id) {
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <app-card-trainer
-                        [user]="trainer"
-                        [photo]="photo"
-                        [isLoading]="isLoading(trainer.id!.toString())"
-                        (onDelete)="deleteTrainer($event.toString())">
-                    </app-card-trainer>
-                </div>
-            }
+    <!-- Grid responsive de cards -->
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <!-- Una columna en móvil, dos en tablet, tres en desktop -->
+        @for (trainer of trainers; track trainer.id) {
+        <div class="col-12 col-sm-6 col-lg-4">
+            <app-card-trainer [user]="trainer" [photo]="photo" [isLoading]="isLoading(trainer.id!.toString())"
+                (onDelete)="deleteTrainer($event.toString())">
+            </app-card-trainer>
         </div>
+        }
+    </div>
     } @else {
-        <!-- Mensaje cuando no hay entrenadores -->
-        <div class="alert alert-warning text-center p-4 shadow-sm">
-            <i class="bi bi-exclamation-circle-fill fs-4"></i>
-            <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
-        </div>
+    <!-- Mensaje cuando no hay entrenadores -->
+    <div class="alert alert-warning text-center p-4 shadow-sm">
+        <i class="bi bi-exclamation-circle-fill fs-4"></i>
+        <p class="mt-2 mb-0">No hay entrenadores disponibles en este momento.</p>
+    </div>
     }
 </div>
 
 <!-- Modal de confirmación -->
-<app-confirm-modal
-    [isOpen]="showModal"
-    title="Confirmar eliminación"
-    message="¿Estás seguro de que deseas eliminar este entrenador?"
-    (onConfirm)="confirmDelete()"
+<app-confirm-modal [isOpen]="showModal" title="Confirmar eliminación"
+    message="¿Estás seguro de que deseas eliminar este entrenador?" (onConfirm)="confirmDelete()"
     (onCancel)="CancelDelete()">
 </app-confirm-modal>
-
