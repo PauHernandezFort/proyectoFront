@@ -1,6 +1,7 @@
 .header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+  
 }
 
 .rounded-pill {
@@ -86,4 +87,31 @@
     .navbar-nav .nav-item {
         padding: 10px 0;
     }
+}
+
+.language-selector .btn-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.language-selector .btn-link:hover {
+  color: #ffc107;
+}
+
+.language-selector .dropdown-menu {
+  min-width: 5rem;
+  background-color: #0c0c0c;
+}
+
+.language-selector .dropdown-item {
+  color: white;
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.language-selector .dropdown-item:hover {
+  background-color: #ffc107;
+  color: black;
 }

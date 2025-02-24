@@ -1,24 +1,40 @@
 <div class="container mt-5">
+  <div class="d-flex justify-content-end mb-3">
+    @if(isTraineroAdmin()){
+    <button class="btn btn-primary d-flex align-items-center gap-2" routerLink="/classesMister">
+      <i class="bi bi-check2-square"></i> Crear Clase
+    </button>
+    }
+  </div>
   <div class="d-flex justify-content-center mb-5">
     <h2>Clases Disponibles</h2>
   </div>
 
   @if (clases.length > 0) {
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-      @for (clase of clases; track clase.id) {
-        <div class="col">
-          <app-card-classes
-            [clase]="clase"
-            [isInscrito]="clasesInscritas.includes(clase.id ?? 0)"
-            (onInscribirse)="inscribirseEnClase($event)">
-          </app-card-classes>
-        </div>
-      }
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+    @for (clase of clases; track clase.id) {
+    <div class="col">
+      <app-card-classes [clase]="clase" [nombreEntrenador]="nombresEntrenadores[clase.entrenador]"
+      [isInscrito]="clasesInscritas.includes(clase.id!)" (onInscribirse)="inscribirseEnClase($event)"
+      (onDelete)="onDeleteClase($event)">
+    </app-card-classes>
+    
     </div>
+    }
+  </div>
   } @else {
-    <div class="alert alert-warning text-center p-4 shadow-sm">
-      <i class="bi bi-exclamation-circle-fill fs-4"></i>
-      <p class="mt-2 mb-0">No hay clases disponibles en este momento</p>
-    </div>
+  <div class="alert alert-warning text-center p-4 shadow-sm">
+    <i class="bi bi-exclamation-circle-fill fs-4"></i>
+    <p class="mt-2 mb-0">No hay clases disponibles en este momento</p>
+  </div>
   }
 </div>
+
+<!-- Añadir el modal de confirmación -->
+<app-confirm-modal
+  [isOpen]="showConfirmModal"
+  title="Eliminar Clase"
+  [message]="'¿Estás seguro de que deseas eliminar la clase ' + (claseToDelete?.nombre || '') + '?'"
+  (onConfirm)="confirmarEliminacion()"
+  (onCancel)="cancelarEliminacion()">
+</app-confirm-modal>

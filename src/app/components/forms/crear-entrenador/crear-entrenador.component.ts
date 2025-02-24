@@ -13,12 +13,22 @@ import { Usuarios } from '../../../models/user.interface';
   styleUrls: ['./crear-entrenador.component.css']
 })
 export class CrearEntrenadorComponent {
+  showNewPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
-   passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+  passwordsMatchValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
     const password = group.get('password')?.value;
     const confirmPassword = group.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordsDoNotMatch: true };
   };
+
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showNewPassword = !this.showNewPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
+  }
 
   createEntrenador = new FormGroup({
     nombre: new FormControl('', { nonNullable: true, validators: [Validators.required, Validators.minLength(2)] }),

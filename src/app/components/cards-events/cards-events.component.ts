@@ -14,13 +14,14 @@ export class CardsEventsComponent {
   @Input() ubicacion?: string = "";
   @Input() estado: string = '';
   @Input() id?: number;
-  @Output() data = new EventEmitter<{ id?: number, titulo: string, descripcion: string, capacidad: number, ubicacion?: string, fecha: string }>();
+  @Output() data = new EventEmitter<{ id?: number, titulo: string, descripcion: string, capacidad: number, estado: string, ubicacion?: string, fecha: string }>();
 
   onClick() {
     this.data.emit({
       id: this.id,
       titulo: this.titulo,
       descripcion: this.descripcion,
+      estado: this.estado,
       capacidad: this.capacidad,
       ubicacion: this.ubicacion,
       fecha: this.fecha,

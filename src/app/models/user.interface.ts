@@ -13,7 +13,7 @@ export interface Clases {
   fecha: Date;
   capacidad: number;
   estado: string;
-  idEntrenador: string;
+  entrenador: string;
   ubicacion?: string;
   usuariosApuntados: any[];
 }

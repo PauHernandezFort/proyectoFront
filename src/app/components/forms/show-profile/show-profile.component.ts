@@ -19,41 +19,16 @@ export class ShowProfileComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    // Recuperar los datos del usuario del localStorage
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       this.userData = JSON.parse(userDataString);
+      console.log('Datos del usuario cargados:', this.userData);
+    } else {
+      console.log('No hay datos de usuario en localStorage');
     }
-
-    // Inicializa el objeto pupils con las propiedades correctas
-    
-    // Ejemplo de cómo agregar un miembro
-
-    /*
-    const newMember: Member = {
-      "@id": "miembro_id_aqui",
-      "@type": "miembro_tipo_aqui",
-      id: 1,
-      nombre: "Nombre",
-      apellidos: "Apellido",
-      email: "email@ejemplo.com",
-      password: "tu_contraseña",
-      telefono: "123456789",
-      rol: "rol_aqui",
-      fecha_registro: new Date(),
-      progresos: [],
-      clases: [],
-      clases_apuntadas: [],
-      notificaciones: [],
-      fechaRegistro: new Date(),
-      clasesApuntadas: []
-    };
-
-    this.userData.member.push(newMember); // Agrega el nuevo miembro al array
-    */
   }
 
-  openImageModal(imageUrl: Usuarios, title: string) {
+  openImageModal(imageUrl: string, title: string) {
     this.selectedImage = {
       url: imageUrl,
       title: title,
@@ -66,21 +41,21 @@ export class ShowProfileComponent implements OnInit {
   }
 
   editProfile() {
-    if (localStorage.getItem('userType') === 'alumno') {
-      this.router.navigate(['/editUser', this.userData?.id]);
-    } else if (localStorage.getItem('userType') === 'entrenador') {
-    } this.router.navigate(['/editTrainer', this.userData?.id]);
+    const userType = localStorage.getItem('userType');
+    if (this.userData?.id) {
+      if (userType === 'alumno') {
+        this.router.navigate(['/editUser', this.userData.id]);
+      } else if (userType === 'entrenador') {
+        this.router.navigate(['/editTrainer', this.userData.id]);
+      }
+    }
   }
 
   cerrarSesion() {
-    // Eliminar datos de sesión
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
     localStorage.setItem('userType', 'invitado');
-
-    // Redirigir al home
     this.router.navigate(['/home']).then(() => {
-      // Recargar la página para que se actualice el header
       window.location.reload();
     });
   }
