@@ -152,9 +152,9 @@ export class ApiService {
     }
 
     return this.http.get<Pupils>(`http://52.2.202.15/api/usuarios/${userId}`).pipe(
-      tap(response => console.log("✅ Usuario autenticado recibido:", response)), // Debug
+      tap(response => console.log(" Usuario autenticado recibido:", response)), // Debug
       catchError(error => {
-        console.error("🚨 Error al obtener los datos del usuario:", error);
+        console.error(" Error al obtener los datos del usuario:", error);
         return throwError(() => new Error("No se pudo cargar el usuario."));
       })
     );
@@ -169,21 +169,21 @@ export class ApiService {
       'Content-Type': 'application/merge-patch+json'
     });
 
-    // 🔹 1️⃣ Agregar el usuario a la lista de `usuariosApuntados` en la clase
+    //  Agregar el usuario a la lista de `usuariosApuntados` en la clase
     const actualizarClase = this.http.patch(claseUrl, {
       usuariosApuntados: [`/api/usuarios/${userId}`]
     }, { headers });
 
-    // 🔹 2️⃣ Agregar la clase a la lista de `clasesApuntadas` en el usuario
+    //  Agregar la clase a la lista de `clasesApuntadas` en el usuario
     const actualizarUsuario = this.http.patch(usuarioUrl, {
       clasesApuntadas: [`/api/clases/${claseId}`]
     }, { headers });
 
     return actualizarClase.pipe(
       switchMap(() => actualizarUsuario), // 🔹 Primero actualiza la clase, luego el usuario
-      tap(() => console.log(`✅ Usuario ${userId} inscrito en la clase ${claseId}`)),
+      tap(() => console.log(` Usuario ${userId} inscrito en la clase ${claseId}`)),
       catchError(error => {
-        console.error("🚨 Error al inscribirse en la clase:", error);
+        console.error(" Error al inscribirse en la clase:", error);
         return throwError(() => new Error("No se pudo inscribir en la clase."));
       })
     );
@@ -218,7 +218,7 @@ export class ApiService {
   // Método para iniciar sesión
   loginPupil(credentials: { email: string; password: string }): Observable<any> {
     if (!credentials.email || !credentials.password) {
-      console.error("🚨 ERROR: El email o la contraseña están vacíos");
+      console.error(" ERROR: El email o la contraseña están vacíos");
       return throwError(() => new Error("El email y la contraseña son obligatorios."));
     }
 
@@ -232,16 +232,16 @@ export class ApiService {
       password: credentials.password
     };
 
-    console.log('📤 Enviando credenciales a la API:', formattedCredentials);
+    console.log(' Enviando credenciales a la API:', formattedCredentials);
 
     return this.http.post<any>(`${this.apiPupils}/login`, formattedCredentials, { headers }).pipe(
-      tap(response => console.log("🔑 Respuesta de la API:", response)),
+      tap(response => console.log(" Respuesta de la API:", response)),
       switchMap(response => {
         if (response.success) {
-          // ✅ **Segunda petición para obtener el usuario completo**
+          //  **Segunda petición para obtener el usuario completo**
           return this.http.get<Usuarios>(`${this.apiPupils}?email=${credentials.email}`, { headers }).pipe(
             tap(userResponse => {
-              console.log("✅ Usuario autenticado:", userResponse);
+              console.log(" Usuario autenticado:", userResponse);
 
               if (userResponse.id) {
                 // Guardar el ID en localStorage para futuras consultas
@@ -254,7 +254,7 @@ export class ApiService {
         }
       }),
       catchError((error) => {
-        console.error('🚨 Error en el inicio de sesión:', error);
+        console.error(' Error en el inicio de sesión:', error);
         return throwError(() => new Error(error.error?.error || 'Error en el servidor, intente nuevamente.'));
       })
     );
@@ -262,6 +262,31 @@ export class ApiService {
 
   deleteProgress(progressId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiProgress}/${progressId}`);
+  }
+
+  anularInscripcion(userId: string, claseId: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/merge-patch+json'
+    });
+
+    // Eliminar la clase de las clasesApuntadas del usuario
+    const actualizarUsuario = this.http.patch(`${this.apiPupils}/${userId}`, {
+      clasesApuntadas: []
+    }, { headers });
+
+    // Eliminar el usuario de los usuariosApuntados de la clase
+    const actualizarClase = this.http.patch(`${this.apiClass}/${claseId}`, {
+      usuariosApuntados: []
+    }, { headers });
+
+    return actualizarUsuario.pipe(
+      switchMap(() => actualizarClase),
+      tap(() => console.log(`Usuario ${userId} anulado de la clase ${claseId}`)),
+      catchError(error => {
+        console.error("Error al anular la inscripción:", error);
+        return throwError(() => new Error("No se pudo anular la inscripción."));
+      })
+    );
   }
 
 }
