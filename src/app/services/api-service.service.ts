@@ -35,10 +35,11 @@ export class ApiService {
     return this.http.get<Pupils>(`http://52.2.202.15${urlIdUser}`);
   }
 
-  updatePhotoUser(imageData: { id: number; imagen: string }): Observable<any> {
+  updatePhotoUser(imageData: { id: number; fotoPerfil: string }): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { imagen: imageData.fotoPerfil, id: imageData.id };
 
-    return this.http.post<any>(this.apiPupilPhoto, imageData, { headers });
+    return this.http.post<any>(this.apiPupilPhoto, body, { headers });
   }
   
   // Crear usuario (pupil)

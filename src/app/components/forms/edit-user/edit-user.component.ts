@@ -14,7 +14,7 @@ import { NgClass } from '@angular/common';
 export class EditUserComponent implements OnInit {
   id: string = "";
   photo: string | null = "";
-  imageData: { id: number, imagen: string } = { id: 0, imagen: "" };
+  imageData: { id: number, fotoPerfil: string } = { id: 0, fotoPerfil: "" };
   showNewPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
@@ -75,7 +75,7 @@ export class EditUserComponent implements OnInit {
 
         this.imageData = {
           id: Number(this.id),
-          imagen: this.photo
+          fotoPerfil: this.photo
         };
 
         this.updateUserPhoto(this.imageData);
@@ -84,7 +84,7 @@ export class EditUserComponent implements OnInit {
     }
   }
 
-  updateUserPhoto(imageData: { id: number; imagen: string }): void {
+  updateUserPhoto(imageData: { id: number; fotoPerfil: string }): void {
     this.apiService.updatePhotoUser(imageData).subscribe(
       (response) => {
         console.log('Imagen actualizada correctamente:', response.ruta);
