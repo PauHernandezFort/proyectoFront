@@ -1,6 +1,6 @@
 <div class="container py-5">
     @if (listProgress.length > 0) {
-    <h2 class="text-center mb-5 fw-bold">Lista de Progresos</h2>
+    <h2 class="text-center mb-5 mt-4">Lista de Progresos</h2>
     <div class="row g-4">
         @for (progress of listProgress; track progress; let i = $index;) {
         <div class="col-md-4 col-lg-4 mt-5">
@@ -9,7 +9,7 @@
                     [description]="progress.descripcion" 
                     [dateProgress]="dateProgress"
                     [namePupil]="namePupil" 
-                    [photo]="progress.archivo"
+                    [photo]="photo"
                     [progressId]="progress.id"
                     (onDelete)="openDeleteModal($event)">
                 </app-cards-progress>

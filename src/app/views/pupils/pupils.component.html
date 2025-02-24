@@ -10,7 +10,7 @@
 
     @if(members.length > 0) {
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-        @for (member of members; track member.id) {
+        @for (member of members; track member) {
         <div class="col">
             <app-card-user
                 [user]="member"
