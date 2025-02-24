@@ -20,7 +20,7 @@ export class PupilsManagerComponent {
   public id: number = 0;
   public showModal: boolean = false;
   public selectedTrainerId: string | null = null;
-  photo: string = "";
+  public photo: string = "https://static.vecteezy.com/system/resources/previews/007/409/979/non_2x/people-icon-design-avatar-icon-person-icons-people-icons-are-set-in-trendy-flat-style-user-icon-set-vector.jpg";
 
   constructor(public service: ApiService) { }
 
@@ -34,7 +34,6 @@ export class PupilsManagerComponent {
         response.forEach((member) => {
           if (member.rol === "entrenador") {
             this.trainers.push(member);
-            this.photo = `http://52.2.202.15${member.fotoPerfil}`
           }
         });
         console.log(this.trainers);
