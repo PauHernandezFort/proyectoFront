@@ -40,6 +40,7 @@ export class CalendarComponent implements OnInit {
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
+    console.log("📌 CalendarioView inicializado");
     this.loadUserData();
   }
 
@@ -47,49 +48,39 @@ export class CalendarComponent implements OnInit {
   loadUserData(): void {
     const storedUserData = localStorage.getItem('userData');
 
-    if (storedUserData) {
-      try {
-        const userObject: Usuarios = JSON.parse(storedUserData);
-        this.userId = userObject.id ?? 0;
-
-        console.log("📌 Usuario autenticado:", userObject);
-        console.log("📌 ID del usuario autenticado:", this.userId);
-
-        // 🔹 Verificamos si `clasesApuntadas` está vacío en `localStorage`
-        if (userObject.clasesApuntadas && userObject.clasesApuntadas.length > 0) {
-          this.clasesInscritas = userObject.clasesApuntadas;
-          console.log("✅ Clases inscritas desde localStorage:", this.clasesInscritas);
-          this.loadEvents();
-        } else {
-          console.warn("⚠ No hay clases inscritas en `localStorage`. Consultando API...");
-          this.fetchUpdatedUserData(); // 🔹 Pedimos datos actualizados desde la API
-        }
-      } catch (error) {
-        console.error("🚨 Error al parsear `userData` desde localStorage:", error);
-      }
-    } else {
+    if (!storedUserData) {
       console.warn("⚠ No hay usuario autenticado.");
+      return;
     }
-  }
 
-  // 🔹 Obtener usuario actualizado desde la API
-  fetchUpdatedUserData() {
-    this.apiService.getUser(`/api/usuarios/${this.userId}`).subscribe({
-      next: (user: Usuarios) => {
-        this.clasesInscritas = user.clasesApuntadas ?? [];
+    try {
+      const userObject: Usuarios = JSON.parse(storedUserData);
+      this.userId = userObject.id ?? 0;
 
-        if (this.clasesInscritas.length > 0) {
-          console.log("✅ Clases inscritas obtenidas desde API:", this.clasesInscritas);
-          this.loadEvents();
-        } else {
-          console.warn("⚠ El usuario no tiene clases inscritas en la API. Verificando `usuariosApuntados` en clases...");
-          this.fetchClassesByEnrolledUsers();
+      console.log("📌 Usuario autenticado:", userObject);
+      console.log("📌 ID del usuario autenticado:", this.userId);
+
+      // 🔹 Consultamos la API para obtener las clases inscritas del usuario
+      this.apiService.getUser(`/api/usuarios/${this.userId}`).subscribe({
+        next: (user: Usuarios) => {
+          this.clasesInscritas = (user.clasesApuntadas ?? []).map(this.extractIdFromUrl);
+
+          if (this.clasesInscritas.length > 0) {
+            console.log("✅ Clases inscritas obtenidas desde API:", this.clasesInscritas);
+            this.loadEvents();
+          } else {
+            console.warn("⚠ No hay clases inscritas en `clasesApuntadas`. Consultando `usuariosApuntados` en clases...");
+            this.fetchClassesByEnrolledUsers();
+          }
+        },
+        error: (error) => {
+          console.error("🚨 Error al obtener datos del usuario desde API:", error);
         }
-      },
-      error: (error) => {
-        console.error("🚨 Error al obtener datos actualizados del usuario:", error);
-      }
-    });
+      });
+
+    } catch (error) {
+      console.error("🚨 Error al parsear `userData` desde localStorage:", error);
+    }
   }
 
   // 🔹 Si `clasesApuntadas` está vacío, buscamos clases en las que el usuario esté en `usuariosApuntados`
@@ -113,6 +104,13 @@ export class CalendarComponent implements OnInit {
     });
   }
 
+  // 🔹 Extraer ID numérico de una URL del tipo `/api/clases/48` → `48`
+  extractIdFromUrl(url: string | number): number {
+    if (typeof url === 'number') return url; // ✅ Si ya es un número, devolverlo
+    const match = url.match(/\/api\/clases\/(\d+)/); // ✅ Extraer número de la URL
+    return match ? parseInt(match[1], 10) : 0;
+  }
+
   // 🔹 Cargar eventos en el calendario
   loadEvents() {
     if (this.userId === 0) {
@@ -123,10 +121,10 @@ export class CalendarComponent implements OnInit {
     this.apiService.getClases().subscribe({
       next: (clases: Clases[]) => {
         this.events = clases
-          .filter((clase) => this.clasesInscritas.includes(clase.id ?? 0)) // 🔹 Solo clases en las que está inscrito
+          .filter((clase) => this.clasesInscritas.includes(clase.id ?? 0)) // ✅ Comparamos con IDs numéricos
           .map((clase) => ({
             id: clase.id ?? `event-${clase.fecha}`, // ID único
-            title: clase.ubicacion ? clase.nombre : "Clase 1", // 🔹 Si no tiene `ubicacion`, siempre "Clase 1"
+            title: clase.ubicacion ? clase.nombre : "Clase 1", // ✅ Si no tiene `ubicacion`, siempre "Clase 1"
             start: new Date(clase.fecha), // Fecha de inicio
             end: new Date(clase.fecha), // Fecha de fin (mismo día)
             color: this.getColorByEstado(clase.estado),
