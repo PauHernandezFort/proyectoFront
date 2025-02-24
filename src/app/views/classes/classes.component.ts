@@ -36,7 +36,7 @@ export class ClassesComponent {
   public getResponseClasses(): void {
     this.service.getClases().subscribe(
       (response) => {
-        console.log("📌 Clases recibidas antes del filtro:", response); // Debug
+        console.log(" Clases recibidas antes del filtro:", response); // Debug
   
         //  Filtrar solo las clases que NO tengan `ubicacion`
         this.clases = response.filter(clase => !clase.ubicacion);
@@ -81,15 +81,15 @@ export class ClassesComponent {
         const userObject: Usuarios = JSON.parse(storedUserData);
         this.userId = userObject.id ?? 0;
   
-        console.log("📌 Usuario autenticado:", userObject);
-        console.log("📌 ID del usuario autenticado:", this.userId);
+        console.log(" Usuario autenticado:", userObject);
+        console.log(" ID del usuario autenticado:", this.userId);
   
         this.clasesInscritas = userObject.clasesApuntadas ?? [];
       } catch (error) {
-        console.error("🚨 Error al parsear `userData` desde localStorage:", error);
+        console.error(" Error al parsear `userData` desde localStorage:", error);
       }
     } else {
-      console.warn("⚠ No hay usuario autenticado.");
+      console.warn(" No hay usuario autenticado.");
     }
   }
 
