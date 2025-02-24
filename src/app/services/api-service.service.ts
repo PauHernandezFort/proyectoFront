@@ -260,4 +260,8 @@ export class ApiService {
     );
   }
 
+  deleteProgress(progressId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiProgress}/${progressId}`);
+  }
+
 }

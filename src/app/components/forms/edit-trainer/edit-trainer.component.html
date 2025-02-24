@@ -9,10 +9,9 @@
           <form (ngSubmit)="onSubmit()" [formGroup]="editFormTrainer">
             <!-- Foto -->
             <div class="text-center mb-4">
-              <div class="profile-image-container d-inline-block mb-3">
+              <div class="profile-image-container mb-3">
                 @if (photo) {
-                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm" width="100"
-                  height="100">
+                <img [src]="photo" alt="Foto de perfil" class="rounded-circle border shadow-sm">
                 } @else {
                 <div class="default-image rounded-circle bg-light">
                   <i class="bi bi-person-circle text-secondary"></i>

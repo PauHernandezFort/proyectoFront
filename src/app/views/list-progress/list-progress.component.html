@@ -4,8 +4,16 @@
     <div class="row g-4">
         @for (progress of listProgress; track progress; let i = $index;) {
         <div class="col-md-4 col-lg-4 mt-5">
-            <app-cards-progress [description]="progress.descripcion" [dateProgress]="dateProgress"
-                [namePupil]="namePupil" [photo]="progress.archivo"></app-cards-progress>
+            <div class="card">
+                <app-cards-progress 
+                    [description]="progress.descripcion" 
+                    [dateProgress]="dateProgress"
+                    [namePupil]="namePupil" 
+                    [photo]="progress.archivo"
+                    [progressId]="progress.id"
+                    (onDelete)="openDeleteModal($event)">
+                </app-cards-progress>
+            </div>
         </div>
         }
     </div>
@@ -15,4 +23,13 @@
         No hay progresos disponibles en este momento.
     </div>
     }
+
+    <!-- Modal de confirmación -->
+    <app-confirm-modal
+        [isOpen]="showDeleteModal"
+        title="Eliminar Progreso"
+        message="¿Estás seguro de que deseas eliminar este progreso? Esta acción no se puede deshacer."
+        (onConfirm)="confirmDelete()"
+        (onCancel)="cancelDelete()">
+    </app-confirm-modal>
 </div>

@@ -12,8 +12,8 @@ import { Clases } from '../../models/user.interface';
 export class CardClassesComponent {
   @Input() clase!: Clases;
   @Input() isInscrito: boolean = false;
-  @Input() nombreEntrenador?: string = 'Cargando...';
-  @Output() onInscribirse = new EventEmitter<number>();
+  @Input() nombreEntrenador: string = '';
+  @Output() onInscribirse = new EventEmitter<{claseId: number, accion: 'inscribir' | 'anular'}>();
   @Output() onDelete = new EventEmitter<number>();
 
   userType: string = localStorage.getItem('userType') || 'alumno';
@@ -32,7 +32,13 @@ export class CardClassesComponent {
 
   inscribirse() {
     if (!this.isInscrito && this.plazasDisponibles > 0) {
-      this.onInscribirse.emit(this.clase.id);
+      this.onInscribirse.emit({claseId: this.clase.id!, accion: 'inscribir'});
+    }
+  }
+
+  anularInscripcion() {
+    if (this.isInscrito) {
+      this.onInscribirse.emit({claseId: this.clase.id!, accion: 'anular'});
     }
   }
 

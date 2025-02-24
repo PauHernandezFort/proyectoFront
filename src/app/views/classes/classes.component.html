@@ -15,7 +15,8 @@
     @for (clase of clases; track clase.id) {
     <div class="col">
       <app-card-classes [clase]="clase" [nombreEntrenador]="nombresEntrenadores[clase.entrenador]"
-        [isInscrito]="clasesInscritas.includes(clase.id ?? 0)" (onInscribirse)="inscribirseEnClase($event)">
+        [isInscrito]="clasesInscritas.includes(clase.id ?? 0)" (onInscribirse)="inscribirseEnClase($event)"
+        (onDelete)="onDeleteClase($event)">
       </app-card-classes>
     </div>
     }
@@ -27,3 +28,12 @@
   </div>
   }
 </div>
+
+<!-- Añadir el modal de confirmación -->
+<app-confirm-modal
+  [isOpen]="showConfirmModal"
+  title="Eliminar Clase"
+  [message]="'¿Estás seguro de que deseas eliminar la clase ' + (claseToDelete?.nombre || '') + '?'"
+  (onConfirm)="confirmarEliminacion()"
+  (onCancel)="cancelarEliminacion()">
+</app-confirm-modal>
