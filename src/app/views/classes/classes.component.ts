@@ -39,9 +39,6 @@ export class ClassesComponent {
       (response) => {
         console.log(" Clases recibidas antes del filtro:", response); // Debug
 
-        const ahora = new Date();
-        this.dateClass = ahora.toLocaleDateString('es-ES');
-
         if (response) {
           this.clases = response;
           this.clases.map(clase => {
