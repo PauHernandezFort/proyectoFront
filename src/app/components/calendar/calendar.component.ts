@@ -51,26 +51,79 @@ export class CalendarComponent implements OnInit {
       try {
         const userObject: Usuarios = JSON.parse(storedUserData);
         this.userId = userObject.id ?? 0;
+        const userType = localStorage.getItem('userType');
 
-        console.log("📌 Usuario autenticado:", userObject);
-        console.log("📌 ID del usuario autenticado:", this.userId);
-
-        // 🔹 Verificamos si `clasesApuntadas` está vacío en `localStorage`
-        if (userObject.clasesApuntadas && userObject.clasesApuntadas.length > 0) {
-          this.clasesInscritas = userObject.clasesApuntadas;
-          console.log("✅ Clases inscritas desde localStorage:", this.clasesInscritas);
-          this.loadEvents();
+        if (userType === 'entrenador') {
+          this.loadTrainerClasses(userObject);
         } else {
-          console.warn("⚠ No hay clases inscritas en `localStorage`. Consultando API...");
-          this.fetchUpdatedUserData(); // 🔹 Pedimos datos actualizados desde la API
+          // Lógica existente para alumnos
+          if (userObject.clasesApuntadas && userObject.clasesApuntadas.length > 0) {
+            this.clasesInscritas = userObject.clasesApuntadas;
+            this.loadEvents();
+          } else {
+            this.fetchUpdatedUserData();
+          }
         }
       } catch (error) {
         console.error("🚨 Error al parsear `userData` desde localStorage:", error);
       }
-    } else {
-      console.warn("⚠ No hay usuario autenticado.");
     }
   }
+
+ // Carga las clases del entrenador y filtra las que aún no han pasado
+loadTrainerClasses(entrenador: Usuarios): void {
+  // Obtiene la fecha actual y establece la hora a las 00:00 para comparar solo por día
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  // Llama al servicio API para obtener todas las clases
+  this.apiService.getClases().subscribe((clases: Clases[]) => {
+
+    if (clases) {
+      // Filtra y transforma las clases recibidas
+      this.events = clases
+        .filter((clase) => {
+          // Divide la cadena del entrenador por '/' para obtener el ID al final
+          const parts = clase.entrenador.split('/');
+          const entrenadorId = parts[parts.length - 1]; // Obtiene el último elemento que es el ID
+
+          
+          const claseFecha = new Date(clase.fecha);
+
+          // Filtra las clases que pertenecen al entrenador actual y no han pasado de dia
+          return entrenadorId === entrenador.id?.toString() && claseFecha >= today;
+        })
+        .map((clase) => ({
+          // Asigna un ID a la clase o hace uno usando la fecha
+          id: clase.id ?? `event-${clase.fecha}`,
+
+          title: clase.nombre,
+
+          start: new Date(clase.fecha),
+          end: new Date(clase.fecha),
+
+          // Asigna un color basado en el estado de la clase
+          color: this.getColorByEstado(clase.estado),
+
+          draggable: false,
+
+          resizable: { beforeStart: false, afterEnd: false },
+
+  
+          info: { 
+            ubicacion: clase.ubicacion ?? 'Sin ubicación',
+            descripcion: clase.descripcion 
+          },
+        }));
+
+     
+      this.refresh.next();
+    } else {
+     
+      console.error('Error: No se pudieron cargar las clases del entrenador');
+    }
+  });
+}
 
   // 🔹 Obtener usuario actualizado desde la API
   fetchUpdatedUserData() {
@@ -115,30 +168,32 @@ export class CalendarComponent implements OnInit {
 
   // 🔹 Cargar eventos en el calendario
   loadEvents() {
-    if (this.userId === 0) {
-      console.error('🚨 No se pudo obtener el ID del usuario.');
-      return;
-    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     this.apiService.getClases().subscribe({
       next: (clases: Clases[]) => {
         this.events = clases
-          .filter((clase) => this.clasesInscritas.includes(clase.id ?? 0)) // 🔹 Solo clases en las que está inscrito
+          .filter((clase) => {
+            const claseFecha = new Date(clase.fecha);
+            // Solo mostrar clases que no han pasado
+            return this.clasesInscritas.includes(clase.id ?? 0) && claseFecha >= today;
+          })
           .map((clase) => ({
-            id: clase.id ?? `event-${clase.fecha}`, // ID único
-            title: clase.ubicacion ? clase.nombre : "Clase 1", // 🔹 Si no tiene `ubicacion`, siempre "Clase 1"
-            start: new Date(clase.fecha), // Fecha de inicio
-            end: new Date(clase.fecha), // Fecha de fin (mismo día)
+            id: clase.id ?? `event-${clase.fecha}`,
+            title: clase.nombre,
+            start: new Date(clase.fecha),
+            end: new Date(clase.fecha),
             color: this.getColorByEstado(clase.estado),
             draggable: false,
             resizable: { beforeStart: false, afterEnd: false },
-            meta: { ubicacion: clase.ubicacion ?? 'Clase 1' }, // Guardamos ubicación en `meta`
+            meta: { ubicacion: clase.ubicacion ?? 'Sin ubicación' },
           }));
 
-        this.refresh.next(); // 🔄 Refrescar vista del calendario
+        this.refresh.next();
       },
       error: (error) => {
-        console.error('🚨 Error al cargar las clases inscritas:', error);
+        console.error('Error al cargar eventos:', error);
       }
     });
   }
